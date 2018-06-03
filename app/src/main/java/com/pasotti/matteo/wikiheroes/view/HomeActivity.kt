@@ -1,7 +1,8 @@
-package com.pasotti.matteo.wikiheroes
+package com.pasotti.matteo.wikiheroes.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.pasotti.matteo.wikiheroes.R
 
 class HomeActivity : AppCompatActivity() {
 
