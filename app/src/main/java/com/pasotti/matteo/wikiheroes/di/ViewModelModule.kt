@@ -1,6 +1,8 @@
 package com.pasotti.matteo.wikiheroes.di
 
 import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.HomeActivityViewModel
 import dagger.Binds
 import dagger.Module
@@ -13,4 +15,8 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeActivityViewModel::class)
     internal abstract fun bindHomeActivityViewModel(homeActivityViewModel: HomeActivityViewModel): ViewModel
+
+
+    @Binds
+    internal abstract fun bindViewModelFactory(appViewModelFactory: AppViewModelFactory): ViewModelProvider.Factory
 }

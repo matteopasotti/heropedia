@@ -13,7 +13,7 @@ interface MarvelApi {
     public fun getCharacters(@Query("ts") ts: String,
                              @Query("apikey") apiKey: String,
                              @Query("hash") hash: String,
-                             @Query("limit") limit: Int) : LiveData<CharacterResponse>
+                             @Query("limit") limit: Int) : LiveData<Resource<CharacterResponse>>
 
 
     @GET("/v1/public/characters/{id}")
@@ -21,7 +21,7 @@ interface MarvelApi {
                                   @Query("ts") ts: String,
                                   @Query("apikey") apiKey: String,
                                   @Query("hash") hash: String)
-            : LiveData<CharacterResponse>
+            : LiveData<Resource<CharacterResponse>>
 
 
     @GET("/v1/public/{type}/{id}")
@@ -30,5 +30,5 @@ interface MarvelApi {
                          @Query("ts") ts: String,
                          @Query("apikey") apiKey: String,
                          @Query("hash") hash: String)
-            : LiveData<DetailResponse>
+            : LiveData<Resource<DetailResponse>>
 }
