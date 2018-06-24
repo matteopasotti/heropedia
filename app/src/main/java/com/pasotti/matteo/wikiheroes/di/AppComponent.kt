@@ -7,15 +7,13 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    (AndroidInjectionModule::class),
-    (ActivityModule::class),
-    (FragmentModule::class),
-    (AppModule::class)])
-interface AppComponent :AndroidInjector<DaggerApplication> {
+@Component(modules = [(AndroidInjectionModule::class), (ActivityModule::class), (ViewModelModule::class), (AppModule::class)])
+interface AppComponent : AndroidInjector<DaggerApplication> {
     @Component.Builder
     interface Builder {
         @BindsInstance
@@ -23,5 +21,5 @@ interface AppComponent :AndroidInjector<DaggerApplication> {
         fun build(): AppComponent
     }
 
-    //fun inject(instance: MyApplication)
+    fun inject(instance: MyApplication)
 }

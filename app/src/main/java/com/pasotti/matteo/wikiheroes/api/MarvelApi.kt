@@ -3,6 +3,7 @@ package com.pasotti.matteo.wikiheroes.api
 import android.arch.lifecycle.LiveData
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -13,7 +14,7 @@ interface MarvelApi {
     public fun getCharacters(@Query("ts") ts: String,
                              @Query("apikey") apiKey: String,
                              @Query("hash") hash: String,
-                             @Query("limit") limit: Int) : LiveData<Resource<CharacterResponse>>
+                             @Query("limit") limit: Int) : Single<CharacterResponse>
 
 
     @GET("/v1/public/characters/{id}")
@@ -21,7 +22,7 @@ interface MarvelApi {
                                   @Query("ts") ts: String,
                                   @Query("apikey") apiKey: String,
                                   @Query("hash") hash: String)
-            : LiveData<Resource<CharacterResponse>>
+            : Single<CharacterResponse>
 
 
     @GET("/v1/public/{type}/{id}")
@@ -30,5 +31,5 @@ interface MarvelApi {
                          @Query("ts") ts: String,
                          @Query("apikey") apiKey: String,
                          @Query("hash") hash: String)
-            : LiveData<Resource<DetailResponse>>
+            : Single<DetailResponse>
 }
