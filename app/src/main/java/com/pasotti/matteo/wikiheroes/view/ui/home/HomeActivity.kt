@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view
+package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -6,13 +6,14 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.Status
 import com.pasotti.matteo.wikiheroes.databinding.ActivityHomeBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
+import com.pasotti.matteo.wikiheroes.models.CharacterResponse
+import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
+import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -25,9 +26,12 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java) }
 
+    lateinit var adapter: CharacterAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+
 
         observeViewModel()
     }
@@ -37,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.charactersLiveData.observe(this, Observer { it?.let { processResponse(it) } })
     }
 
-    private fun processResponse(response: Resource) {
+    private fun processResponse(response: Resource<CharacterResponse>) {
         when (response.status) {
             Status.LOADING -> renderLoadingState()
 
@@ -53,8 +57,13 @@ class HomeActivity : AppCompatActivity() {
         //loadingIndicator.setVisibility(View.VISIBLE)
     }
 
-    private fun renderDataState(greeting: String) {
+    private fun renderDataState(greeting: CharacterResponse) {
         Log.d("HomeActivity", "call SUCCESS response : " + greeting)
+
+        val response = greeting
+        adapter = CharacterAdapter(greeting)
+        binding.rvCharacters.adapter = adapter
+
     }
 
     private fun renderErrorState(throwable: Throwable) {

@@ -29,9 +29,9 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
     val hash = Utils.md5(timestamp.toString()+Utils.MARVEL_PRIVATE_KEY+Utils.MARVEL_PUBLIC_KEY)
 
-    val data = MutableLiveData<Resource>()
+    val data = MutableLiveData<Resource<CharacterResponse>>()
 
-    fun getCharacters() : LiveData<Resource> {
+    fun getCharacters() : LiveData<Resource<CharacterResponse>> {
 
         disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, defaultLimit)
                 .subscribeOn(schedulersFacade.io())

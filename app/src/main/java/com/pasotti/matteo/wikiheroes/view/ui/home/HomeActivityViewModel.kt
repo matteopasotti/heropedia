@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view
+package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -15,13 +15,13 @@ import io.reactivex.disposables.CompositeDisposable
 class HomeActivityViewModel @Inject
 constructor(private val charactersRepository: CharactersRepository, private val schedulersFacade: SchedulersFacade) : ViewModel() {
 
-    var charactersLiveData: LiveData<Resource> = MutableLiveData<Resource>()
+    var charactersLiveData: LiveData<Resource<CharacterResponse>> = MutableLiveData<Resource<CharacterResponse>>()
 
     init {
         charactersLiveData = getCharacters()
     }
 
-    fun getCharacters() : MutableLiveData<Resource> = charactersRepository.getCharacters() as MutableLiveData<Resource>
+    fun getCharacters() : MutableLiveData<Resource<CharacterResponse>> = charactersRepository.getCharacters() as MutableLiveData<Resource<CharacterResponse>>
 
 
     override fun onCleared() {
