@@ -51,7 +51,8 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp"
+                    android:fontFamily="@font/product_sans_bold"/>
 
             </FrameLayout>
 
