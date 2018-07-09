@@ -11,10 +11,10 @@ import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 
-class CharactersAdapter(var characterResponse: CharacterResponse) : RecyclerView.Adapter<CharactersAdapter.ItemCharacterViewHolder>() {
+class CharactersAdapter(var characters: List<Character>) : RecyclerView.Adapter<CharactersAdapter.ItemCharacterViewHolder>() {
 
 
-    override fun getItemCount(): Int = characterResponse.data.results.size
+    override fun getItemCount(): Int = characters.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharactersAdapter.ItemCharacterViewHolder {
         val itemCharacterBinding = DataBindingUtil.inflate<ItemCharacterBinding>(LayoutInflater.from(parent.context), R.layout.item_character, parent, false)
@@ -23,7 +23,7 @@ class CharactersAdapter(var characterResponse: CharacterResponse) : RecyclerView
     }
 
     override fun onBindViewHolder(holder: ItemCharacterViewHolder, position: Int) {
-        holder.bindItemCharacter(characterResponse.data.results[position])
+        holder.bindItemCharacter(characters[position])
     }
 
 

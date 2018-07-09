@@ -18,15 +18,12 @@ import java.util.List;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
-    private CharacterResponse characterResponse;
-
     private List<Character> items;
 
     private int lastPosition = -1;
 
-    public CharacterAdapter( CharacterResponse response) {
-        this.items = response.getData().getResults();
-        this.characterResponse = response;
+    public CharacterAdapter(List<Character> characters) {
+        this.items = characters;
 
     }
 
@@ -52,12 +49,19 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
     }
 
     public Character getItemForPosition(int position) {
-        return characterResponse.getData().getResults().get(position);
+        return items.get(position);
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public void clearAndAddNews(List<Character> newItems) {
+        int size = items.size();
+        items = newItems;
+        int newSize = items.size();
+        notifyItemRangeChanged(size, newSize /* plus loading item */);
     }
 
     @Override

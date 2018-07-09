@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.WindowManager
 import com.pasotti.matteo.wikiheroes.R
@@ -14,6 +15,7 @@ import com.pasotti.matteo.wikiheroes.api.Status
 import com.pasotti.matteo.wikiheroes.databinding.ActivityHomeBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
+import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
 import dagger.android.AndroidInjection
@@ -40,7 +42,15 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
 
+        initView()
+
         observeViewModel()
+    }
+
+    private fun initView() {
+        val linearLayout = LinearLayoutManager(this)
+        binding.rvCharacters.layoutManager = linearLayout
+        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({ viewModel.loadMoreCharacters(adapter) }, linearLayout))
     }
 
 
@@ -68,7 +78,7 @@ class HomeActivity : AppCompatActivity() {
         Log.d("HomeActivity", "call SUCCESS response : " + greeting)
 
         val response = greeting
-        adapter = CharacterAdapter(greeting)
+        adapter = CharacterAdapter(greeting.data.results)
         binding.rvCharacters.adapter = adapter
 
     }
