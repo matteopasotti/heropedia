@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WikiHeroes</string>
+    <string name="content_description_item_in_character">item_character_image</string>
 </resources>

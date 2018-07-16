@@ -1,6 +1,6 @@
 package com.pasotti.matteo.wikiheroes.di
 
-import com.pasotti.matteo.wikiheroes.view.HomeActivity
+import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
