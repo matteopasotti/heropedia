@@ -2,9 +2,11 @@ package com.pasotti.matteo.wikiheroes.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
+import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
 import com.pasotti.matteo.wikiheroes.utils.Utils
@@ -35,9 +37,32 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
     val data = MutableLiveData<Resource<CharacterResponse>>()
 
-    fun getCharacters(): LiveData<Resource<CharacterResponse>> {
+    fun getCharacters(): LiveData<Resource<List<Character>>> {
 
-        disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, defaultLimit)
+        return object : NetworkBoundResource<List<Character>, CharacterResponse>() {
+            override fun saveFetchData(item: CharacterResponse) {
+                characterDao.insertCharacters(item.data.results)
+            }
+
+            override fun shouldFetch(data: List<Character>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb(): LiveData<List<Character>> {
+                return characterDao.getCharacters()
+            }
+
+            override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
+                return marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, defaultLimit)
+            }
+
+            override fun onFetchFailed() {
+
+            }
+
+        }.asLiveData
+
+        /*disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, defaultLimit)
                 .subscribeOn(schedulersFacade.io())
                 .observeOn(schedulersFacade.ui())
                 .subscribe(
@@ -49,12 +74,12 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
                 ))
 
 
-        return data
+        return data */
 
     }
 
     fun loadMoreCharacters(adapter : CharacterAdapter) {
-        disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, countLimit + defaultLimit)
+        /*disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, countLimit + defaultLimit)
                 .subscribeOn(schedulersFacade.io())
                 .observeOn(schedulersFacade.ui())
                 .subscribe(
@@ -63,7 +88,7 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
                             updateAdapter(adapter , greeting)
                         },
                         { throwable -> data.value = Resource.error(throwable) }
-                ))
+                )) */
     }
 
     fun updateAdapter(adapter: CharacterAdapter, response: CharacterResponse) {

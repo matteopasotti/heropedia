@@ -14,6 +14,7 @@ import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.Status
 import com.pasotti.matteo.wikiheroes.databinding.ActivityHomeBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
+import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
@@ -58,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         viewModel.charactersLiveData.observe(this, Observer { it?.let { processResponse(it) } })
     }
 
-    private fun processResponse(response: Resource<CharacterResponse>) {
+    private fun processResponse(response: Resource<List<Character>>) {
         when (response.status) {
             Status.LOADING -> renderLoadingState()
 
@@ -74,11 +75,10 @@ class HomeActivity : AppCompatActivity() {
         //loadingIndicator.setVisibility(View.VISIBLE)
     }
 
-    private fun renderDataState(greeting: CharacterResponse) {
-        Log.d("HomeActivity", "call SUCCESS response : " + greeting)
+    private fun renderDataState(items : List<Character>) {
 
-        val response = greeting
-        adapter = CharacterAdapter(greeting.data.results)
+        val response = items
+        adapter = CharacterAdapter(items)
         binding.rvCharacters.adapter = adapter
 
     }

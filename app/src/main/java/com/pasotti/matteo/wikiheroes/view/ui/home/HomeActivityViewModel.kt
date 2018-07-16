@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
+import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
@@ -16,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 class HomeActivityViewModel @Inject
 constructor(private val charactersRepository: CharactersRepository, private val schedulersFacade: SchedulersFacade) : ViewModel() {
 
-    var charactersLiveData: LiveData<Resource<CharacterResponse>> = MutableLiveData<Resource<CharacterResponse>>()
+    var charactersLiveData: LiveData<Resource<List<Character>>> = MutableLiveData()
 
     val defaultLimit = 20
 
@@ -26,7 +27,7 @@ constructor(private val charactersRepository: CharactersRepository, private val 
         charactersLiveData = getCharacters()
     }
 
-    fun getCharacters() : MutableLiveData<Resource<CharacterResponse>> = charactersRepository.getCharacters() as MutableLiveData<Resource<CharacterResponse>>
+    fun getCharacters() : MutableLiveData<Resource<List<Character>>> = charactersRepository.getCharacters() as MutableLiveData<Resource<List<Character>>>
 
 
     fun loadMoreCharacters(adapter : CharacterAdapter)  = charactersRepository.loadMoreCharacters(adapter)
