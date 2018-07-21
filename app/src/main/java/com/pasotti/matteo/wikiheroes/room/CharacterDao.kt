@@ -11,7 +11,10 @@ interface CharacterDao {
     fun insertCharacter(character: Character)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacters(followers: List<Character>)
+    fun insertCharacters(characters: List<Character>)
+
+    @Update
+    fun updateCharacters(characters: List<Character>)
 
     @Query("SELECT * FROM Character")
     fun getCharacters(): LiveData<List<Character>>

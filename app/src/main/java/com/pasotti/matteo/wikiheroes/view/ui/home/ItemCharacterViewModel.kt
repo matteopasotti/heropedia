@@ -8,6 +8,8 @@ class ItemCharacterViewModel(private val character: Character) : BaseObservable(
 
     companion object {
         val IMAGE_TYPE = "."
+
+
     }
 
     var imageUrl = modelImageUrl()

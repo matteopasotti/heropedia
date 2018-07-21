@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.Status
@@ -31,7 +33,9 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java) }
 
-    lateinit var adapter: CharacterAdapter
+    var adapter: CharacterAdapter = CharacterAdapter()
+
+    private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -51,12 +55,18 @@ class HomeActivity : AppCompatActivity() {
     private fun initView() {
         val linearLayout = LinearLayoutManager(this)
         binding.rvCharacters.layoutManager = linearLayout
-        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({ viewModel.loadMoreCharacters(adapter) }, linearLayout))
+        binding.rvCharacters.adapter = adapter
+        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({ loadMore(page++) }, linearLayout))
+    }
+
+    private fun loadMore(page : Int) {
+        viewModel.postPage(page)
     }
 
 
     private fun observeViewModel() {
         viewModel.charactersLiveData.observe(this, Observer { it?.let { processResponse(it) } })
+        loadMore(page++)
     }
 
     private fun processResponse(response: Resource<List<Character>>) {
@@ -70,21 +80,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun renderLoadingState() {
+
         Log.d("HomeActivity", "call LOADING")
-        //greetingTextView.setVisibility(View.GONE)
-        //loadingIndicator.setVisibility(View.VISIBLE)
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun renderDataState(items : List<Character>) {
 
+        binding.progressBar.visibility = View.GONE
         val response = items
-        adapter = CharacterAdapter(items)
-        binding.rvCharacters.adapter = adapter
+
+        adapter.clearAndAddNews(items)
+
 
     }
 
     private fun renderErrorState(throwable: Throwable) {
+        binding.progressBar.visibility = View.GONE
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
-        //Toast.makeText(this, R.string.greeting_error, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
     }
 }

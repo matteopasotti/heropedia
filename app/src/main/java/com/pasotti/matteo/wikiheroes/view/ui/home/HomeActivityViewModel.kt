@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
@@ -23,14 +24,13 @@ constructor(private val charactersRepository: CharactersRepository, private val 
 
     var countLimit = 0
 
+    private val page: MutableLiveData<Int> = MutableLiveData()
+
     init {
-        charactersLiveData = getCharacters()
+        charactersLiveData = Transformations.switchMap(page , {charactersRepository.getCharacters(page.value!!)} )
     }
 
-    fun getCharacters() : MutableLiveData<Resource<List<Character>>> = charactersRepository.getCharacters() as MutableLiveData<Resource<List<Character>>>
-
-
-    fun loadMoreCharacters(adapter : CharacterAdapter)  = charactersRepository.loadMoreCharacters(adapter)
+    fun postPage(page: Int) { this.page.value = page }
 
     override fun onCleared() {
         charactersRepository.clear()

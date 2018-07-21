@@ -14,6 +14,7 @@ import com.pasotti.matteo.wikiheroes.models.Character;
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse;
 import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
@@ -22,8 +23,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     private int lastPosition = -1;
 
-    public CharacterAdapter(List<Character> characters) {
-        this.items = characters;
+    public CharacterAdapter() {
+        this.items = new ArrayList<>();
 
     }
 
