@@ -90,7 +90,7 @@ class HomeActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         val response = items
 
-        adapter.clearAndAddNews(items)
+        adapter.updateCharacters(items)
 
 
     }

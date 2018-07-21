@@ -72,42 +72,6 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
         }.asLiveData
 
-        /*disposables.add(marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, defaultLimit)
-                .subscribeOn(schedulersFacade.io())
-                .observeOn(schedulersFacade.ui())
-                .subscribe(
-                        { greeting ->
-                            data.value = Resource.success(greeting)
-                            countLimit = greeting.data.limit
-                        },
-                        { throwable -> data.value = Resource.error(throwable) }
-                ))
-
-
-        return data */
-
-    }
-
-    fun loadMoreCharacters(adapter : CharacterAdapter) {
-
-
-        disposables.add(marvelApi.loadMoreCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, countLimit + defaultLimit)
-                .subscribeOn(schedulersFacade.io())
-                .observeOn(schedulersFacade.ui())
-                .subscribe(
-                        { greeting ->
-                            characterDao.updateCharacters(greeting.data!!.data.results)
-                            updateAdapter(adapter , greeting.data!!.copy())
-                        },
-                        { throwable -> data.value = Resource.error(throwable) }
-                ))
-    }
-
-    fun updateAdapter(adapter: CharacterAdapter, response: CharacterResponse) {
-        adapter.clearAndAddNews(response.data.results)
-        //adapter.notifyItemRangeChanged(countLimit, countLimit + defaultLimit)
-        //originalList = response.data.results
-        countLimit += defaultLimit
     }
 
     fun clear() {

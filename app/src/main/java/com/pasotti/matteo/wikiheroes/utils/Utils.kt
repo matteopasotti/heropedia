@@ -1,8 +1,10 @@
 package com.pasotti.matteo.wikiheroes.utils
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import com.pasotti.matteo.wikiheroes.models.Character
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -66,6 +68,23 @@ object Utils {
                     loading = true
                 }
             }
+        }
+
+    }
+
+    class CharacterDiffCallback(private val oldItems : List<Character>, private val newItems : List<Character>) : DiffUtil.Callback() {
+
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id
+
+        override fun getOldListSize(): Int = oldItems.size
+
+        override fun getNewListSize(): Int = newItems.size
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
+
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+            return super.getChangePayload(oldItemPosition, newItemPosition)
         }
 
     }
