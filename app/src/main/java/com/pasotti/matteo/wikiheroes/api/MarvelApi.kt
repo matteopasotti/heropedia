@@ -14,7 +14,7 @@ interface MarvelApi {
     public fun getCharacters(@Query("ts") ts: String,
                              @Query("apikey") apiKey: String,
                              @Query("hash") hash: String,
-                             @Query("limit") limit: Int) : Single<CharacterResponse>
+                             @Query("limit") limit: Int) : LiveData<ApiResponse<CharacterResponse>>
 
 
     @GET("/v1/public/characters/{id}")

@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
+import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
 import com.pasotti.matteo.wikiheroes.room.AppDatabase
@@ -46,7 +47,7 @@ class AppModule {
                 .baseUrl("http://gateway.marvel.com")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
     }
 

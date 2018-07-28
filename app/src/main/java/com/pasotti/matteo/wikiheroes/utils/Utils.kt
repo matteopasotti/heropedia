@@ -1,5 +1,10 @@
 package com.pasotti.matteo.wikiheroes.utils
 
+import android.support.v7.util.DiffUtil
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
+import com.pasotti.matteo.wikiheroes.models.Character
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -31,5 +36,56 @@ object Utils {
         }
 
         return ""
+    }
+
+    class InfiniteScrollListener(val func:() -> Unit, val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+        private var previousTotal = 0
+        private var loading = true
+        private var visibleThreshold = 2
+        private var firstVisibleItem = 0
+        private var visibleItemCount = 0
+        private var totalItemCount = 0
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (dy > 0) {
+                visibleItemCount = recyclerView.childCount
+                totalItemCount = layoutManager.itemCount
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false
+                        previousTotal = totalItemCount
+                    }
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    // End has been reached
+                    Log.i("InfiniteScrollListener", "End reached")
+                    func()
+                    loading = true
+                }
+            }
+        }
+
+    }
+
+    class CharacterDiffCallback(private val oldItems : List<Character>, private val newItems : List<Character>) : DiffUtil.Callback() {
+
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id
+
+        override fun getOldListSize(): Int = oldItems.size
+
+        override fun getNewListSize(): Int = newItems.size
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
+
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+            return super.getChangePayload(oldItemPosition, newItemPosition)
+        }
+
     }
 }
