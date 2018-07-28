@@ -4,14 +4,11 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
+import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivityLoginBinding
 import dagger.android.AndroidInjection
-import com.flaviofaria.kenburnsview.RandomTransitionGenerator
-import android.view.animation.AccelerateDecelerateInterpolator
-import com.flaviofaria.kenburnsview.KenBurnsView
-import android.widget.Toast
-import com.flaviofaria.kenburnsview.Transition
 
 
 class LoginActivity : AppCompatActivity() {
