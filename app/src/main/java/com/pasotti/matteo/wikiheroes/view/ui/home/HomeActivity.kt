@@ -18,13 +18,15 @@ import com.pasotti.matteo.wikiheroes.databinding.ActivityHomeBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
+import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ErrorDialog.okButtonListener{
+
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
@@ -97,7 +99,11 @@ class HomeActivity : AppCompatActivity() {
 
     private fun renderErrorState(throwable: Throwable) {
         binding.progressBar.visibility = View.GONE
+        ErrorDialog.show(this, throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
-        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun okPressed() {
+
     }
 }

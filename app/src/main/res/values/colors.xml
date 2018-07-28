@@ -8,4 +8,6 @@
     <color name="mid_black">#191919</color>
     <color name="top_black">#323232</color>
     <color name="fui_transparent">#00000000</color>
+
+    <color name="whiteFadeBg">#f0ffffff</color>
 </resources>
