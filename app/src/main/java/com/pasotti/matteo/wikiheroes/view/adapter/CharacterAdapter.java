@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.view.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,8 +13,10 @@ import com.pasotti.matteo.wikiheroes.R;
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding;
 import com.pasotti.matteo.wikiheroes.models.Character;
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse;
+import com.pasotti.matteo.wikiheroes.utils.Utils;
 import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
@@ -22,8 +25,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     private int lastPosition = -1;
 
-    public CharacterAdapter(List<Character> characters) {
-        this.items = characters;
+    public CharacterAdapter() {
+        this.items = new ArrayList<>();
 
     }
 
@@ -62,6 +65,17 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
         items = newItems;
         int newSize = items.size();
         notifyItemRangeChanged(size, newSize /* plus loading item */);
+    }
+
+    public void updateCharacters(List<Character> characters) {
+
+
+        final Utils.CharacterDiffCallback diffCallback = new Utils.CharacterDiffCallback(this.items, characters);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.items.clear();
+        this.items.addAll(characters);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
