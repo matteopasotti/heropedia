@@ -25,7 +25,7 @@ import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), ErrorDialog.okButtonListener{
+class HomeActivity : AppCompatActivity() {
 
 
     @Inject
@@ -103,7 +103,4 @@ class HomeActivity : AppCompatActivity(), ErrorDialog.okButtonListener{
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 
-    override fun okPressed() {
-
-    }
 }

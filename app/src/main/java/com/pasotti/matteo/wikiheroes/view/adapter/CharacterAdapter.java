@@ -69,13 +69,8 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.Char
 
     public void updateCharacters(List<Character> characters) {
 
-
-        final Utils.CharacterDiffCallback diffCallback = new Utils.CharacterDiffCallback(this.items, characters);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.items.clear();
         this.items.addAll(characters);
-        diffResult.dispatchUpdatesTo(this);
+        notifyDataSetChanged();
     }
 
     @Override

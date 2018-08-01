@@ -20,4 +20,5 @@ data class Character(val id: Int, val name: String,
                      val stories: CollectionItem,
                      @Embedded(prefix = "events_")
                      val events: CollectionItem,
-                     val urls: MutableList<ItemUrl>) : Serializable
+                     val urls: MutableList<ItemUrl>,
+                     var page : Int) : Serializable

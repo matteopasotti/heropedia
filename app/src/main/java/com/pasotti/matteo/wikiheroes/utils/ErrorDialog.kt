@@ -57,10 +57,6 @@ class ErrorDialog : DialogFragment() {
 
         val okButton = view.findViewById<Button>(R.id.btnOk)
 
-        okButton.setOnClickListener {
-            listener?.okPressed()
-        }
-
         txtMsg.text = errorMsg
 
         builder.setView(view)
@@ -75,6 +71,10 @@ class ErrorDialog : DialogFragment() {
         val v = dialog.window.decorView
 
         v.setBackgroundResource(android.R.color.transparent)
+
+        okButton.setOnClickListener {
+            dismiss()
+        }
 
         val window = dialog.getWindow()
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)

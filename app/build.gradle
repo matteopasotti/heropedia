@@ -111,4 +111,7 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //ANKO KOTLIN
+    implementation "org.jetbrains.anko:anko:$anko_version"
 }

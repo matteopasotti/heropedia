@@ -19,9 +19,11 @@ import io.reactivex.SingleObserver
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.doAsync
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.HashSet
 
 @Singleton
 class CharactersRepository @Inject
@@ -39,27 +41,55 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
     val data = MutableLiveData<Resource<CharacterResponse>>()
 
-    fun getCharacters(page : Int): LiveData<Resource<List<Character>>> {
+    var originalList = listOf<Character>()
+
+
+    fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
 
         return object : NetworkBoundResource<List<Character>, CharacterResponse>() {
+
             override fun saveFetchData(item: CharacterResponse) {
-                if(page > 0) {
+
+                if (page > 0) {
                     countLimit += defaultLimit
                 } else {
                     countLimit = item.data.limit
                 }
 
-                Log.i("CharacterRepository", "saveFetchData countLimit = " + countLimit)
-                characterDao.insertCharacters(item.data.results)
+                val sum = originalList + item.data.results;
+
+                val newCharacters = sum.groupBy { it.id }
+                        .filter { it.value.size == 1 }
+                        .flatMap { it.value }
+
+
+                originalList = item.data.results
+
+
+                for (character in newCharacters) {
+                    character.page = page
+                }
+
+                characterDao.insertCharacters(newCharacters)
+
+
             }
 
             override fun shouldFetch(data: List<Character>?): Boolean {
-                countLimit = if(data != null && data.size > 0) data.size else 0
-                return page > 0 || data == null || data.isEmpty()
+
+                if (data != null && data.size > 0) {
+
+                    if(page == 0) {
+                        countLimit = data.size
+                    }
+                    originalList += data
+                }
+
+                return data == null || data.isEmpty()
             }
 
             override fun loadFromDb(): LiveData<List<Character>> {
-                return characterDao.getCharacters()
+                return characterDao.getCharacters(page)
             }
 
             override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
