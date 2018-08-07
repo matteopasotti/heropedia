@@ -22,10 +22,13 @@ import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
+import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
 import dagger.android.AndroidInjection
+import timber.log.Timber
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
+
 
 
     @Inject
@@ -35,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java) }
 
-    var adapter: CharacterAdapter = CharacterAdapter()
+    private val adapter by lazy { CharactersAdapter(this) }
 
     private var page = 0
 
@@ -92,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         val response = items
 
-        adapter.updateCharacters(items)
+        adapter.updateList(items)
 
 
     }
@@ -101,6 +104,10 @@ class HomeActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         ErrorDialog.show(this, throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
+    }
+
+    override fun onItemClick(character: Character, view: View) {
+        Timber.i("Clicked Character ${character.name}" )
     }
 
 }
