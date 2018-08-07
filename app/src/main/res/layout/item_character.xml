@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vModel"
-            type="com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel"/>
+            type="com.pasotti.matteo.wikiheroes.view.ui.ItemCharacterViewModel"/>
     </data>
 
     <FrameLayout

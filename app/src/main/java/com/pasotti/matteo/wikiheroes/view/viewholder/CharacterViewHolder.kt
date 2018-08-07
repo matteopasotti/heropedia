@@ -4,7 +4,7 @@ import android.databinding.DataBindingUtil
 import android.view.View
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding
 import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.ItemCharacterViewModel
 
 class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 

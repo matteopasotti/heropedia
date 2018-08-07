@@ -1,8 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,9 +10,7 @@ import android.view.animation.AnimationUtils;
 import com.pasotti.matteo.wikiheroes.R;
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding;
 import com.pasotti.matteo.wikiheroes.models.Character;
-import com.pasotti.matteo.wikiheroes.models.CharacterResponse;
-import com.pasotti.matteo.wikiheroes.utils.Utils;
-import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel;
+import com.pasotti.matteo.wikiheroes.view.ui.ItemCharacterViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

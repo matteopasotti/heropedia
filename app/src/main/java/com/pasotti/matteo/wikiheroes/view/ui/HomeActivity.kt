@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view.ui.home
+package com.pasotti.matteo.wikiheroes.view.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -93,7 +93,6 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     private fun renderDataState(items : List<Character>) {
 
         binding.progressBar.visibility = View.GONE
-        val response = items
 
         adapter.updateList(items)
 

@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home.splash
 
 import android.support.v7.app.AppCompatActivity
-import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivity
+import com.pasotti.matteo.wikiheroes.view.ui.HomeActivity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler

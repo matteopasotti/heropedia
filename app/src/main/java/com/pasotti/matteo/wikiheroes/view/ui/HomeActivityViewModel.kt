@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view.ui.home
+package com.pasotti.matteo.wikiheroes.view.ui
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
