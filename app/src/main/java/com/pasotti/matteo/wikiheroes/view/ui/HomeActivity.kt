@@ -42,6 +42,8 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private var page = 0
 
+    private var firstTime = false;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -50,6 +52,8 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_home)
+
+        firstTime = true
 
 
         initView()
@@ -61,7 +65,9 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
         val linearLayout = LinearLayoutManager(this)
         binding.rvCharacters.layoutManager = linearLayout
         binding.rvCharacters.adapter = adapter
-        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({ loadMore(page++) }, linearLayout))
+        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({
+            page = page + 1
+            loadMore(page) }, linearLayout))
     }
 
     private fun loadMore(page : Int) {
@@ -92,9 +98,16 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private fun renderDataState(items : List<Character>) {
 
+        page = items.get(items.size-1).page
+
         binding.progressBar.visibility = View.GONE
 
         adapter.updateList(items)
+
+        if(firstTime) {
+            binding.rvCharacters.scheduleLayoutAnimation()
+            firstTime = false
+        }
 
 
     }

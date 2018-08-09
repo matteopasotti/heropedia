@@ -19,6 +19,10 @@ interface CharacterDao {
     @Query("SELECT * FROM Character WHERE page = :page")
     fun getCharacters(page : Int): LiveData<List<Character>>
 
+
+    @Query("SELECT * FROM Character ORDER BY page")
+    fun getCharacters(): LiveData<List<Character>>
+
     @Query("SELECT * FROM Character WHERE name = :name")
     fun getCharacterByName(name: String) : Character
 

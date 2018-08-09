@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.ui.HomeActivity"/>
+        <activity android:name=".view.ui.detail.DetailActivity" />
         <activity android:name=".view.ui.home.login.LoginActivity" />
         <activity android:name=".view.ui.home.splash.SplashActivity"
             android:theme="@style/SplashTheme">
