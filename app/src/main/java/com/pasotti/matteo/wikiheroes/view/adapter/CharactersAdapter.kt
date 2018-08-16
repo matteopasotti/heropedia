@@ -31,8 +31,8 @@ class CharactersAdapter(val delegate: CharacterViewHolder.Delegate) : BaseAdapte
 
     }
 
-    override fun layout(): Int {
-        return R.layout.item_character
+    override fun layout(item: Any): Int {
+        if(item == null) return R.layout.item_loading else return R.layout.item_character
     }
 
 

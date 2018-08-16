@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.ui
 
+import android.app.ActivityOptions
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -26,6 +27,13 @@ import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
+import android.support.v4.app.ActivityOptionsCompat
+import android.content.Intent
+import android.os.Parcelable
+import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
+import kotlinx.android.synthetic.main.item_character.view.*
+import android.util.Pair as UtilPair
+
 
 class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
@@ -49,9 +57,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
         super.onCreate(savedInstanceState)
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_home)
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         firstTime = true
 
@@ -93,7 +99,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     private fun renderLoadingState() {
 
         Log.d("HomeActivity", "call LOADING")
-        binding.progressBar.visibility = View.VISIBLE
+        //binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun renderDataState(items : List<Character>) {
@@ -103,6 +109,9 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
         binding.progressBar.visibility = View.GONE
 
         adapter.updateList(items)
+
+        //adapter.remove(adapter.getItem(adapter.getItemCount() - 1));
+
 
         if(firstTime) {
             binding.rvCharacters.scheduleLayoutAnimation()
@@ -120,6 +129,14 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     override fun onItemClick(character: Character, view: View) {
         Timber.i("Clicked Character ${character.name}" )
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(this,
+                UtilPair.create(view.image as View, resources.getString(R.string.transition_character_image)),
+                UtilPair.create(view.name as View, resources.getString(R.string.transition_character_name)))
+
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.intent_character , character as Parcelable)
+        startActivity(intent, options.toBundle())
     }
 
 }

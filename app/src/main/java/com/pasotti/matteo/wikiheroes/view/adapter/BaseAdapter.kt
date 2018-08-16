@@ -41,7 +41,7 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
     /**
      * Fetch the layout id.
      */
-    protected abstract fun layout(): Int
+    protected abstract fun layout(item : Any): Int
 
     /**
      * Returns a new ViewHolder given a layout and view.
@@ -86,7 +86,8 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
     }
 
     override fun getItemViewType(position: Int): Int {
-        return layout()
+        var item : Any = items.get(position)
+        return layout(item)
     }
 
     private fun inflateView(viewGroup: ViewGroup, @LayoutRes viewType: Int): View {
