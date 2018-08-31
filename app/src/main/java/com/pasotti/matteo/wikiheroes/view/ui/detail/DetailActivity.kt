@@ -1,8 +1,10 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
 import android.databinding.DataBindingUtil
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import com.bumptech.glide.Glide
@@ -14,16 +16,11 @@ import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.utils.CustomScrollView
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
-import android.support.v4.view.ViewCompat.setTranslationY
-import android.util.Log
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 
-class DetailActivity : AppCompatActivity(), CustomScrollView.ScrollViewListener {
+class DetailActivity : AppCompatActivity() {
 
     companion object {
 
@@ -57,6 +54,20 @@ class DetailActivity : AppCompatActivity(), CustomScrollView.ScrollViewListener 
 
         getCharacterFromIntent()
 
+        setSupportActionBar(binding.toolbarCharacterDetail)
+
+        binding.toolbarCharacterDetail.setNavigationOnClickListener { onBackPressed() }
+
+        if(supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        }
+
+
+        binding.collapsingToolbar.title = char.name
+        val tf = ResourcesCompat.getFont(this , R.font.product_sans_bold)
+        binding.collapsingToolbar.setCollapsedTitleTypeface(tf)
+        binding.collapsingToolbar.setExpandedTitleTypeface(tf)
+
 
         Glide.with(this)
                 .load(getImageUri())
@@ -74,11 +85,6 @@ class DetailActivity : AppCompatActivity(), CustomScrollView.ScrollViewListener 
                     }
                 })
                 .into(binding.imageCharacter)
-
-        binding.name.text = char.name
-
-
-        binding.scrollView.setScrollViewListener(this)
     }
 
 
@@ -92,12 +98,4 @@ class DetailActivity : AppCompatActivity(), CustomScrollView.ScrollViewListener 
 
     }
 
-    override fun onScrollChanged(scrollView: CustomScrollView, x: Int, y: Int, oldx: Int, oldy: Int) {
-        val image = binding.imageCharacter
-
-        if (image != null) {
-            Log.d(TAG , "onScrollChanged")
-            image!!.setTranslationY(binding.scrollView.scrollY / 2.0f)
-        }
-    }
 }

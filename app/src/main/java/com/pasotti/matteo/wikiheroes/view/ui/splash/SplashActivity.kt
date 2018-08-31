@@ -14,7 +14,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         Handler().postDelayed({
-            /* Create an Intent that will start the Menu-Activity. */
             val mainIntent = Intent(this, HomeActivity::class.java)
             startActivity(mainIntent)
             finish()
