@@ -16,9 +16,9 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
 
     private var lastPosition = -1
 
-    val items = ArrayList<Any>()
+    val items = ArrayList<Any?>()
 
-    fun items() : ArrayList<Any> {
+    fun items() : ArrayList<Any?> {
         return items
     }
 
@@ -26,8 +26,12 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
         items.clear()
     }
 
+    fun removeItem(item : Any?) {
+        items.remove(item)
+    }
+
     fun <T> addItem(item: T) {
-        items.add(item!!)
+        items.add(item)
     }
 
     fun <T> addItems(list : List<T>) {
@@ -41,7 +45,7 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
     /**
      * Fetch the layout id.
      */
-    protected abstract fun layout(item : Any): Int
+    protected abstract fun layout(item : Any?): Int
 
     /**
      * Returns a new ViewHolder given a layout and view.
@@ -81,14 +85,15 @@ abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
     /**
      * Gets the data object associated with a position.
      */
-    protected fun getItemByPosition(position: Int): Any {
+    protected fun getItemByPosition(position: Int): Any? {
         return items.get(position)
     }
 
     override fun getItemViewType(position: Int): Int {
-        var item : Any = items.get(position)
+        var item : Any? = items.get(position)
         return layout(item)
     }
+
 
     private fun inflateView(viewGroup: ViewGroup, @LayoutRes viewType: Int): View {
         val layoutInflater = LayoutInflater.from(viewGroup.context)

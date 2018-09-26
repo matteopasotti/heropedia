@@ -18,7 +18,7 @@ class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(v
     private val binding by lazy { DataBindingUtil.bind<ItemCharacterBinding>(view) }
 
 
-    override fun bindData(data: Any) {
+    override fun bindData(data: Any?) {
         if (data is Character) {
             character = data
             drawUI()

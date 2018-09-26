@@ -16,13 +16,9 @@ import io.reactivex.disposables.CompositeDisposable
 
 
 class HomeActivityViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository, private val schedulersFacade: SchedulersFacade) : ViewModel() {
+constructor(private val charactersRepository: CharactersRepository) : ViewModel() {
 
     var charactersLiveData: LiveData<Resource<List<Character>>> = MutableLiveData()
-
-    val defaultLimit = 20
-
-    var countLimit = 0
 
     private val page: MutableLiveData<Int> = MutableLiveData()
 

@@ -25,16 +25,18 @@ class CharactersAdapter(val delegate: CharacterViewHolder.Delegate) : BaseAdapte
     }
 
 
+
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-
         return CharacterViewHolder(view, delegate)
-
     }
 
-    override fun layout(item: Any): Int {
+    override fun layout(item: Any?): Int {
         if(item == null) return R.layout.item_loading else return R.layout.item_character
     }
 
+    fun getItemByIndex(position : Int) : Any? {
+        return getItemByPosition(position)
+    }
 
 
 }

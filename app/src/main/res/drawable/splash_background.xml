@@ -6,7 +6,7 @@
 
     <!-- logo -->
     <item>
-        <bitmap android:src="@drawable/marvelogo"
+        <bitmap android:src="@drawable/splash_image"
             android:gravity="center"/>
     </item>
 </layer-list>

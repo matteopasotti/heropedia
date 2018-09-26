@@ -16,10 +16,10 @@
         <activity android:name=".view.ui.detail.DetailActivity" />
         <activity android:name=".view.ui.home.login.LoginActivity" />
         <activity android:name=".view.ui.home.splash.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

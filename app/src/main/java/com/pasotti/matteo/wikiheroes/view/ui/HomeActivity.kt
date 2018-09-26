@@ -99,7 +99,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     private fun renderLoadingState() {
 
         Log.d("HomeActivity", "call LOADING")
-        //binding.progressBar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun renderDataState(items : List<Character>) {
@@ -110,14 +110,10 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
         adapter.updateList(items)
 
-        //adapter.remove(adapter.getItem(adapter.getItemCount() - 1));
-
-
         if(firstTime) {
             binding.rvCharacters.scheduleLayoutAnimation()
             firstTime = false
         }
-
 
     }
 

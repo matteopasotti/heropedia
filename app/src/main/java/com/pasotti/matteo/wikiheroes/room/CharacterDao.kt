@@ -32,5 +32,4 @@ interface CharacterDao {
     @Query("DELETE FROM Character WHERE id = :id")
     fun deleteCharacter(id: Int)
 
-
 }

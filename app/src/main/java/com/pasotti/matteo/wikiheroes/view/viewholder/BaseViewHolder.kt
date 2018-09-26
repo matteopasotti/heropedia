@@ -12,7 +12,7 @@ abstract class BaseViewHolder(private val view : View) : RecyclerView.ViewHolder
     }
 
     @Throws(Exception::class)
-    abstract fun bindData(data: Any)
+    abstract fun bindData(data: Any?)
 
     protected fun view(): View {
         return view
