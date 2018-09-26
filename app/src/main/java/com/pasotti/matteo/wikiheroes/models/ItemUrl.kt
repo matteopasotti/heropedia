@@ -1,3 +1,8 @@
 package com.pasotti.matteo.wikiheroes.models
 
-data class ItemUrl(val type: String, val url: String)
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+
+@Parcelize
+data class ItemUrl(val type: String, val url: String) : Parcelable

@@ -31,11 +31,11 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
     private val disposables = CompositeDisposable()
 
-    val defaultLimit = 20
+    val defaultLimit = 10
 
-    var countLimit = 0
+    var offset = 0
 
-    val timestamp = Date().time;
+    val timestamp = Date().time
 
     val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
@@ -50,50 +50,34 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
             override fun saveFetchData(item: CharacterResponse) {
 
-                if (page > 0) {
-                    countLimit += defaultLimit
-                } else {
-                    countLimit = item.data.limit
-                }
-
-                val sum = originalList + item.data.results;
-
-                val newCharacters = sum.groupBy { it.id }
-                        .filter { it.value.size == 1 }
-                        .flatMap { it.value }
-
-
-                originalList = item.data.results
-
+                offset += defaultLimit
+                val newCharacters = item.data.results
 
                 for (character in newCharacters) {
                     character.page = page
                 }
 
                 characterDao.insertCharacters(newCharacters)
-
-
             }
 
             override fun shouldFetch(data: List<Character>?): Boolean {
-
-                if (data != null && data.size > 0) {
-
-                    if(page == 0) {
-                        countLimit = data.size
-                    }
-                    originalList += data
+                if(data != null && data.size > 0) {
+                    offset = data.size
                 }
-
                 return data == null || data.isEmpty()
             }
 
             override fun loadFromDb(): LiveData<List<Character>> {
-                return characterDao.getCharacters(page)
+                if(page == 0) {
+                    return characterDao.getCharacters()
+                } else  {
+                    return characterDao.getCharacters(page)
+                }
+
             }
 
             override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
-                return marvelApi.getCharacters(timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, countLimit + defaultLimit)
+                return marvelApi.getCharacters("-modified", timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, offset, defaultLimit)
             }
 
             override fun onFetchFailed() {

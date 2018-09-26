@@ -1,5 +1,6 @@
-package com.pasotti.matteo.wikiheroes.view.ui.home
+package com.pasotti.matteo.wikiheroes.view.ui
 
+import android.app.ActivityOptions
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -22,10 +23,20 @@ import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
+import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
 import dagger.android.AndroidInjection
+import timber.log.Timber
 import javax.inject.Inject
+import android.support.v4.app.ActivityOptionsCompat
+import android.content.Intent
+import android.os.Parcelable
+import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
+import kotlinx.android.synthetic.main.item_character.view.*
+import android.util.Pair as UtilPair
 
-class HomeActivity : AppCompatActivity() {
+
+class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
+
 
 
     @Inject
@@ -35,18 +46,20 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java) }
 
-    var adapter: CharacterAdapter = CharacterAdapter()
+    private val adapter by lazy { CharactersAdapter(this) }
 
     private var page = 0
+
+    private var firstTime = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        setContentView(R.layout.activity_home)
+        firstTime = true
 
 
         initView()
@@ -58,7 +71,9 @@ class HomeActivity : AppCompatActivity() {
         val linearLayout = LinearLayoutManager(this)
         binding.rvCharacters.layoutManager = linearLayout
         binding.rvCharacters.adapter = adapter
-        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({ loadMore(page++) }, linearLayout))
+        binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({
+            page = page + 1
+            loadMore(page) }, linearLayout))
     }
 
     private fun loadMore(page : Int) {
@@ -89,11 +104,16 @@ class HomeActivity : AppCompatActivity() {
 
     private fun renderDataState(items : List<Character>) {
 
+        page = items.get(items.size-1).page
+
         binding.progressBar.visibility = View.GONE
-        val response = items
 
-        adapter.updateCharacters(items)
+        adapter.updateList(items)
 
+        if(firstTime) {
+            binding.rvCharacters.scheduleLayoutAnimation()
+            firstTime = false
+        }
 
     }
 
@@ -101,6 +121,18 @@ class HomeActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.GONE
         ErrorDialog.show(this, throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
+    }
+
+    override fun onItemClick(character: Character, view: View) {
+        Timber.i("Clicked Character ${character.name}" )
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(this,
+                UtilPair.create(view.image as View, resources.getString(R.string.transition_character_image)),
+                UtilPair.create(view.name as View, resources.getString(R.string.transition_character_name)))
+
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.intent_character , character as Parcelable)
+        startActivity(intent, options.toBundle())
     }
 
 }

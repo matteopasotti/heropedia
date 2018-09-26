@@ -18,6 +18,21 @@ android {
         enabled = true
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        main.res.srcDirs += ['src/main/res-api']
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.pasotti.matteo.wikiheroes"
@@ -56,17 +71,36 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    //KOTLIN TESTING
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.11.0'
+    testImplementation 'org.mockito:mockito-inline:2.11.0'
+    testImplementation 'org.assertj:assertj-core:3.8.0'
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.6.0"
+    testImplementation 'org.amshove.kluent:kluent:1.15'
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support:support-annotations:27.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
+    testImplementation "android.arch.core:core-testing:$archCoreTesting_version"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
+
+    //DATABINDING
+    kapt 'com.android.databinding:compiler:3.1.2'
+
+    //ANDROID DEFAULT
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:support-annotations:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:cardview-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    kapt 'com.android.databinding:compiler:3.1.2'
 
     //DAGGER2
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -77,31 +111,24 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     //ROOM
-    implementation "android.arch.persistence.room:runtime:1.1.0"
-    kapt "android.arch.persistence.room:compiler:1.1.0"
-
-    //PREFERENCE ROOM
-    implementation "com.github.skydoves:preferenceroom:$preference_room"
-    kapt "com.github.skydoves:preferenceroom-processor:$preference_room"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:2.1.8"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
 
-    //RETROFIT
+
+    //RETROFIT and OKHTTP
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation"com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
-
     implementation "com.squareup.okhttp:logging-interceptor:2.6.0"
-
     implementation "com.google.code.gson:gson:2.4"
-
     implementation "com.squareup.okhttp3:okhttp:3.9.0"
 
     //GLIDE
@@ -114,4 +141,15 @@ dependencies {
 
     //ANKO KOTLIN
     implementation "org.jetbrains.anko:anko:$anko_version"
+
+    //TIMBER
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //LOTTIE ANIMATIONS
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
+    //PREFERENCE ROOM
+    implementation "com.github.skydoves:preferenceroom:$preference_room"
+    kapt "com.github.skydoves:preferenceroom-processor:$preference_room"
+
 }

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vModel"
-            type="com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel"/>
+            type="com.pasotti.matteo.wikiheroes.view.ui.ItemCharacterViewModel"/>
     </data>
 
     <FrameLayout
@@ -35,6 +35,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ironman"
                     app:imageUrl="@{vModel.imageUrl}"
+                    android:transitionName="@string/transition_character_image"
                     android:contentDescription="@string/content_description_item_in_character" />
 
 
@@ -52,6 +53,7 @@
                     android:paddingEnd="16dp"
                     android:textColor="@android:color/white"
                     android:textSize="24sp"
+                    android:transitionName="@string/transition_character_name"
                     android:fontFamily="@font/product_sans_bold"/>
 
             </FrameLayout>
