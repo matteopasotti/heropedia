@@ -15,7 +15,7 @@ class CharactersAdapter(val delegate: CharacterViewHolder.Delegate) : BaseAdapte
 
     fun updateList( characters : List<Character>) {
         addItems(characters)
-        notifyDataSetChanged()
+        notifyItemInserted(items.size)
     }
 
 

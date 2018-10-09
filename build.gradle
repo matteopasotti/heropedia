@@ -5,7 +5,7 @@ buildscript {
     ext.anko_version='0.10.5'
     ext.room_version = "1.1.0"
     ext.lifecycle_version = "1.1.1"
-    ext.dagger_version = "2.13"
+    ext.dagger_version = "2.15"
     ext.preference_room = "1.0.9"
     ext.retrofit_version = "2.4.0"
     ext.support_version = '27.1.1'

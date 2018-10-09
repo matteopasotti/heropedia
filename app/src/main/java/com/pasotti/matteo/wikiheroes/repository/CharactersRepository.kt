@@ -27,9 +27,7 @@ import kotlin.collections.HashSet
 
 @Singleton
 class CharactersRepository @Inject
-constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedulersFacade: SchedulersFacade) {
-
-    private val disposables = CompositeDisposable()
+constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     val defaultLimit = 10
 
@@ -86,9 +84,5 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi, val schedu
 
         }.asLiveData
 
-    }
-
-    fun clear() {
-        disposables.clear()
     }
 }
