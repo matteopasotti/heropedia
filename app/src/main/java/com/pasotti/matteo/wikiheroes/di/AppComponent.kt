@@ -16,7 +16,7 @@ import javax.inject.Singleton
     (ViewModelModule::class),
     (AppModule::class),
     (NetModule::class)])
-interface AppComponent : AndroidInjector<DaggerApplication> {
+interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance

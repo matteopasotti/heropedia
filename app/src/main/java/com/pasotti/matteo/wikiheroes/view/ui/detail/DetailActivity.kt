@@ -1,11 +1,8 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
 import android.databinding.DataBindingUtil
-import android.graphics.Rect
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.transition.TransitionManager
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
@@ -19,16 +16,7 @@ import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import dagger.android.AndroidInjection
-import org.jetbrains.anko.support.v4.onScrollChange
 import javax.inject.Inject
-import android.animation.ObjectAnimator
-import android.support.design.widget.CoordinatorLayout
-import android.util.Log
-import android.view.View
-import android.view.ViewTreeObserver
-import android.view.animation.AnimationUtils
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_detail.*
 
 
 class DetailActivity : AppCompatActivity() {

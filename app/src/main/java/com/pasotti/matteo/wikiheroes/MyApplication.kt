@@ -26,6 +26,7 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
 
     override fun onCreate() {
         super.onCreate()
+
         DaggerAppComponent.builder().application(this).build().inject(this)
     }
 
