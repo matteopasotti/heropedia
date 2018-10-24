@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.di
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.ui.HomeActivityViewModel
 import dagger.Binds

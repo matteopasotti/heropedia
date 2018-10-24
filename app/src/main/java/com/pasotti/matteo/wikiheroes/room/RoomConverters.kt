@@ -1,6 +1,6 @@
 package com.pasotti.matteo.wikiheroes.room
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import java.util.*
 import com.pasotti.matteo.wikiheroes.models.ItemUrl
 import com.google.gson.reflect.TypeToken

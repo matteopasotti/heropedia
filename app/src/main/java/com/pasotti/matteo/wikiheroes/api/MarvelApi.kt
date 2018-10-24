@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.api
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.Nullable
+import androidx.lifecycle.LiveData
+import androidx.annotation.Nullable
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import io.reactivex.Single

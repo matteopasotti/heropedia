@@ -1,6 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.viewholder
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.View
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding
 import com.pasotti.matteo.wikiheroes.models.Character

@@ -1,10 +1,10 @@
 package com.pasotti.matteo.wikiheroes.view.viewholder
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 
-abstract class BaseViewHolder(private val view : View) : RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener {
+abstract class BaseViewHolder(private val view : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view), View.OnClickListener, View.OnLongClickListener {
 
     init {
         view.setOnClickListener(this)

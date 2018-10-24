@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.view.adapter
 
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import timber.log.Timber
 import java.util.ArrayList
 
-abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>(){
+abstract class BaseAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<BaseViewHolder>(){
 
     private var lastPosition = -1
 

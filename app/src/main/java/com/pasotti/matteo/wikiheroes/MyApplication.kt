@@ -2,7 +2,7 @@ package com.pasotti.matteo.wikiheroes
 
 import android.app.Activity
 import android.app.Application
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.pasotti.matteo.wikiheroes.di.AppComponent
 import com.pasotti.matteo.wikiheroes.di.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -18,7 +18,7 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
     @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
 
     val appComponent : AppComponent = DaggerAppComponent.builder()
             .application(this)
@@ -32,7 +32,7 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
 
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+    override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> = fragmentInjector
 
 
 }

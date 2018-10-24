@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.view.ui
 
-import android.databinding.BaseObservable
-import android.databinding.Bindable
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import com.pasotti.matteo.wikiheroes.models.Character
 
 class ItemCharacterViewModel(private val character: Character) : BaseObservable() {

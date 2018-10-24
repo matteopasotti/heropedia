@@ -40,7 +40,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         debug {
@@ -81,26 +81,24 @@ dependencies {
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.6.0"
     testImplementation 'org.amshove.kluent:kluent:1.15'
 
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
-    androidTestImplementation 'com.android.support:support-annotations:27.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation 'androidx.test:runner:1.1.0-beta02'
+    androidTestImplementation 'androidx.test:rules:1.1.0-beta02'
+    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta02', {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
 
-    testImplementation "android.arch.core:core-testing:$archCoreTesting_version"
+    testImplementation 'androidx.arch.core:core-testing:2.0.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
-    //DATABINDING
-    kapt 'com.android.databinding:compiler:3.1.2'
 
     //ANDROID DEFAULT
-    implementation "com.android.support:appcompat-v7:$support_version"
-    implementation "com.android.support:support-annotations:$support_version"
-    implementation "com.android.support:design:$support_version"
-    implementation "com.android.support:cardview-v7:$support_version"
-    implementation "com.android.support:recyclerview-v7:$support_version"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
     //DAGGER2
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -111,11 +109,11 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     //ROOM
-    implementation "android.arch.persistence.room:runtime:$room_version"
-    kapt "android.arch.persistence.room:compiler:$room_version"
+    implementation 'androidx.room:room-runtime:2.1.0-alpha01'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha01'
 
     // ViewModel and LiveData
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
 
     //Rx
     implementation "io.reactivex.rxjava2:rxjava:2.1.8"
