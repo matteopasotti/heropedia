@@ -4,6 +4,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.pasotti.matteo.wikiheroes.models.Character
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -36,6 +39,14 @@ object Utils {
         }
 
         return ""
+    }
+
+    fun addFragmentToActivity(manager: FragmentManager, fragment: Fragment, frameId: Int) {
+
+        val transaction = manager.beginTransaction()
+        transaction.add(frameId, fragment)
+        transaction.commit()
+
     }
 
     class InfiniteScrollListener(val func:() -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {

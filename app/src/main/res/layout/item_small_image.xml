@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="url"
+            type="String"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="6dp">
+
+            <FrameLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:src="@drawable/margeto"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{url}"/>
+
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -24,8 +24,6 @@ class CharactersAdapter(val delegate: CharacterViewHolder.Delegate) : BaseAdapte
         notifyDataSetChanged()
     }
 
-
-
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
         return CharacterViewHolder(view, delegate)
     }

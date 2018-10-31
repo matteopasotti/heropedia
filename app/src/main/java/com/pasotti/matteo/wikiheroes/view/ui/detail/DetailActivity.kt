@@ -1,11 +1,11 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
-import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.core.content.res.ResourcesCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -15,11 +15,15 @@ import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
+import com.pasotti.matteo.wikiheroes.models.Item
+import com.pasotti.matteo.wikiheroes.utils.Utils
+import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 
 class DetailActivity : AppCompatActivity() {
+
 
     companion object {
 
@@ -84,6 +88,16 @@ class DetailActivity : AppCompatActivity() {
                     }
                 })
                 .into(binding.imageCharacter)
+
+
+        initComicsView(char.comics.items)
+    }
+
+    private fun initComicsView(items : List<Item>) {
+        if(items != null && items.size > 0) {
+
+            Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , ArrayList(items)), binding.containerComics.id)
+        }
     }
 
 
