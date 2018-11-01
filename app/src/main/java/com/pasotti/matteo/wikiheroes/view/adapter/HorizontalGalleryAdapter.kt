@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.view.adapter
 
 import android.view.View
 import com.pasotti.matteo.wikiheroes.R
+import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
@@ -9,10 +10,10 @@ import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
 class HorizontalGalleryAdapter(val delegate : HorizontalImageViewHolder.Delegate) : BaseAdapter(){
 
     init {
-        addItems(ArrayList<Item>())
+        addItems(ArrayList<Detail>())
     }
 
-    fun updateList( items : List<Item>) {
+    fun updateList( items : List<Detail>) {
         addItems(items)
         notifyItemInserted(items.size)
     }

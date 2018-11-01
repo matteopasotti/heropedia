@@ -3,32 +3,31 @@ package com.pasotti.matteo.wikiheroes.view.viewholder
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.pasotti.matteo.wikiheroes.databinding.ItemSmallImageBinding
+import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 
 class HorizontalImageViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
     //here we define actions which we handle
     interface Delegate {
-        fun onItemClick(item: Item, view: View)
+        fun onItemClick(item: Detail, view: View)
     }
 
 
-    private lateinit var item: Item
+    private lateinit var item: Detail
 
     private val binding by lazy { DataBindingUtil.bind<ItemSmallImageBinding>(view) }
 
 
     override fun bindData(data: Any?) {
-        if (data is Item) {
+        if (data is Detail) {
             item = data
             drawUI()
         }
     }
 
     private fun drawUI() {
-
-        //character.thumbnail.path + IMAGE_TYPE + character.thumbnail.extension
-        binding?.url = item.resourceURI
+        binding?.url = item.thumbnail.path + "." + item.thumbnail.extension
         binding?.executePendingBindings()
     }
 

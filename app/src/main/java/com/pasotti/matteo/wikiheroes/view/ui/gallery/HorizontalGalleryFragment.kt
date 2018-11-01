@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.FragmentHorizontalGalleryBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
+import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.view.adapter.HorizontalGalleryAdapter
 import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
@@ -31,7 +32,7 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
         private val TITLE = "title"
         private val ITEMS = "items"
 
-        fun newInstance( title : String ,  items : ArrayList<Item>) : HorizontalGalleryFragment {
+        fun newInstance( title : String ,  items : ArrayList<Detail>) : HorizontalGalleryFragment {
             val args: Bundle = Bundle()
             args.putString(TITLE , title)
             args.putParcelableArrayList(ITEMS , items)
@@ -71,8 +72,7 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
 
     }
 
-    override fun onItemClick(item: Item, view: View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onItemClick(item: Detail, view: View) {
     }
 
 }
