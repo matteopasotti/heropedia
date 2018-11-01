@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.pasotti.matteo.wikiheroes.models.Character
+import com.pasotti.matteo.wikiheroes.models.Detail
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -16,6 +17,8 @@ object Utils {
     var MARVEL_PUBLIC_KEY = "8da2e7269fff32817c0f81f419db00ce"
 
     var MARVEL_PRIVATE_KEY = "e06e48a05a4c410c56c8d10bd360c4c0aa8f9e7b"
+
+    var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
     fun md5(stringToHash: String): String {
         val MD5 = "MD5"
@@ -47,6 +50,22 @@ object Utils {
         transaction.add(frameId, fragment)
         transaction.commit()
 
+    }
+
+    fun checkDetailsImages( items : List<Detail>) : List<Detail> {
+
+        val goodItems: MutableList<Detail> = mutableListOf<Detail>()
+
+        if(items != null && items.size > 0) {
+            for(item in items) {
+                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+                    goodItems.add(item)
+                }
+            }
+
+        }
+
+        return goodItems
     }
 
     class InfiniteScrollListener(val func:() -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {

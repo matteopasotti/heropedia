@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.FragmentHorizontalGalleryBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
@@ -62,8 +63,12 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
 
         adapter = HorizontalGalleryAdapter(this)
 
-        val gridLayoutManager = GridLayoutManager(context , 2 , GridLayoutManager.HORIZONTAL, false)
-        binding.listItems.layoutManager = gridLayoutManager
+        /*
+        LinearLayoutManager layoutManager
+    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+         */
+        val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
+        binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
 
         adapter.updateList(arguments!!.getParcelableArrayList(ITEMS))

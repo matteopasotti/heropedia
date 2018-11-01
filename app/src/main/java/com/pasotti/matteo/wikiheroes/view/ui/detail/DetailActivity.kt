@@ -114,7 +114,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         if(response.isSuccessful && response.body != null) {
-            renderDataState(response.body.data.results)
+            renderDataState(Utils.checkDetailsImages(response.body.data.results))
         }
     }
 
