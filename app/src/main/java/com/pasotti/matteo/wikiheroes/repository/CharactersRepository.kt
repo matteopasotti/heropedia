@@ -1,15 +1,15 @@
 package com.pasotti.matteo.wikiheroes.repository
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import android.util.Log
+import androidx.lifecycle.MediatorLiveData
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
-import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.models.CharacterResponse
+import com.pasotti.matteo.wikiheroes.models.*
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
@@ -83,6 +83,25 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
             }
 
         }.asLiveData
+
+    }
+
+    fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
+
+
+    fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
+
+    fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
 
     }
 }

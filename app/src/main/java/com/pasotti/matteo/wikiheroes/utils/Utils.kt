@@ -1,10 +1,14 @@
 package com.pasotti.matteo.wikiheroes.utils
 
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.pasotti.matteo.wikiheroes.models.Character
+import com.pasotti.matteo.wikiheroes.models.Detail
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -13,6 +17,8 @@ object Utils {
     var MARVEL_PUBLIC_KEY = "8da2e7269fff32817c0f81f419db00ce"
 
     var MARVEL_PRIVATE_KEY = "e06e48a05a4c410c56c8d10bd360c4c0aa8f9e7b"
+
+    var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
     fun md5(stringToHash: String): String {
         val MD5 = "MD5"
@@ -38,7 +44,47 @@ object Utils {
         return ""
     }
 
-    class InfiniteScrollListener(val func:() -> Unit, val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+    fun addFragmentToActivity(manager: FragmentManager, fragment: Fragment, frameId: Int) {
+
+        val transaction = manager.beginTransaction()
+        transaction.add(frameId, fragment)
+        transaction.commit()
+
+    }
+
+    fun checkDetailsImages( items : List<Detail>) : List<Detail> {
+
+        var goodItems: MutableList<Detail> = mutableListOf<Detail>()
+
+        if(items != null && items.size > 0) {
+            for(item in items) {
+                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+                    goodItems.add(item)
+                }
+            }
+
+        }
+
+        return goodItems
+    }
+
+    fun checkCharactersImages( items : List<Character>) : List<Character> {
+
+        var goodItems: MutableList<Character> = mutableListOf<Character>()
+
+        if(items != null && items.size > 0) {
+            for(item in items) {
+                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+                    goodItems.add(item)
+                }
+            }
+
+        }
+
+        return goodItems
+    }
+
+    class InfiniteScrollListener(val func:() -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
         private var previousTotal = 0
         private var loading = true
         private var visibleThreshold = 2
@@ -46,7 +92,7 @@ object Utils {
         private var visibleItemCount = 0
         private var totalItemCount = 0
 
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
             if (dy > 0) {

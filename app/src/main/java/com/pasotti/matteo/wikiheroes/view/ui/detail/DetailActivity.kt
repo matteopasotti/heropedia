@@ -1,25 +1,39 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
-import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.app.AppCompatActivity
+import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
+import com.pasotti.matteo.wikiheroes.api.ApiResponse
+import com.pasotti.matteo.wikiheroes.api.Resource
+import com.pasotti.matteo.wikiheroes.api.Status
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
+import com.pasotti.matteo.wikiheroes.models.Detail
+import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import com.pasotti.matteo.wikiheroes.models.Item
+import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
+import com.pasotti.matteo.wikiheroes.utils.Utils
+import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 
 class DetailActivity : AppCompatActivity() {
+
 
     companion object {
 
@@ -32,6 +46,8 @@ class DetailActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
+
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
 
@@ -52,6 +68,8 @@ class DetailActivity : AppCompatActivity() {
     private fun initUI() {
 
         getCharacterFromIntent()
+
+        binding.character = char
 
         setSupportActionBar(binding.toolbarCharacterDetail)
 
@@ -84,6 +102,32 @@ class DetailActivity : AppCompatActivity() {
                     }
                 })
                 .into(binding.imageCharacter)
+
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , char.id), binding.containerComics.id)
+
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Series" , char.id), binding.containerSeries.id)
+    }
+
+    /*private fun processResponse(response: ApiResponse<DetailResponse>) {
+        if(response.isSuccessful && response.body != null) {
+            renderDataState(Utils.checkDetailsImages(response.body.data.results))
+        }
+    }
+
+    private fun renderDataState ( items : List<Detail>) {
+        initComicsView(items)
+    }*/
+
+    private fun renderLoadingState() {
+
+        Log.d("HomeActivity", "call LOADING")
+        //binding.progressBar.visibility = View.VISIBLE
+    }
+
+    private fun renderErrorState(throwable: Throwable) {
+        //binding.progressBar.visibility = View.GONE
+        ErrorDialog.show(this, throwable.toString())
+        Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 
 

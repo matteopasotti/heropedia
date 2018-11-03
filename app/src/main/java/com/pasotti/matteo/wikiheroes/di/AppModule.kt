@@ -1,12 +1,13 @@
 package com.pasotti.matteo.wikiheroes.di
 
 import android.app.Application
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
 import com.pasotti.matteo.wikiheroes.room.AppDatabase
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
+import com.pasotti.matteo.wikiheroes.room.ItemDao
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -26,12 +27,21 @@ class AppModule {
     @Provides
     @Singleton
     fun provideDatabase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "ComicCatalogDB.db").allowMainThreadQueries().build()
+        return Room.databaseBuilder(application.applicationContext, AppDatabase::class.java, "ComicCatalogDB.db")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     @Provides
     @Singleton
     fun provideUserDao(database: AppDatabase): CharacterDao {
         return database.characterDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideItemDao(database: AppDatabase): ItemDao {
+        return database.itemDao()
     }
 }

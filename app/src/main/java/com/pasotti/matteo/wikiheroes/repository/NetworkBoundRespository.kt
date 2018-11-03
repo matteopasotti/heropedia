@@ -1,11 +1,11 @@
 package com.pasotti.matteo.wikiheroes.repository
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import android.os.AsyncTask
-import android.support.annotation.MainThread
-import android.support.annotation.WorkerThread
+import androidx.annotation.MainThread
+import androidx.annotation.WorkerThread
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.Resource
 

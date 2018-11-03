@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.api
 
-import android.arch.lifecycle.LiveData
-import android.support.annotation.Nullable
+import androidx.lifecycle.LiveData
+import androidx.annotation.Nullable
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import io.reactivex.Single
@@ -12,12 +12,12 @@ import retrofit2.http.Query
 interface MarvelApi {
 
     @GET("/v1/public/characters")
-    public fun getCharacters(@SuppressWarnings("SameParameterValue") @Nullable @Query("orderBy") modified : String,
+    public fun getCharacters(@SuppressWarnings("SameParameterValue") @Nullable @Query("orderBy") modified: String,
                              @Query("ts") ts: String,
                              @Query("apikey") apiKey: String,
                              @Query("hash") hash: String,
-                             @Nullable @Query("offset") offset : Int,
-                             @Query("limit") limit: Int) : LiveData<ApiResponse<CharacterResponse>>
+                             @Nullable @Query("offset") offset: Int,
+                             @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
 
 
     @GET("/v1/public/characters/{id}")
@@ -25,7 +25,7 @@ interface MarvelApi {
                                   @Query("ts") ts: String,
                                   @Query("apikey") apiKey: String,
                                   @Query("hash") hash: String)
-            : Single<CharacterResponse>
+            : LiveData<ApiResponse<CharacterResponse>>
 
 
     @GET("/v1/public/{type}/{id}")
@@ -35,4 +35,25 @@ interface MarvelApi {
                          @Query("apikey") apiKey: String,
                          @Query("hash") hash: String)
             : Single<DetailResponse>
+
+    @GET("/v1/public/characters/{characterId}/comics")
+    public fun getComicsByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters/{characterId}/series")
+    public fun getSeriesByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters/{characterId}/stories")
+    public fun getStoriesByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
 }

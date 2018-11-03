@@ -1,12 +1,12 @@
 package com.pasotti.matteo.wikiheroes.view.ui
 
 import android.app.ActivityOptions
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -63,7 +63,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     }
 
     private fun initView() {
-        val linearLayout = LinearLayoutManager(this)
+        val linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.rvCharacters.layoutManager = linearLayout
         binding.rvCharacters.adapter = adapter
         binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({
@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
         when (response.status) {
             Status.LOADING -> renderLoadingState()
 
-            Status.SUCCESS -> renderDataState(response.data!!)
+            Status.SUCCESS -> renderDataState(Utils.checkCharactersImages(response.data!!))
 
             Status.ERROR -> renderErrorState(response.error!!)
         }

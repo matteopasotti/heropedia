@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,11 +37,10 @@
                     android:contentDescription="@string/content_description_item_in_character" />
 
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:background="@color/black60">
+                    android:layout_gravity="bottom">
 
                     <TextView
                         android:id="@+id/name"
@@ -51,7 +50,8 @@
                         tools:text="Spiderman"
                         android:maxLines="1"
                         android:textColor="@android:color/white"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
+                        android:background="@drawable/background_character_title"
                         android:transitionName="@string/transition_character_name"
                         android:fontFamily="@font/product_sans_bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -60,12 +60,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </FrameLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </FrameLayout>
 

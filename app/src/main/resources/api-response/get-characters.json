@@ -457,7 +457,7 @@
           "collectionURI": "http://gateway.marvel.com/v1/public/characters/1011336/stories",
           "items": [
             {
-              "r     esourceURI": "http://gateway.marvel.com/v1/public/stories/596",
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/596",
               "name": "New Mutants (2003) #8",
               "type": "cover"
             },

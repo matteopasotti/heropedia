@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.room
 
-import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.*
+import androidx.lifecycle.LiveData
+import androidx.room.*
 import com.pasotti.matteo.wikiheroes.models.Character
 
 @Dao

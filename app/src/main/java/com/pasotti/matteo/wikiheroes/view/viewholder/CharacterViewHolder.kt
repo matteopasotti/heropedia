@@ -1,6 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.viewholder
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.View
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding
 import com.pasotti.matteo.wikiheroes.models.Character
@@ -27,9 +27,10 @@ class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(v
     }
 
     private fun drawUI() {
-
-        binding?.setVModel(ItemCharacterViewModel(character))
-        binding?.executePendingBindings()
+        binding.apply {
+            binding?.setVModel(ItemCharacterViewModel(character))
+            binding?.executePendingBindings()
+        }
     }
 
     override fun onClick(view: View?) {
