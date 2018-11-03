@@ -27,9 +27,10 @@ class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(v
     }
 
     private fun drawUI() {
-
-        binding?.setVModel(ItemCharacterViewModel(character))
-        binding?.executePendingBindings()
+        binding.apply {
+            binding?.setVModel(ItemCharacterViewModel(character))
+            binding?.executePendingBindings()
+        }
     }
 
     override fun onClick(view: View?) {

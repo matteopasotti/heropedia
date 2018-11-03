@@ -16,6 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:background="@color/mid_black"
         android:layout_marginRight="10dp">
 
 
@@ -39,10 +40,9 @@
                     android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    app:imageUrl="@{url}"
-                    android:contentDescription="@string/image_gallery_content_descriptor"
+                    app:galleryImageUrl="@{url}"
                     android:scaleType="centerCrop"
+                    android:contentDescription="@string/image_gallery_content_descriptor"
                     tools:src="@drawable/margeto" />
 
             </FrameLayout>

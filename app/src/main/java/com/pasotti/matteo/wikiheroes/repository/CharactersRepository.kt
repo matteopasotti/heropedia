@@ -91,4 +91,17 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
 
     }
+
+
+    fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
+
+    fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
 }

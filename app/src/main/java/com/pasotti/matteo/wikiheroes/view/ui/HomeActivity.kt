@@ -85,7 +85,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
         when (response.status) {
             Status.LOADING -> renderLoadingState()
 
-            Status.SUCCESS -> renderDataState(response.data!!)
+            Status.SUCCESS -> renderDataState(Utils.checkCharactersImages(response.data!!))
 
             Status.ERROR -> renderErrorState(response.error!!)
         }

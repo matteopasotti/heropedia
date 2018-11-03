@@ -63,8 +63,6 @@ class DetailActivity : AppCompatActivity() {
         supportPostponeEnterTransition()
 
         initUI()
-
-        observeViewModel()
     }
 
     private fun initUI() {
@@ -105,14 +103,12 @@ class DetailActivity : AppCompatActivity() {
                 })
                 .into(binding.imageCharacter)
 
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , char.id), binding.containerComics.id)
+
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Series" , char.id), binding.containerSeries.id)
     }
 
-    private fun observeViewModel() {
-        viewModel.getComicsByCharacterId(char.id).observe(this, Observer { it?.let { processResponse(it) } })
-
-    }
-
-    private fun processResponse(response: ApiResponse<DetailResponse>) {
+    /*private fun processResponse(response: ApiResponse<DetailResponse>) {
         if(response.isSuccessful && response.body != null) {
             renderDataState(Utils.checkDetailsImages(response.body.data.results))
         }
@@ -120,7 +116,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun renderDataState ( items : List<Detail>) {
         initComicsView(items)
-    }
+    }*/
 
     private fun renderLoadingState() {
 
@@ -132,12 +128,6 @@ class DetailActivity : AppCompatActivity() {
         //binding.progressBar.visibility = View.GONE
         ErrorDialog.show(this, throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
-    }
-
-    private fun initComicsView(items : List<Detail>) {
-        if(items != null && items.size > 0) {
-            Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , ArrayList(items)), binding.containerComics.id)
-        }
     }
 
 

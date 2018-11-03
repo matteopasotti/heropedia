@@ -54,7 +54,23 @@ object Utils {
 
     fun checkDetailsImages( items : List<Detail>) : List<Detail> {
 
-        val goodItems: MutableList<Detail> = mutableListOf<Detail>()
+        var goodItems: MutableList<Detail> = mutableListOf<Detail>()
+
+        if(items != null && items.size > 0) {
+            for(item in items) {
+                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+                    goodItems.add(item)
+                }
+            }
+
+        }
+
+        return goodItems
+    }
+
+    fun checkCharactersImages( items : List<Character>) : List<Character> {
+
+        var goodItems: MutableList<Character> = mutableListOf<Character>()
 
         if(items != null && items.size > 0) {
             for(item in items) {
