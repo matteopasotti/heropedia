@@ -81,11 +81,13 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
     }
 
     private fun observeViewModel() {
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.getItems(arguments!!.getInt(CHARACTER_ID), arguments!!.getString(TITLE)).observe(this, Observer { it?.let { processResponse(it) } })
 
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
+        binding.progressBar.visibility = View.GONE
         if(response.isSuccessful && response.body != null) {
             renderDataState(Utils.checkDetailsImages(response.body.data.results))
         }
