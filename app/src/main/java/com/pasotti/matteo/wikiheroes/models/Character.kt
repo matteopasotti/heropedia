@@ -25,4 +25,4 @@ data class Character(val id: Int, val name: String,
                      @Embedded(prefix = "events_")
                      val events: CollectionItem,
                      val urls: MutableList<ItemUrl>,
-                     var page : Int) : Serializable, Parcelable
+                     var page : Int) : Parcelable

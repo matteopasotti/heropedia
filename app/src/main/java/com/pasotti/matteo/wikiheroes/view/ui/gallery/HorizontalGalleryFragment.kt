@@ -1,7 +1,11 @@
 package com.pasotti.matteo.wikiheroes.view.ui.gallery
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
@@ -17,11 +20,12 @@ import com.pasotti.matteo.wikiheroes.databinding.FragmentHorizontalGalleryBindin
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.HorizontalGalleryAdapter
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.item_small_image.view.*
 import javax.inject.Inject
 
 class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegate {
@@ -99,6 +103,23 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
 
 
     override fun onItemClick(item: Detail, view: View) {
+
+        val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
+
+        val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
+
+
+        /*
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.intent_character , character as Parcelable)
+        startActivity(intent, options.toBundle())
+         */
+
+        val intent = Intent(activity, DetailComicActivity::class.java)
+        intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
+        startActivity(intent, options.toBundle())
     }
 
 }

@@ -30,7 +30,7 @@ class HorizontalImageViewHolder(view: View, val delegate: Delegate) : BaseViewHo
         //item.thumbnail.path + "/portrait_small"
         //binding?.url = item.thumbnail.path + "." + item.thumbnail.extension
         binding?.detail = item
-        binding?.url = item.thumbnail.path + "." + item.thumbnail.extension
+        binding?.url = item.thumbnail?.path + "." + item.thumbnail?.extension
         binding?.executePendingBindings()
     }
 

@@ -27,6 +27,7 @@ import android.os.Parcelable
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_character.view.*
+import kotlinx.android.synthetic.main.item_small_image.view.*
 import android.util.Pair as UtilPair
 
 
@@ -121,9 +122,12 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     override fun onItemClick(character: Character, view: View) {
         Timber.i("Clicked Character ${character.name}" )
 
-        val options = ActivityOptions.makeSceneTransitionAnimation(this,
-                UtilPair.create(view.image as View, resources.getString(R.string.transition_character_image)),
-                UtilPair.create(view.name as View, resources.getString(R.string.transition_character_name)))
+        val img = UtilPair.create(view.image as View, resources.getString(R.string.transition_character_image))
+
+        val name = UtilPair.create(view.name as View, resources.getString(R.string.transition_character_name))
+
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, img , name)
 
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.intent_character , character as Parcelable)

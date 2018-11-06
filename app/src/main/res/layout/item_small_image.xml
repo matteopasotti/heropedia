@@ -37,11 +37,12 @@
 
                 <!-- app:imageUrl="@{detail.}" -->
                 <ImageView
-                    android:id="@+id/image"
+                    android:id="@+id/image_gallery"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:galleryImageUrl="@{url}"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
+                    android:transitionName="@string/transition_detail_image"
                     android:contentDescription="@string/image_gallery_content_descriptor"
                     tools:src="@drawable/margeto" />
 
@@ -50,7 +51,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Spiderman"
@@ -59,6 +60,7 @@
             android:layout_marginTop="5dp"
             android:textColor="@android:color/white"
             android:textSize="11sp"
+            android:transitionName="@string/transition_detail_title"
             android:text="@{detail.title}"
             android:fontFamily="@font/product_sans_bold"
             app:layout_constraintTop_toBottomOf="@+id/card"
