@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Item
 
-@Database(entities = [(Character::class), (Item::class)], version = 2)
+@Database(entities = [(Character::class), (Item::class)], version = 4)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 

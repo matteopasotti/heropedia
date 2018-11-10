@@ -98,13 +98,11 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.Toolbar
+            <include
                 android:id="@+id/toolbarComicDetail"
+                layout="@layout/toolbar_main"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:background="@color/fui_transparent"
-                android:theme="@style/Theme.ToolbarTheme"/>
+                android:layout_height="wrap_content"/>
 
 
         </FrameLayout>

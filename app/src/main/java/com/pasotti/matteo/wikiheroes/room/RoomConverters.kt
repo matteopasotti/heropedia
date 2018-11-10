@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken
 import java.util.Collections.emptyList
 import com.google.gson.Gson
 import com.pasotti.matteo.wikiheroes.models.Item
+import com.pasotti.matteo.wikiheroes.models.Price
 
 
 class RoomConverters {

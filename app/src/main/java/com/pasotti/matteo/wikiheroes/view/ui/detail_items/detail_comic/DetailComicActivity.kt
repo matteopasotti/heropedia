@@ -57,13 +57,13 @@ class DetailComicActivity : AppCompatActivity() {
         item = intent.extras.getParcelable(intent_comic)
         binding.viewModel = DetailComicUIViewModel(item)
 
-        setSupportActionBar(binding.toolbarComicDetail)
+        setSupportActionBar(binding.toolbarComicDetail.toolbar)
 
         if(supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        binding.toolbarComicDetail.setNavigationOnClickListener { onBackPressed() }
+        binding.toolbarComicDetail.toolbar.setNavigationOnClickListener { onBackPressed() }
 
         Glide.with(this)
                 .load(getImageUri())
