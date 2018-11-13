@@ -15,6 +15,9 @@ import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ComicDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
+import com.pasotti.matteo.wikiheroes.utils.Utils
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragment
+import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -61,6 +64,7 @@ class DetailComicActivity : AppCompatActivity() {
 
         if(supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
         binding.toolbarComicDetail.toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -83,6 +87,10 @@ class DetailComicActivity : AppCompatActivity() {
                 .into(binding.imageDetail)
 
         binding.titleDetail.setText(item.title)
+
+        if(item.series != null && item!!.series?.resourceURI != null) {
+            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(item.series!!, "Series"), binding.containerMoreComics.id)
+        }
     }
 
     private fun getImageUri(): String {

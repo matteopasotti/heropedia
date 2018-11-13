@@ -52,13 +52,13 @@ object Utils {
 
     }
 
-    fun checkDetailsImages( items : List<Detail>) : List<Detail> {
+    fun checkDetailsImages(items: List<Detail>): List<Detail> {
 
         var goodItems: MutableList<Detail> = mutableListOf<Detail>()
 
-        if(items != null && items.size > 0) {
-            for(item in items) {
-                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+        if (items != null && items.size > 0) {
+            for (item in items) {
+                if (item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
                     goodItems.add(item)
                 }
             }
@@ -68,13 +68,35 @@ object Utils {
         return goodItems
     }
 
-    fun checkCharactersImages( items : List<Character>) : List<Character> {
+    fun getIdByResourceURI(resourceURI: String): String {
+        var result = ""
+        if (resourceURI != null && !resourceURI.equals("")) {
+            var i : Int = resourceURI.length - 1
+            var str : String = resourceURI.get(i).toString()
+            result = result + str
+
+
+            while (!str.equals("/")) {
+                i--
+                str = resourceURI.get(i).toString()
+                if(!str.equals("/")) {
+                    result = str + result
+                }
+
+            }
+
+        }
+
+        return result
+    }
+
+    fun checkCharactersImages(items: List<Character>): List<Character> {
 
         var goodItems: MutableList<Character> = mutableListOf<Character>()
 
-        if(items != null && items.size > 0) {
-            for(item in items) {
-                if(item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
+        if (items != null && items.size > 0) {
+            for (item in items) {
+                if (item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
                     goodItems.add(item)
                 }
             }
@@ -84,7 +106,7 @@ object Utils {
         return goodItems
     }
 
-    class InfiniteScrollListener(val func:() -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+    class InfiniteScrollListener(val func: () -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
         private var previousTotal = 0
         private var loading = true
         private var visibleThreshold = 2
@@ -118,7 +140,7 @@ object Utils {
 
     }
 
-    class CharacterDiffCallback(private val oldItems : List<Character>, private val newItems : List<Character>) : DiffUtil.Callback() {
+    class CharacterDiffCallback(private val oldItems: List<Character>, private val newItems: List<Character>) : DiffUtil.Callback() {
 
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id

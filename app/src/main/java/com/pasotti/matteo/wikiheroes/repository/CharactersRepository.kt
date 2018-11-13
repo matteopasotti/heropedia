@@ -93,4 +93,10 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
         return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
 
     }
+
+    fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getEventsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
 }

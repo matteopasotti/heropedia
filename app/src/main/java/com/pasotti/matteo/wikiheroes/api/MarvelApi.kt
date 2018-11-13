@@ -41,7 +41,7 @@ interface MarvelApi {
                                       @Query("apikey") apiKey: String,
                                       @Query("hash") hash: String,
                                       @Query("ts") ts: String,
-                                      @Query("orderBy") orderBy : String)
+                                      @Query("orderBy") orderBy: String)
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/characters/{characterId}/series")
@@ -53,8 +53,23 @@ interface MarvelApi {
 
     @GET("/v1/public/characters/{characterId}/stories")
     public fun getStoriesByCharacterId(@Path("characterId") characterId: String,
+                                       @Query("apikey") apiKey: String,
+                                       @Query("hash") hash: String,
+                                       @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters/{characterId}/events")
+    public fun getEventsByCharacterId(@Path("characterId") characterId: String,
                                       @Query("apikey") apiKey: String,
                                       @Query("hash") hash: String,
                                       @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/series/{seriesId}/comics")
+    public fun getComicsBySeriesId(@Path("seriesId") characterId: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String,
+                                   @Query("orderBy") orderBy: String)
             : LiveData<ApiResponse<DetailResponse>>
 }

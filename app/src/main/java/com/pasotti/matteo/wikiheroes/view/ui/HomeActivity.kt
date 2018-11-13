@@ -115,7 +115,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private fun renderErrorState(throwable: Throwable) {
         binding.progressBar.visibility = View.GONE
-        ErrorDialog.show(this, throwable.toString())
+        ErrorDialog.show(this.supportFragmentManager.beginTransaction(), throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 

@@ -106,6 +106,9 @@ class DetailActivity : AppCompatActivity() {
         Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , char.id), binding.containerComics.id)
 
         Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Series" , char.id), binding.containerSeries.id)
+
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Events" , char.id), binding.containerEvents.id)
+
     }
 
     private fun renderLoadingState() {
@@ -116,7 +119,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun renderErrorState(throwable: Throwable) {
         //binding.progressBar.visibility = View.GONE
-        ErrorDialog.show(this, throwable.toString())
+        ErrorDialog.show(supportFragmentManager.beginTransaction(), throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 
