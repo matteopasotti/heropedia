@@ -15,6 +15,8 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
     lateinit var item : Item
 
+    lateinit var id : String  //id of comic
+
 
     fun getItems(item : Item, type: String) : LiveData<ApiResponse<DetailResponse>> {
 

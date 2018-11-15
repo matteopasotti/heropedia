@@ -89,7 +89,7 @@ class DetailComicActivity : AppCompatActivity() {
         binding.titleDetail.setText(item.title)
 
         if(item.series != null && item!!.series?.resourceURI != null) {
-            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(item.series!!, "Series"), binding.containerMoreComics.id)
+            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(item.id.toString(), item.series!!, "Series"), binding.containerMoreComics.id)
         }
     }
 

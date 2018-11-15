@@ -68,6 +68,19 @@ object Utils {
         return goodItems
     }
 
+    fun removeItemById(id : String , items: List<Detail>) : List<Detail> {
+        var goodItems: MutableList<Detail> = mutableListOf<Detail>()
+        if(items != null && items.size > 0) {
+            for( item in items) {
+                if(!item.id.toString().equals(id)){
+                    goodItems.add(item)
+                }
+            }
+        }
+
+        return goodItems
+    }
+
     fun getIdByResourceURI(resourceURI: String): String {
         var result = ""
         if (resourceURI != null && !resourceURI.equals("")) {

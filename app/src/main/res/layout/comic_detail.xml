@@ -96,7 +96,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            android:layout_marginTop="?attr/actionBarSize"
+                            android:layout_marginEnd="20dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/product_sans_bold"
                             android:maxLines="3"
@@ -150,6 +150,34 @@
                             app:layout_constraintBaseline_toBaselineOf="@+id/published_date"
                             app:layout_constraintEnd_toEndOf="parent"
                             tools:text="£2.95" />
+
+                        <TextView
+                            android:id="@+id/pagesLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Pages:"
+                            android:visibility="@{viewModel.numberPagesVisibility}"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/image_detail"
+                            app:layout_constraintTop_toBottomOf="@+id/published_date"
+                            tools:text="Pages:" />
+
+                        <TextView
+                            android:id="@+id/pages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/product_sans_italic"
+                            android:text="@{viewModel.numberPages}"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{viewModel.numberPagesVisibility}"
+                            app:layout_constraintStart_toEndOf="@+id/pagesLabel"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/pagesLabel"
+                            tools:text="100" />
 
                         <TextView
                             android:id="@+id/description_detail"

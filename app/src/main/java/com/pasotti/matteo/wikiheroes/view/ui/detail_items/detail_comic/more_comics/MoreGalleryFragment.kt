@@ -45,11 +45,13 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
         private val ITEM = "item"
         private val TYPE = "type"
+        private val ID = "id"
 
-        fun newInstance( item : Item, type : String) : MoreGalleryFragment {
+        fun newInstance(id : String, item : Item, type : String) : MoreGalleryFragment {
             val args: Bundle = Bundle()
             args.putParcelable(ITEM , item)
             args.putString(TYPE, type)
+            args.putString(ID, id)
             val fragment = MoreGalleryFragment()
             fragment.arguments = args
             return fragment
@@ -70,6 +72,8 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
         binding = DataBindingUtil.inflate(inflater ,  R.layout.fragment_more_gallery, container, false)
 
         viewModel.item = arguments!!.getParcelable(ITEM)
+
+        viewModel.id = arguments!!.getString(ID)
 
         initView()
 
@@ -93,7 +97,9 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         binding.progressBar.visibility = View.GONE
         if(response.isSuccessful && response.body != null) {
-            renderDataState(Utils.checkDetailsImages(response.body.data.results))
+            var items = Utils.removeItemById(viewModel.id, response.body.data.results)
+            items = Utils.checkDetailsImages(items)
+            renderDataState(items)
         }
     }
 
