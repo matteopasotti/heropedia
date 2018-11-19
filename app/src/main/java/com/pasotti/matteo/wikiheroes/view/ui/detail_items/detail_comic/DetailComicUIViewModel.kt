@@ -68,7 +68,7 @@ class DetailComicUIViewModel(val item: Detail) : DetailItemBindingViewModel() {
 
     @Bindable
     fun getMoreComicsVisibility(): Int {
-        if (item.series != null && item.series.resourceURI != null) {
+        if (item.series != null && item.series.resourceURI != null && !item.issueNumber.equals("0")) {
             return View.VISIBLE
         } else {
             return View.GONE

@@ -3,6 +3,7 @@ package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -88,7 +89,7 @@ class DetailComicActivity : AppCompatActivity() {
 
         binding.titleDetail.setText(item.title)
 
-        if(item.series != null && item!!.series?.resourceURI != null) {
+        if(binding.containerMoreComics.visibility == View.VISIBLE) {
             Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(item.id.toString(), item.series!!, "Series"), binding.containerMoreComics.id)
         }
     }
