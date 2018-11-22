@@ -85,7 +85,6 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
-        binding.sectionTitle.text = "MORE"
     }
 
     private fun observeViewModel() {
@@ -97,8 +96,11 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         binding.progressBar.visibility = View.GONE
         if(response.isSuccessful && response.body != null) {
-            var items = Utils.removeItemById(viewModel.id, response.body.data.results)
-            items = Utils.checkDetailsImages(items)
+            var items : List<Detail> = Utils.checkDetailsImages(response.body.data.results)
+            if(response.body.data.results.size != 1) {
+                items = Utils.removeItemById(viewModel.id, items)
+            }
+
             renderDataState(items)
         }
     }
@@ -108,8 +110,11 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
     }
 
     override fun onItemClick(item: Detail, view: View) {
-        val intent = Intent(activity, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
-        startActivity(intent)
+        if(item.id != viewModel.id.toInt()) {
+            val intent = Intent(activity, DetailComicActivity::class.java)
+            intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
+            startActivity(intent)
+        }
+
     }
 }

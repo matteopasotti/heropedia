@@ -196,6 +196,17 @@
                             app:layout_constraintTop_toBottomOf="@+id/image_detail" />
 
                         <FrameLayout
+                            android:id="@+id/container_more_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/description_detail"/>
+
+
+
+                        <FrameLayout
                             android:id="@+id/container_more_comics"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -203,7 +214,7 @@
                             android:visibility="@{viewModel.moreComicsVisibility}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/description_detail" />
+                            app:layout_constraintTop_toBottomOf="@+id/container_more_details" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

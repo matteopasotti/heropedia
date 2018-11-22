@@ -32,7 +32,7 @@ class DetailComicUIViewModel(val item: Detail) : DetailItemBindingViewModel() {
     }
 
     @Bindable
-    fun getPublishDate(): String {
+    fun getPublishDate(): String? {
         if (item.dates != null && item.dates.size > 0) {
             for (date in item.dates) {
                 if (date.type.equals("onsaleDate")) {
@@ -68,7 +68,7 @@ class DetailComicUIViewModel(val item: Detail) : DetailItemBindingViewModel() {
 
     @Bindable
     fun getMoreComicsVisibility(): Int {
-        if (item.series != null && item.series.resourceURI != null && !item.issueNumber.equals("0")) {
+        if (item.series != null && item.series.resourceURI != null && item.issueNumber != null && !item.issueNumber.equals("0")) {
             return View.VISIBLE
         } else {
             return View.GONE

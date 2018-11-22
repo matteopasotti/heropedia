@@ -18,6 +18,7 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragment
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoFragment
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import javax.inject.Inject
@@ -89,7 +90,10 @@ class DetailComicActivity : AppCompatActivity() {
 
         binding.titleDetail.setText(item.title)
 
-        if(binding.containerMoreComics.visibility == View.VISIBLE) {
+        Utils.addFragmentToActivity(supportFragmentManager , MoreInfoFragment.newInstance(ArrayList(item.creators?.items)), binding.containerMoreDetails.id)
+
+
+        if(binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
             Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(item.id.toString(), item.series!!, "Series"), binding.containerMoreComics.id)
         }
     }

@@ -6,6 +6,7 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.ui.HomeActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragmentViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryViewModel
 import dagger.Binds
 import dagger.Module
@@ -33,6 +34,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MoreGalleryFragmentViewModel::class)
     internal abstract fun bindMoreGalleryFragmentViewModel(moreGalleryFragmentViewModel: MoreGalleryFragmentViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MoreInfoViewModel::class)
+    internal abstract fun bindMoreInfoViewModel(moreInfoViewModel: MoreInfoViewModel) : ViewModel
 
 
     @Binds

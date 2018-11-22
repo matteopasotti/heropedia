@@ -18,7 +18,7 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textAllCaps="true"
-            android:text="MORE"
+            android:text="COLLECTION"
             tools:text="Title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -37,12 +37,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/section_title"
+            android:layout_marginEnd="16dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_items"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/section_title"
+            app:layout_constraintTop_toBottomOf="@+id/line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="15dp"/>
