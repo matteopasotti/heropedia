@@ -23,6 +23,7 @@
             android:maxLines="1"
             android:textColor="@android:color/white"
             android:textSize="11sp"
+            android:transitionName="@string/transition_creator_name"
             android:fontFamily="@font/product_sans_italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

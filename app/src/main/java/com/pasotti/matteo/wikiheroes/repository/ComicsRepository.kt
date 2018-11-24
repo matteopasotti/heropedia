@@ -24,4 +24,8 @@ constructor(val marvelApi: MarvelApi) {
     fun getComicsBySeriesId(id : String) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber")
     }
+
+    fun getComicsByCreatorId( id : String) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber")
+    }
 }

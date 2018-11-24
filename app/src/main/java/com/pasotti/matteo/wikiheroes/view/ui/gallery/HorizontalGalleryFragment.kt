@@ -21,14 +21,14 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import com.pasotti.matteo.wikiheroes.view.adapter.HorizontalGalleryAdapter
+import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
-import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
 import javax.inject.Inject
 
-class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegate {
+class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
@@ -37,7 +37,7 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
 
     lateinit var binding : FragmentHorizontalGalleryBinding
 
-    lateinit var adapter : HorizontalGalleryAdapter
+    lateinit var adapter : DetailAdapter
 
     companion object {
 
@@ -76,7 +76,7 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
 
     private fun initView() {
 
-        adapter = HorizontalGalleryAdapter(this)
+        adapter = DetailAdapter(this)
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
@@ -109,13 +109,6 @@ class HorizontalGalleryFragment : Fragment() , HorizontalImageViewHolder.Delegat
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
 
         val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
-
-
-        /*
-        val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.intent_character , character as Parcelable)
-        startActivity(intent, options.toBundle())
-         */
 
         val intent = Intent(activity, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)

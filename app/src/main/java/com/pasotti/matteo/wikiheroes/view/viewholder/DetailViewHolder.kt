@@ -6,7 +6,7 @@ import com.pasotti.matteo.wikiheroes.databinding.ItemSmallImageBinding
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 
-class HorizontalImageViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
+class DetailViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
     //here we define actions which we handle
     interface Delegate {

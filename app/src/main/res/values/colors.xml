@@ -12,5 +12,7 @@
 
     <color name="whiteFadeBg">#f0ffffff</color>
 
+    <color name="yellow">#ffff32</color>
+
 
 </resources>

@@ -20,11 +20,8 @@ import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import com.pasotti.matteo.wikiheroes.view.adapter.HorizontalGalleryAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.MoreGalleryAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
-import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
-import com.pasotti.matteo.wikiheroes.view.viewholder.HorizontalImageViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.MoreImageViewHolder
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject

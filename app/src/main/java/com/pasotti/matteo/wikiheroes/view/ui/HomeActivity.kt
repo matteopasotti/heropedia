@@ -33,8 +33,6 @@ import android.util.Pair as UtilPair
 
 class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
-
-
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
@@ -46,7 +44,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private var page = 0
 
-    private var firstTime = false;
+    private var firstTime = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -93,7 +91,6 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
     }
 
     private fun renderLoadingState() {
-
         Log.d("HomeActivity", "call LOADING")
         binding.progressBar.visibility = View.VISIBLE
     }

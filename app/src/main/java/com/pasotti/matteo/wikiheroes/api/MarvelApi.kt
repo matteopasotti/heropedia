@@ -66,10 +66,18 @@ interface MarvelApi {
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/series/{seriesId}/comics")
-    public fun getComicsBySeriesId(@Path("seriesId") characterId: String,
+    public fun getComicsBySeriesId(@Path("seriesId") seriesId: String,
                                    @Query("apikey") apiKey: String,
                                    @Query("hash") hash: String,
                                    @Query("ts") ts: String,
                                    @Query("orderBy") orderBy: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/creators/{creatorId}/comics")
+    public fun getComicsByCreatorId(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String,
+                                    @Query("orderBy") orderBy: String)
             : LiveData<ApiResponse<DetailResponse>>
 }

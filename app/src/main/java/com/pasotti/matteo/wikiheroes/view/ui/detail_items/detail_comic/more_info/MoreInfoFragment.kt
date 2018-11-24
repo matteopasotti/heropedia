@@ -1,12 +1,16 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import android.util.Pair
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pasotti.matteo.wikiheroes.R
@@ -14,8 +18,10 @@ import com.pasotti.matteo.wikiheroes.databinding.FragmentMoreInfoBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.view.adapter.CreatorRowAdapter
+import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.CreatorViewHolder
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.creator_item.view.*
 import javax.inject.Inject
 
 class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
@@ -73,5 +79,13 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
     }
 
     override fun onItemClick(creator: Item, view: View) {
+
+        val txt = Pair.create(view.creator_name as View, resources.getString(R.string.transition_creator_name))
+        val options = ActivityOptions.makeSceneTransitionAnimation(activity, txt)
+
+        val intent = Intent(activity, CreatorDetailActivity::class.java)
+        intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
+        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
+        startActivity(intent, options.toBundle())
     }
 }
