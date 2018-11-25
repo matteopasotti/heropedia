@@ -48,6 +48,8 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     private var firstTime = false
 
+    private var page = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -62,6 +64,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         title_section = intent.extras.getString(TITLE_SECTION)
 
         viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
+        viewModel.type = title_section
 
         initUI()
 
@@ -78,23 +81,31 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         }
 
         binding.toolbarCreatorDetail.toolbar.setNavigationOnClickListener { onBackPressed() }
-
         binding.creatorNameText.text = viewModel.creator.name
-        binding.titleCreatorSection.text = " : " + title_section
-        binding.listCreatorItems.layoutManager = GridLayoutManager(this , 3)
+        binding.titleCreatorSection.text = " : " + viewModel.type
+
+
+        //LIST
+        val layoutManager = GridLayoutManager(this , 3)
+        binding.listCreatorItems.layoutManager = layoutManager
         adapter = DetailAdapter(this)
         binding.listCreatorItems.adapter = adapter
+
+        binding.listCreatorItems.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
+            page = page + 1
+            loadMore(page) }, layoutManager))
     }
 
     private fun observeViewModel() {
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.getItemsByCreatorId(viewModel.creator , title_section).observe(this, Observer { it?.let { processResponse(it) } })
+        viewModel.itemsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
+        loadMore(page++)
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         binding.progressBar.visibility = View.GONE
         if(response.isSuccessful && response.body != null) {
-            renderDataState(Utils.checkDetailsImages(response.body.data.results))
+            viewModel.increaseOffset()
+            renderDataState(response.body.data.results)
         } else {
             //show error
             //todo
@@ -104,11 +115,15 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     private fun renderDataState( items : List<Detail>) {
 
         adapter.updateList(items)
-
         if(firstTime) {
             binding.listCreatorItems.scheduleLayoutAnimation()
             firstTime = false
         }
+    }
+
+    private fun loadMore(page : Int) {
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.postPage(page)
     }
 
     override fun onItemClick(item: Detail, view: View) {

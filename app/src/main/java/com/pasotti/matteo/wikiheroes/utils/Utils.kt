@@ -56,27 +56,15 @@ object Utils {
 
         var goodItems: MutableList<Detail> = mutableListOf<Detail>()
 
-        if (items != null && items.size > 0) {
-            for (item in items) {
-                if (item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
-                    goodItems.add(item)
-                }
-            }
-
-        }
+        goodItems.addAll(items.filter { it.thumbnail != null && it.thumbnail.path != null && !it.thumbnail.path.equals(IMAGE_NOT_AVAILABLE) })
 
         return goodItems
     }
 
     fun removeItemById(id : String , items: List<Detail>) : List<Detail> {
         var goodItems: MutableList<Detail> = mutableListOf<Detail>()
-        if(items != null && items.size > 0) {
-            for( item in items) {
-                if(!item.id.toString().equals(id)){
-                    goodItems.add(item)
-                }
-            }
-        }
+
+        goodItems.addAll(items.filter { !(it.id.toString().equals(id)) })
 
         return goodItems
     }
@@ -107,14 +95,7 @@ object Utils {
 
         var goodItems: MutableList<Character> = mutableListOf<Character>()
 
-        if (items != null && items.size > 0) {
-            for (item in items) {
-                if (item.thumbnail != null && item.thumbnail.path != null && !item.thumbnail.path.equals(IMAGE_NOT_AVAILABLE)) {
-                    goodItems.add(item)
-                }
-            }
-
-        }
+        goodItems.addAll(items.filter { it.thumbnail != null && it.thumbnail.path != null && !it.thumbnail.path.equals(IMAGE_NOT_AVAILABLE) })
 
         return goodItems
     }
@@ -153,20 +134,56 @@ object Utils {
 
     }
 
-    class CharacterDiffCallback(private val oldItems: List<Character>, private val newItems: List<Character>) : DiffUtil.Callback() {
+    class InfiniteScrollListenerGrid(val func: () -> Unit, val layoutManager: androidx.recyclerview.widget.GridLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+        private var previousTotal = 0
+        private var loading = true
+        private var visibleThreshold = 2
+        private var firstVisibleItem = 0
+        private var visibleItemCount = 0
+        private var totalItemCount = 0
 
+        override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
 
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id
+            if (dy > 0) {
+                visibleItemCount = recyclerView.childCount
+                totalItemCount = layoutManager.itemCount
+                firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
 
-        override fun getOldListSize(): Int = oldItems.size
-
-        override fun getNewListSize(): Int = newItems.size
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
-
-        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-            return super.getChangePayload(oldItemPosition, newItemPosition)
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false
+                        previousTotal = totalItemCount
+                    }
+                }
+                if (!loading && (totalItemCount - visibleItemCount)
+                        <= (firstVisibleItem + visibleThreshold)) {
+                    // End has been reached
+                    Log.i("InfiniteScrollListener", "End reached")
+                    func()
+                    loading = true
+                }
+            }
         }
 
     }
+
+
+    class DetailsDiffCallback(private val oldItems : List<Detail>, private val newItems : List<Detail>) : DiffUtil.Callback() {
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id
+
+        override fun getOldListSize(): Int {
+            return oldItems.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newItems.size
+        }
+
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
+
+    }
+
 }
