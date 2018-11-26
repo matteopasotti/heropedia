@@ -1,7 +1,9 @@
 package com.pasotti.matteo.wikiheroes.di
 
 import com.pasotti.matteo.wikiheroes.view.ui.HomeActivity
+import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
 import com.pasotti.matteo.wikiheroes.view.ui.home.login.LoginActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,4 +20,12 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeDetailActivity(): DetailActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeDeatilComicActivity(): DetailComicActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeCreatorActivity(): CreatorDetailActivity
+
+
 }

@@ -40,7 +40,8 @@ interface MarvelApi {
     public fun getComicsByCharacterId(@Path("characterId") characterId: String,
                                       @Query("apikey") apiKey: String,
                                       @Query("hash") hash: String,
-                                      @Query("ts") ts: String)
+                                      @Query("ts") ts: String,
+                                      @Query("orderBy") orderBy: String)
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/characters/{characterId}/series")
@@ -52,8 +53,53 @@ interface MarvelApi {
 
     @GET("/v1/public/characters/{characterId}/stories")
     public fun getStoriesByCharacterId(@Path("characterId") characterId: String,
+                                       @Query("apikey") apiKey: String,
+                                       @Query("hash") hash: String,
+                                       @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters/{characterId}/events")
+    public fun getEventsByCharacterId(@Path("characterId") characterId: String,
                                       @Query("apikey") apiKey: String,
                                       @Query("hash") hash: String,
                                       @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/series/{seriesId}/comics")
+    public fun getComicsBySeriesId(@Path("seriesId") seriesId: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String,
+                                   @Query("orderBy") orderBy: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/creators/{creatorId}/comics")
+    public fun getComicsByCreatorId(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String,
+                                    @Query("orderBy") orderBy: String,
+                                    @Nullable @Query("offset") offset: Int,
+                                    @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/creators/{creatorId}/series")
+    public fun getSeriesByCreatorId(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String,
+                                    @Query("orderBy") orderBy: String,
+                                    @Nullable @Query("offset") offset: Int,
+                                    @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/creators/{creatorId}/events")
+    public fun getEventsByCreatorId(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String,
+                                    @Query("orderBy") orderBy: String,
+                                    @Nullable @Query("offset") offset: Int,
+                                    @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
 }

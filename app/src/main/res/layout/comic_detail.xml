@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicUIViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- BACKGROUND IMAGE -->
+                <ImageView
+                    android:id="@+id/bg_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:blurImageUrl="@{viewModel.urlImage}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@drawable/background" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black60"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/toolbarComicDetail"
+                    layout="@layout/toolbar_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/fui_transparent"
+                    android:scrollbars="none"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolbarComicDetail">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <ImageView
+                            android:id="@+id/image_detail"
+                            android:layout_width="160dp"
+                            android:layout_height="220dp"
+                            android:layout_marginStart="20dp"
+                            android:scaleType="fitXY"
+                            android:transitionName="@string/transition_detail_image"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@drawable/spiderman_comic" />
+
+                        <TextView
+                            android:id="@+id/title_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="20dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:maxLines="3"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:transitionName="@string/transition_detail_title"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/image_detail"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Title" />
+
+                        <TextView
+                            android:id="@+id/publishedLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Published:"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:visibility="@{viewModel.publishedDateVisibility}"
+                            app:layout_constraintStart_toEndOf="@+id/image_detail"
+                            app:layout_constraintTop_toBottomOf="@+id/title_detail"
+                            tools:text="Published:" />
+
+                        <TextView
+                            android:id="@+id/published_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/product_sans_italic"
+                            android:text="@{viewModel.publishDate}"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            android:visibility="@{viewModel.publishedDateVisibility}"
+                            app:layout_constraintStart_toEndOf="@+id/image_detail"
+                            app:layout_constraintTop_toBottomOf="@+id/publishedLabel"
+                            tools:text="28/12/1992" />
+
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:fontFamily="@font/product_sans_italic"
+                            android:text="@{viewModel.price}"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{viewModel.priceVisibility}"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/published_date"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="£2.95" />
+
+                        <TextView
+                            android:id="@+id/pagesLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="20dp"
+                            android:fontFamily="@font/product_sans_bold"
+                            android:text="Pages:"
+                            android:visibility="@{viewModel.numberPagesVisibility}"
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@+id/image_detail"
+                            app:layout_constraintTop_toBottomOf="@+id/published_date"
+                            tools:text="Pages:" />
+
+                        <TextView
+                            android:id="@+id/pages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/product_sans_italic"
+                            android:text="@{viewModel.numberPages}"
+                            android:textColor="@android:color/white"
+                            android:visibility="@{viewModel.numberPagesVisibility}"
+                            app:layout_constraintStart_toEndOf="@+id/pagesLabel"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/pagesLabel"
+                            tools:text="100" />
+
+                        <TextView
+                            android:id="@+id/description_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/product_sans_italic"
+                            android:maxLines="10"
+                            android:text="@{viewModel.description}"
+                            android:textColor="@android:color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/image_detail" />
+
+                        <FrameLayout
+                            android:id="@+id/container_more_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/description_detail"/>
+
+
+
+                        <FrameLayout
+                            android:id="@+id/container_more_comics"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:visibility="@{viewModel.moreComicsVisibility}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/container_more_details" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

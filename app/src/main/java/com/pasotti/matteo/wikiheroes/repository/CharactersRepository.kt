@@ -1,29 +1,18 @@
 package com.pasotti.matteo.wikiheroes.repository
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import android.util.Log
-import androidx.lifecycle.MediatorLiveData
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
-import com.pasotti.matteo.wikiheroes.api.SchedulersFacade
-import com.pasotti.matteo.wikiheroes.models.*
+import com.pasotti.matteo.wikiheroes.models.Character
+import com.pasotti.matteo.wikiheroes.models.CharacterResponse
+import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import com.pasotti.matteo.wikiheroes.view.adapter.CharacterAdapter
-import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
-import io.reactivex.Scheduler
-import io.reactivex.SingleObserver
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.doAsync
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.collections.HashSet
 
 @Singleton
 class CharactersRepository @Inject
@@ -88,7 +77,7 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
 
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
 
     }
 
@@ -102,6 +91,12 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
     fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
 
         return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+
+    }
+
+    fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getEventsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
 
     }
 }

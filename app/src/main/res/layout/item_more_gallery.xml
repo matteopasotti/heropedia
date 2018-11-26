@@ -16,9 +16,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@color/mid_black"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp">
+        android:background="@color/fui_transparent"
+        android:layout_marginRight="10dp">
 
 
         <androidx.cardview.widget.CardView
@@ -38,13 +37,11 @@
 
                 <!-- app:imageUrl="@{detail.}" -->
                 <ImageView
-                    android:id="@+id/image_gallery"
+                    android:id="@+id/image_more_gallery"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:galleryImageUrl="@{url}"
                     android:scaleType="fitXY"
-                    android:adjustViewBounds="true"
-                    android:transitionName="@string/transition_detail_image"
                     android:contentDescription="@string/image_gallery_content_descriptor"
                     tools:src="@drawable/margeto" />
 

@@ -2,7 +2,6 @@ package com.pasotti.matteo.wikiheroes.utils
 
 import android.app.Activity
 import android.app.Dialog
-import android.app.DialogFragment
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import android.view.Window
@@ -11,6 +10,8 @@ import com.pasotti.matteo.wikiheroes.R
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Button
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentTransaction
 
 
 class ErrorDialog : DialogFragment() {
@@ -28,12 +29,12 @@ class ErrorDialog : DialogFragment() {
         val ERROR_MSG = "error_msg"
 
 
-        fun show(activity: Activity, msg: String) {
+        fun show(fragmentTransaction: FragmentTransaction, msg: String) {
             ErrorDialog().apply {
                 arguments = Bundle().apply {
                     putString(ERROR_MSG, msg)
                 }
-            }.show(activity.fragmentManager, TAG)
+            }.show(fragmentTransaction, "")
         }
     }
 
@@ -47,11 +48,11 @@ class ErrorDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity!!.applicationContext)
 
-        val errorMsg = arguments.getString(ERROR_MSG)
+        val errorMsg = arguments!!.getString(ERROR_MSG)
 
-        val view = activity.layoutInflater.inflate(R.layout.dialog_error, null)
+        val view = activity!!.layoutInflater.inflate(R.layout.dialog_error, null)
 
         val txtMsg = view.findViewById<TextView>(R.id.msgTxt)
 

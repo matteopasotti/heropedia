@@ -12,10 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.HomeActivity"/>
-        <activity android:name=".view.ui.detail.DetailActivity" />
-        <activity android:name=".view.ui.home.login.LoginActivity" />
+        <activity android:name=".view.ui.HomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.detail.DetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.home.login.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.creator.CreatorDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.home.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.ui.detail_items.detail_comic.DetailComicActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

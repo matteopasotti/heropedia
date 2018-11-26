@@ -106,17 +106,10 @@ class DetailActivity : AppCompatActivity() {
         Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , char.id), binding.containerComics.id)
 
         Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Series" , char.id), binding.containerSeries.id)
-    }
 
-    /*private fun processResponse(response: ApiResponse<DetailResponse>) {
-        if(response.isSuccessful && response.body != null) {
-            renderDataState(Utils.checkDetailsImages(response.body.data.results))
-        }
-    }
+        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Events" , char.id), binding.containerEvents.id)
 
-    private fun renderDataState ( items : List<Detail>) {
-        initComicsView(items)
-    }*/
+    }
 
     private fun renderLoadingState() {
 
@@ -126,7 +119,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun renderErrorState(throwable: Throwable) {
         //binding.progressBar.visibility = View.GONE
-        ErrorDialog.show(this, throwable.toString())
+        ErrorDialog.show(supportFragmentManager.beginTransaction(), throwable.toString())
         Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/mid_black">
+
+        <include
+            android:id="@+id/toolbar_creator_detail"
+            layout="@layout/toolbar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/creator_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:transitionName="@string/transition_creator_name"
+            tools:text="CREATOR NAME"
+            android:fontFamily="@font/product_sans_bold"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_creator_detail"/>
+
+        <!-- could be comics/series/events -->
+        <TextView
+            android:id="@+id/title_creator_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/product_sans_bold"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            tools:text=" : COMICS"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_creator_detail"
+            app:layout_constraintStart_toEndOf="@+id/creator_name_text"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_creator_items"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layoutAnimation="@anim/layout_animation_slide_bottom"
+            app:layout_constraintTop_toBottomOf="@+id/creator_name_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:progress="25"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/custom_progress_loader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_creator_section"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
