@@ -79,6 +79,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
     testImplementation "junit:junit:$junitVersion"
+    implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testImplementation 'androidx.arch.core:core-testing:2.0.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
@@ -90,6 +91,7 @@ dependencies {
     implementation "androidx.cardview:cardview:$support_version"
     implementation "androidx.recyclerview:recyclerview:$support_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "com.android.support:palette-v7:$support_version"
 
     //DAGGER2
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -98,6 +100,14 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+
+    // DAGGER 2
+    compileOnly 'javax.annotation:jsr250-api:1.0'
+    kaptTest "com.google.dagger:dagger:$dagger_version"
+    testImplementation "com.google.dagger:dagger:$dagger_version"
+
+    //kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
     //ROOM
     kapt "androidx.room:room-compiler:$room_version"
@@ -136,5 +146,8 @@ dependencies {
 
     //LOTTIE ANIMATIONS
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // ROBOLECTRIC
+    testImplementation "org.robolectric:robolectric:$roboelectric_version"
 
 }

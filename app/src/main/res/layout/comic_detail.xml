@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
 
 
         <FrameLayout
@@ -28,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- BACKGROUND IMAGE -->
+                <!-- BACKGROUND IMAGE  -->
                 <ImageView
                     android:id="@+id/bg_image"
                     android:layout_width="match_parent"
@@ -44,7 +45,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/black60"
+                    android:background="@color/black85"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

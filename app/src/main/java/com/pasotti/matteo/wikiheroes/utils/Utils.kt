@@ -1,12 +1,9 @@
 package com.pasotti.matteo.wikiheroes.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import java.security.MessageDigest
@@ -20,19 +17,23 @@ object Utils {
 
     var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
+    val BASE_URL = "http://gateway.marvel.com"
+
+
     fun md5(stringToHash: String): String {
-        val MD5 = "MD5"
+        val md5 = "MD5"
 
         try {
-            val digest = MessageDigest.getInstance(MD5)
+            val digest = MessageDigest.getInstance(md5)
             digest.update(stringToHash.toByteArray())
             val messageDigest = digest.digest()
 
             val hexString = StringBuilder()
             for (aMessageDigest in messageDigest) {
                 var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
-                while (h.length < 2)
-                    h = "0" + h
+                while (h.length < 2) {
+                    h = "0$h"
+                }
                 hexString.append(h)
             }
             return hexString.toString()
@@ -54,33 +55,33 @@ object Utils {
 
     fun checkDetailsImages(items: List<Detail>): List<Detail> {
 
-        var goodItems: MutableList<Detail> = mutableListOf<Detail>()
+        var goodItems: MutableList<Detail> = mutableListOf()
 
-        goodItems.addAll(items.filter { it.thumbnail != null && it.thumbnail.path != null && !it.thumbnail.path.equals(IMAGE_NOT_AVAILABLE) })
+        goodItems.addAll(items.filter { it.thumbnail?.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
 
         return goodItems
     }
 
     fun removeItemById(id : String , items: List<Detail>) : List<Detail> {
-        var goodItems: MutableList<Detail> = mutableListOf<Detail>()
+        var goodItems: MutableList<Detail> = mutableListOf()
 
         goodItems.addAll(items.filter { !(it.id.toString().equals(id)) })
 
         return goodItems
     }
 
-    fun getIdByResourceURI(resourceURI: String): String {
+    fun getIdByResourceURI(resourceURI: String?): String? {
         var result = ""
-        if (resourceURI != null && !resourceURI.equals("")) {
+        if (resourceURI != null && resourceURI != "") {
             var i : Int = resourceURI.length - 1
             var str : String = resourceURI.get(i).toString()
-            result = result + str
+            result += str
 
 
-            while (!str.equals("/")) {
+            while (str != "/") {
                 i--
-                str = resourceURI.get(i).toString()
-                if(!str.equals("/")) {
+                str = resourceURI[i].toString()
+                if(str != "/") {
                     result = str + result
                 }
 
@@ -93,9 +94,9 @@ object Utils {
 
     fun checkCharactersImages(items: List<Character>): List<Character> {
 
-        var goodItems: MutableList<Character> = mutableListOf<Character>()
+        var goodItems: MutableList<Character> = mutableListOf()
 
-        goodItems.addAll(items.filter { it.thumbnail != null && it.thumbnail.path != null && !it.thumbnail.path.equals(IMAGE_NOT_AVAILABLE) })
+        goodItems.addAll(items.filter { it.thumbnail?.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
 
         return goodItems
     }

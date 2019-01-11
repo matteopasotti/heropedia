@@ -82,6 +82,8 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
         binding.listItems.adapter = adapter
         binding.sectionTitle.text = arguments!!.getString(TITLE)
 
+        binding.listItems.isNestedScrollingEnabled = false
+
     }
 
     private fun observeViewModel() {

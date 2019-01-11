@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.di
 
+import com.airbnb.lottie.utils.Utils
 import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import dagger.Module
@@ -34,9 +35,9 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, url : String): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("http://gateway.marvel.com")
+                .baseUrl(url)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())

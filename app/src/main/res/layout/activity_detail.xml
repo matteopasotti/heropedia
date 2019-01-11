@@ -9,10 +9,11 @@
             type="com.pasotti.matteo.wikiheroes.models.Character"/>
     </data>
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mid_black">
+        android:background="@android:color/black">
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -32,14 +33,36 @@
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true">
 
-                <ImageView
-                    android:id="@+id/imageCharacter"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    android:transitionName="@string/transition_character_image"
-                    tools:background="@drawable/ironman" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/imageCharacter"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="centerCrop"
+                        app:layout_collapseMode="parallax"
+                        android:transitionName="@string/transition_character_image"
+                        tools:background="@drawable/ironman"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/blur_background"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
                 <androidx.appcompat.widget.Toolbar

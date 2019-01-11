@@ -24,7 +24,7 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
         when(type) {
             "Series" -> {
-                return comicsRepository.getComicsBySeriesId(id)
+                return comicsRepository.getComicsBySeriesId(id!!)
             }
         }
 

@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:background="@color/mid_black"
+        android:background="@android:color/transparent"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp">
 

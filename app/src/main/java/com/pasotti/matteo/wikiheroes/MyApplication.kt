@@ -5,6 +5,7 @@ import android.app.Application
 import androidx.fragment.app.Fragment
 import com.pasotti.matteo.wikiheroes.di.AppComponent
 import com.pasotti.matteo.wikiheroes.di.DaggerAppComponent
+import com.pasotti.matteo.wikiheroes.utils.Utils
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -22,12 +23,16 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
 
     val appComponent : AppComponent = DaggerAppComponent.builder()
             .application(this)
+            .baseUrl(Utils.BASE_URL)
             .build()
 
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.builder().application(this).build().inject(this)
+        DaggerAppComponent.builder()
+                .application(this)
+                .baseUrl(Utils.BASE_URL)
+                .build().inject(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector

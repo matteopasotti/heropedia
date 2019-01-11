@@ -46,14 +46,12 @@ class DetailComicActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         supportPostponeEnterTransition()
 
         initUI()
-
-
     }
 
 
@@ -76,19 +74,17 @@ class DetailComicActivity : AppCompatActivity() {
                 .listener(object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
-                        //observeViewModel()
                         return false
                     }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
-                        //observeViewModel()
                         return false
                     }
                 })
                 .into(binding.imageDetail)
 
-        binding.titleDetail.setText(item.title)
+        binding.titleDetail.text = item.title
 
         Utils.addFragmentToActivity(supportFragmentManager , MoreInfoFragment.newInstance(ArrayList(item.creators?.items)), binding.containerMoreDetails.id)
 

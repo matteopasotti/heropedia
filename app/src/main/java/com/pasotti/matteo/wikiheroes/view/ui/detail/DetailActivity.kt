@@ -1,34 +1,30 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
-import com.pasotti.matteo.wikiheroes.api.ApiResponse
-import com.pasotti.matteo.wikiheroes.api.Resource
-import com.pasotti.matteo.wikiheroes.api.Status
-import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
+import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailCircularBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.models.Detail
-import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
+import org.jetbrains.anko.backgroundDrawable
 import javax.inject.Inject
 
 
@@ -49,15 +45,15 @@ class DetailActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailCircularBinding>(this, R.layout.activity_detail_circular) }
 
-    lateinit var char: Character
+    private lateinit var char: Character
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         supportPostponeEnterTransition()
@@ -71,56 +67,64 @@ class DetailActivity : AppCompatActivity() {
 
         binding.character = char
 
-        setSupportActionBar(binding.toolbarCharacterDetail)
+        val requestOptions = RequestOptions()
+        requestOptions.circleCrop()
 
-        binding.toolbarCharacterDetail.setNavigationOnClickListener { onBackPressed() }
+        Glide.with(this)
+                .asBitmap()
+                .apply(requestOptions)
+                .load(getImageUri())
+                .listener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        supportStartPostponedEnterTransition()
+                        //observeViewModel()
+                        return false
+                    }
 
-        if (supportActionBar != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        supportStartPostponedEnterTransition()
+                        Palette.from(resource!!).generate {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                                val dominantColor = it?.getDominantColor(resources.getColor(R.color.black, null))!!
+
+                                val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
+                                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+                                gradientDrawable.cornerRadius = 0f
+
+                                //binding.nestedScrollView.backgroundDrawable = gradientDrawable
+                                binding.viewGradient.backgroundDrawable = gradientDrawable
+
+
+                            } else {
+                                it?.getDominantColor(resources.getColor(R.color.black))
+                            }
+                        }
+
+                        return false
+                    }
+                }).into(binding.circularImage)
+
+        binding.backButton.setOnClickListener {
+            onBackPressed()
         }
 
 
-        binding.collapsingToolbar.title = char.name
-        val tf = ResourcesCompat.getFont(this, R.font.product_sans_bold)
-        binding.collapsingToolbar.setCollapsedTitleTypeface(tf)
-        binding.collapsingToolbar.setExpandedTitleTypeface(tf)
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", char.id), binding.containerComics.id)
 
-
-        Glide.with(this)
-                .load(getImageUri())
-                .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        //observeViewModel()
-                        return false
-                    }
-
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        supportStartPostponedEnterTransition()
-                        //observeViewModel()
-                        return false
-                    }
-                })
-                .into(binding.imageCharacter)
-
-        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Comics" , char.id), binding.containerComics.id)
-
-        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Series" , char.id), binding.containerSeries.id)
-
-        Utils.addFragmentToActivity(supportFragmentManager , HorizontalGalleryFragment.newInstance("Events" , char.id), binding.containerEvents.id)
-
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Series", char.id), binding.containerSeries.id)
     }
 
     private fun renderLoadingState() {
 
-        Log.d("HomeActivity", "call LOADING")
+        Log.d(TAG, "call LOADING")
         //binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun renderErrorState(throwable: Throwable) {
         //binding.progressBar.visibility = View.GONE
         ErrorDialog.show(supportFragmentManager.beginTransaction(), throwable.toString())
-        Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
+        Log.d(TAG, "call ERROR response : " + throwable.toString())
     }
 
 

@@ -13,14 +13,14 @@ class SliderAdapter (private val mContext: Context, private val images: List<Str
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = LayoutInflater.from(mContext)
         val binding = ItemSliderBinding.inflate(inflater, container, false)
-        binding.url = images.get(position)
+        binding.url = images[position]
 
-        container?.addView(binding.root)
+        container.addView(binding.root)
         return binding.root
 
     }
 
-    override fun destroyItem(collection: ViewGroup, position: Int, `view`: Any) {
+    override fun destroyItem(collection: ViewGroup, position: Int, view : Any) {
         collection.removeView(view as View)
     }
 

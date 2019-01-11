@@ -78,6 +78,7 @@ interface MarvelApi {
                                     @Query("apikey") apiKey: String,
                                     @Query("hash") hash: String,
                                     @Query("ts") ts: String,
+                                    @Query("noVariants") noVariants : Boolean,
                                     @Query("orderBy") orderBy: String,
                                     @Nullable @Query("offset") offset: Int,
                                     @Query("limit") limit: Int)

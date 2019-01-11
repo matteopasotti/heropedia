@@ -31,8 +31,8 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
 
     companion object {
-        val TITLE_SECTION = "TITLE_SECTION"
-        val CREATOR = "CREATOR"
+        const val TITLE_SECTION = "TITLE_SECTION"
+        const val CREATOR = "CREATOR"
     }
 
     @Inject
@@ -42,7 +42,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityCreatorBinding>(this, R.layout.activity_creator) }
 
-    lateinit var title_section : String
+    private lateinit var titleSection : String
 
     lateinit var adapter : DetailAdapter
 
@@ -57,14 +57,14 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
         firstTime = true
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         //Comics, Series, Events
-        title_section = intent.extras.getString(TITLE_SECTION)
+        titleSection = intent.extras.getString(TITLE_SECTION)
 
         viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
-        viewModel.type = title_section
+        viewModel.type = titleSection
 
         initUI()
 
@@ -92,7 +92,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         binding.listCreatorItems.adapter = adapter
 
         binding.listCreatorItems.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
-            page = page + 1
+            page += 1
             loadMore(page) }, layoutManager))
     }
 

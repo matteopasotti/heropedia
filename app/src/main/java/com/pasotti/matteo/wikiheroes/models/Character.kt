@@ -15,7 +15,7 @@ data class Character(val id: Int, val name: String,
                      val modified: String,
                      @Embedded(prefix = "thumbnail_")
                      val thumbnail: Thumbnail,
-                     val resourceURI: String,
+                     val resourceURI: String?,
                      @Embedded(prefix = "comics_")
                      val comics: CollectionItem,
                      @Embedded(prefix = "series_")

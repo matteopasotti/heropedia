@@ -24,7 +24,7 @@ data class Detail( val id: Int,
                    val prices: MutableList<Price>?,
                    val creators: CollectionItem?,
                    val characters: CollectionItem?,
-                   val resourceURI: String?,
+                   val resourceURI: String,
                    val thumbnail: Thumbnail?,
                    val images: MutableList<Thumbnail>?,
                    val urls: MutableList<ItemUrl>?) : Parcelable

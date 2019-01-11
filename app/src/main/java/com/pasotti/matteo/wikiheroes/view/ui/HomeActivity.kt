@@ -55,11 +55,11 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
         firstTime = true
 
-
         initView()
 
         observeViewModel()
     }
+
 
     private fun initView() {
         val linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)

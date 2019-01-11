@@ -6,8 +6,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mid_black"
-        android:layout_marginLeft="16dp">
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="20dp">
 
 
         <TextView
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_bold"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/darker_gray"
             android:textSize="18sp"
             android:textAllCaps="true"
             tools:text="Title"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans_bold"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/darker_gray"
             android:textSize="18sp"
             android:layout_marginRight="16dp"
             android:textAllCaps="true"
@@ -35,6 +35,7 @@
             tools:text="SEE ALL"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_items"
@@ -44,7 +45,8 @@
             app:layout_constraintTop_toBottomOf="@+id/section_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:nestedScrollingEnabled="true"/>
 
         <ProgressBar
             android:id="@+id/progressBar"

@@ -24,7 +24,7 @@ constructor(val marvelApi: MarvelApi) {
     }
 
     fun getComicsByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber", offset, defaultLimit)
+        return marvelApi.getComicsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "issueNumber", offset, defaultLimit)
     }
 
     fun getSeriesByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {

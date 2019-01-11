@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:motion="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@layout/activity_detail_circular_end"
+        motion:constraintSetStart="@layout/activity_detail_circular">
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@+id/nested_circular"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+</MotionScene>

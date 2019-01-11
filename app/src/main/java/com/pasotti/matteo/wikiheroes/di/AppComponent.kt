@@ -4,8 +4,6 @@ import android.app.Application
 import com.pasotti.matteo.wikiheroes.MyApplication
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
 import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
@@ -21,6 +19,8 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: Application): AppComponent.Builder
+        @BindsInstance
+        fun baseUrl(url : String) : AppComponent.Builder
         fun build(): AppComponent
     }
 
