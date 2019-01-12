@@ -25,9 +25,11 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import org.jetbrains.anko.backgroundDrawable
+import timber.log.Timber
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class DetailActivity : AppCompatActivity() {
 
 
@@ -119,14 +121,12 @@ class DetailActivity : AppCompatActivity() {
 
     private fun renderLoadingState() {
 
-        Log.d(TAG, "call LOADING")
-        //binding.progressBar.visibility = View.VISIBLE
+        Timber.d("call LOADING")
     }
 
     private fun renderErrorState(throwable: Throwable) {
-        //binding.progressBar.visibility = View.GONE
         ErrorDialog.show(supportFragmentManager.beginTransaction(), throwable.toString())
-        Log.d(TAG, "call ERROR response : " + throwable.toString())
+        Timber.d("call ERROR response : %s", throwable.toString())
     }
 
 

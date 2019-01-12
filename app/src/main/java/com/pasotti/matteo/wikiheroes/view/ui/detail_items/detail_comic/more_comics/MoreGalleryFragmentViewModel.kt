@@ -15,7 +15,9 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
     lateinit var item : Item
 
-    lateinit var id : String  //id of comic
+    lateinit var id : String  //id of the item
+
+    lateinit var section : String
 
 
     fun getItems(item : Item, type: String) : LiveData<ApiResponse<DetailResponse>> {
@@ -24,6 +26,10 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
         when(type) {
             "Series" -> {
+                //return comicsRepository.getComicsBySeriesId(id!!)
+            }
+
+            "Comics" -> {
                 return comicsRepository.getComicsBySeriesId(id!!)
             }
         }

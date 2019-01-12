@@ -72,6 +72,8 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
         viewModel.id = arguments!!.getString(ID)
 
+        viewModel.section = arguments!!.getString(TYPE)
+
         initView()
 
         return binding.root
@@ -110,6 +112,7 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
         if(item.id != viewModel.id.toInt()) {
             val intent = Intent(activity, DetailComicActivity::class.java)
             intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
+            intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.section)
             startActivity(intent)
         }
 

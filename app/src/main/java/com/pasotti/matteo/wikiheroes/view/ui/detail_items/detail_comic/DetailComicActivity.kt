@@ -15,7 +15,6 @@ import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ComicDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragment
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoFragment
@@ -89,7 +88,7 @@ class DetailComicActivity : AppCompatActivity() {
 
 
         if(binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
-            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, "Series"), binding.containerMoreComics.id)
+            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
         }
     }
 
