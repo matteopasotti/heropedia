@@ -13,6 +13,10 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
 
     lateinit var section : String
 
+    var characterId : Int = 0
+
+    lateinit var characterName : String
+
     fun getItems(characterId: Int, type: String): LiveData<ApiResponse<DetailResponse>> {
 
         when (type) {

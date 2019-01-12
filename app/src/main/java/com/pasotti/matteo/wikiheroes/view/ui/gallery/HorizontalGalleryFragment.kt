@@ -23,6 +23,7 @@ import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
@@ -42,12 +43,14 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
     companion object {
 
         private const val TITLE = "title"
-        private const val CHARACTER_ID = "character_id"
+        private const val CHARACTER_ID = "characterId"
+        private const val CHARACTER_NAME = "character_name"
 
-        fun newInstance( title : String , characterId : Int) : HorizontalGalleryFragment {
+        fun newInstance( title : String , characterId : Int, characterName : String) : HorizontalGalleryFragment {
             val args = Bundle()
             args.putString(TITLE , title)
             args.putInt(CHARACTER_ID, characterId)
+            args.putString(CHARACTER_NAME, characterName)
             val fragment = HorizontalGalleryFragment()
             fragment.arguments = args
             return fragment
@@ -76,18 +79,30 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
     private fun initView() {
 
+        viewModel.characterId = arguments!!.getInt(CHARACTER_ID)
         adapter = DetailAdapter(this)
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
         binding.sectionTitle.text = arguments!!.getString(TITLE)
         viewModel.section =  arguments!!.getString(TITLE)
+        viewModel.characterName = arguments!!.getString(CHARACTER_NAME)
+
+        binding.seeallLabel.setOnClickListener {
+
+            val intent = Intent(context , SeeAllActivity::class.java)
+            intent.putExtra(SeeAllActivity.TITLE_SECTION , "Character name")
+            intent.putExtra(SeeAllActivity.ID, viewModel.characterId)
+            intent.putExtra(SeeAllActivity.SECTION, viewModel.section)
+            intent.putExtra(SeeAllActivity.CHARACTER_NAME, viewModel.characterName)
+            startActivity(intent)
+        }
 
     }
 
     private fun observeViewModel() {
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getItems(arguments!!.getInt(CHARACTER_ID), viewModel.section).observe(this, Observer { it?.let { processResponse(it) } })
+        viewModel.getItems(viewModel.characterId, viewModel.section).observe(this, Observer { it?.let { processResponse(it) } })
 
     }
 

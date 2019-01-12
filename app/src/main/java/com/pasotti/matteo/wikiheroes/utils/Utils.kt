@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.pasotti.matteo.wikiheroes.models.Character
@@ -96,9 +97,23 @@ object Utils {
 
         var goodItems: MutableList<Character> = mutableListOf()
 
-        goodItems.addAll(items.filter { it.thumbnail?.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
+        goodItems.addAll(items.filter { it.thumbnail.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
 
         return goodItems
+    }
+
+
+    class NestedInfiniteScrollLIstener(val func: () -> Unit) : NestedScrollView.OnScrollChangeListener {
+        override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
+            if (v?.getChildAt(v.childCount - 1) != null) {
+                if (scrollY >= v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
+                    //code to fetch more data for endless scrolling
+                    Log.i("NestedInfiniteScrollLis", "End reached")
+                    func()
+                }
+            }
+        }
+
     }
 
     class InfiniteScrollListener(val func: () -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {

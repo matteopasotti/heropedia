@@ -51,6 +51,15 @@ interface MarvelApi {
                                       @Query("ts") ts: String)
             : LiveData<ApiResponse<DetailResponse>>
 
+    @GET("/v1/public/characters/{characterId}/series")
+    public fun getSeriesByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String,
+                                      @Nullable @Query("offset") offset: Int,
+                                      @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
     @GET("/v1/public/characters/{characterId}/stories")
     public fun getStoriesByCharacterId(@Path("characterId") characterId: String,
                                        @Query("apikey") apiKey: String,
@@ -82,6 +91,17 @@ interface MarvelApi {
                                     @Query("orderBy") orderBy: String,
                                     @Nullable @Query("offset") offset: Int,
                                     @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("/v1/public/characters/{characterId}/comics")
+    public fun getComicsByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String,
+                                      @Query("orderBy") orderBy: String,
+                                      @Nullable @Query("offset") offset: Int,
+                                      @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/creators/{creatorId}/series")

@@ -1,6 +1,8 @@
 package com.pasotti.matteo.wikiheroes.di
 
 import android.app.Application
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.room.Room
 import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
@@ -43,5 +45,11 @@ class AppModule {
     @Singleton
     fun provideItemDao(database: AppDatabase): ItemDao {
         return database.itemDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providePreferences(application: Application): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application)
     }
 }

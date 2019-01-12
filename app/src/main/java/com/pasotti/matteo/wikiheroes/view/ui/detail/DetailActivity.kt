@@ -90,15 +90,12 @@ class DetailActivity : AppCompatActivity() {
                         supportStartPostponedEnterTransition()
                         Palette.from(resource!!).generate {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                                 val dominantColor = it?.getDominantColor(resources.getColor(R.color.black, null))!!
-
                                 val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
+                                viewModel.saveDominantColor(dominantColor)
                                 val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
                                 gradientDrawable.cornerRadius = 0f
-
                                 binding.viewGradient.backgroundDrawable = gradientDrawable
-
 
                             } else {
                                 it?.getDominantColor(resources.getColor(R.color.black))
@@ -114,9 +111,9 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", char.id), binding.containerComics.id)
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", char.id, char.name), binding.containerComics.id)
 
-        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Series", char.id), binding.containerSeries.id)
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Series", char.id, char.name), binding.containerSeries.id)
     }
 
     private fun renderLoadingState() {

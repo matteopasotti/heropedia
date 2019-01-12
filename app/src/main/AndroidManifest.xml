@@ -18,6 +18,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.home.login.LoginActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.seeall.SeeAllActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.creator.CreatorDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.home.splash.SplashActivity"
