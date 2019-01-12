@@ -41,11 +41,11 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
     companion object {
 
-        private val TITLE = "title"
-        private val CHARACTER_ID = "character_id"
+        private const val TITLE = "title"
+        private const val CHARACTER_ID = "character_id"
 
         fun newInstance( title : String , characterId : Int) : HorizontalGalleryFragment {
-            val args: Bundle = Bundle()
+            val args = Bundle()
             args.putString(TITLE , title)
             args.putInt(CHARACTER_ID, characterId)
             val fragment = HorizontalGalleryFragment()
@@ -81,14 +81,13 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
         binding.sectionTitle.text = arguments!!.getString(TITLE)
-
-        binding.listItems.isNestedScrollingEnabled = false
+        viewModel.section =  arguments!!.getString(TITLE)
 
     }
 
     private fun observeViewModel() {
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getItems(arguments!!.getInt(CHARACTER_ID), arguments!!.getString(TITLE)).observe(this, Observer { it?.let { processResponse(it) } })
+        viewModel.getItems(arguments!!.getInt(CHARACTER_ID), viewModel.section).observe(this, Observer { it?.let { processResponse(it) } })
 
     }
 
@@ -113,7 +112,8 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
         val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
 
         val intent = Intent(activity, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
+        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
+        intent.putExtra(DetailComicActivity.INTENT_SECTION , viewModel.section)
         startActivity(intent, options.toBundle())
     }
 

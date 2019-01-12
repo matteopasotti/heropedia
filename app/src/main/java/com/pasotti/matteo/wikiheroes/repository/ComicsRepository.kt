@@ -11,13 +11,13 @@ import javax.inject.Singleton
 
 @Singleton
 class ComicsRepository @Inject
-constructor(val marvelApi: MarvelApi) {
+constructor(private val marvelApi: MarvelApi) {
 
-    val defaultLimit = 20
+    private val defaultLimit = 20
 
-    val timestamp = Date().time
+    private val timestamp = Date().time
 
-    val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
     fun getComicsBySeriesId(id : String) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber")
@@ -28,7 +28,7 @@ constructor(val marvelApi: MarvelApi) {
     }
 
     fun getSeriesByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber", offset, defaultLimit)
+        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
     }
 
     fun getEventsByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {

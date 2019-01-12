@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.ui.creator
 
+import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
@@ -27,6 +28,7 @@ import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
 import javax.inject.Inject
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
 
@@ -55,22 +57,26 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        firstTime = true
-
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        //Comics, Series, Events
-        titleSection = intent.extras.getString(TITLE_SECTION)
+        if( savedInstanceState == null ) {
+            firstTime = true
+            //Comics, Series, Events
+            titleSection = intent.extras.getString(TITLE_SECTION)
 
-        viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
-        viewModel.type = titleSection
+            viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
+            viewModel.type = titleSection
 
-        initUI()
+            initUI()
 
-        observeViewModel()
+            observeViewModel()
+        }
+
+
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initUI() {
 
         setSupportActionBar(binding.toolbarCreatorDetail.toolbar)
@@ -134,7 +140,8 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         val options = ActivityOptions.makeSceneTransitionAnimation(this, img, txt)
 
         val intent = Intent(this, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
+        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
+        intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.type)
         startActivity(intent, options.toBundle())
     }
 }

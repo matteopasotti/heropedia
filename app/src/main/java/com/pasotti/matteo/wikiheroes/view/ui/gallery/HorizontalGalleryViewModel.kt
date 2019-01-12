@@ -11,6 +11,8 @@ import javax.inject.Inject
 class HorizontalGalleryViewModel @Inject
 constructor(private val charactersRepository: CharactersRepository) : ViewModel() {
 
+    lateinit var section : String
+
     fun getItems(characterId: Int, type: String): LiveData<ApiResponse<DetailResponse>> {
 
         when (type) {

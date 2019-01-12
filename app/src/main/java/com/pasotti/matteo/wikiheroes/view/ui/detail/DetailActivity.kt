@@ -56,9 +56,12 @@ class DetailActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
-        supportPostponeEnterTransition()
+        if(savedInstanceState == null) {
+            supportPostponeEnterTransition()
 
-        initUI()
+            initUI()
+        }
+
     }
 
     private fun initUI() {
@@ -92,7 +95,6 @@ class DetailActivity : AppCompatActivity() {
                                 val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
                                 gradientDrawable.cornerRadius = 0f
 
-                                //binding.nestedScrollView.backgroundDrawable = gradientDrawable
                                 binding.viewGradient.backgroundDrawable = gradientDrawable
 
 

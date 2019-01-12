@@ -18,7 +18,7 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
     private val page: MutableLiveData<Int> = MutableLiveData()
 
     init {
-        charactersLiveData = Transformations.switchMap(page , { charactersRepository.getCharacters(page.value!!)} )
+        charactersLiveData = Transformations.switchMap(page) { charactersRepository.getCharacters(page.value!!)}
     }
 
     fun postPage(page: Int) { this.page.value = page }

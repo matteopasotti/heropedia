@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
@@ -8,21 +9,23 @@ import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.DetailItemBindingViewModel
 import java.text.SimpleDateFormat
 
-class DetailComicUIViewModel(val item: Detail) : DetailItemBindingViewModel() {
+class DetailComicUIViewModel(val item: Detail, val section : String) : DetailItemBindingViewModel() {
 
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+    @SuppressLint("SimpleDateFormat")
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
 
-    val sdfDateFormat = SimpleDateFormat("dd/MM/YYYY")
+    @SuppressLint("SimpleDateFormat")
+    private val sdfDateFormat = SimpleDateFormat("dd/MM/YYYY")
 
 
     override fun getTitle(): String? = item.title
 
     override fun getDescription(): String? {
 
-        if (item.description == null || (item.description != null && item.description.equals(""))) {
-            return "Description not available"
+        return if (item.description == null || (item.description == "")) {
+            "Description not available"
         } else {
-            return item.description
+            item.description
         }
 
     }
@@ -64,26 +67,28 @@ class DetailComicUIViewModel(val item: Detail) : DetailItemBindingViewModel() {
     }
 
     @Bindable
-    fun getPriceVisibility(): Int = if (getPrice().equals("")) View.GONE else View.VISIBLE
+    fun getPriceVisibility(): Int = if (getPrice() == "") View.GONE else View.VISIBLE
 
     @Bindable
     fun getMoreComicsVisibility(): Int {
-        if (item.series != null && item.series.resourceURI != null && item.issueNumber != null && !item.issueNumber.equals("0")) {
-            return View.VISIBLE
+        return if (item.series?.resourceURI != null && item.issueNumber != null && item.issueNumber != "0") {
+            View.VISIBLE
         } else {
-            return View.GONE
+            View.GONE
         }
     }
 
     @Bindable
-    fun getNumberPagesVisibility() : Int = if(getNumberPages().equals("")) View.GONE else View.VISIBLE
+    fun getNumberPagesVisibility() : Int = if(getNumberPages() == "") View.GONE else View.VISIBLE
 
     @Bindable
     fun getNumberPages(): String {
-        if(item.pageCount != 0) {
-            return item.pageCount.toString()
-        } else
-            return ""
+        return if (item.pageCount == 0) {
+            ""
+        }
+        else {
+            item.pageCount.toString()
+        }
     }
 
 

@@ -28,8 +28,6 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     val data = MutableLiveData<Resource<CharacterResponse>>()
 
-    var originalList = listOf<Character>()
-
 
     fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
 
@@ -48,17 +46,17 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
             }
 
             override fun shouldFetch(data: List<Character>?): Boolean {
-                if(data != null && data.size > 0) {
+                if(data != null && data.isNotEmpty()) {
                     offset = data.size
                 }
                 return data == null || data.isEmpty()
             }
 
             override fun loadFromDb(): LiveData<List<Character>> {
-                if(page == 0) {
-                    return characterDao.getCharacters()
+                return if(page == 0) {
+                    characterDao.getCharacters()
                 } else  {
-                    return characterDao.getCharacters(page)
+                    characterDao.getCharacters(page)
                 }
 
             }
@@ -78,6 +76,12 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
     fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
 
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
+
+    }
+
+    fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+
+        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
 
     }
 

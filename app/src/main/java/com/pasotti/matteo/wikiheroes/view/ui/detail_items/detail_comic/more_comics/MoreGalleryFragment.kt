@@ -40,9 +40,9 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
     companion object {
 
-        private val ITEM = "item"
-        private val TYPE = "type"
-        private val ID = "id"
+        private const val ITEM = "item"
+        private const val TYPE = "type"
+        private const val ID = "id"
 
         fun newInstance(id : String, item : Item, type : String) : MoreGalleryFragment {
             val args: Bundle = Bundle()
@@ -109,7 +109,7 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
     override fun onItemClick(item: Detail, view: View) {
         if(item.id != viewModel.id.toInt()) {
             val intent = Intent(activity, DetailComicActivity::class.java)
-            intent.putExtra(DetailComicActivity.intent_comic , item as Parcelable)
+            intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
             startActivity(intent)
         }
 

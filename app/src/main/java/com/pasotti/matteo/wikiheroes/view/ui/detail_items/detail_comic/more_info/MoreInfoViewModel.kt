@@ -9,7 +9,11 @@ class MoreInfoViewModel @Inject
 constructor(private val charactersRepository: CharactersRepository) : ViewModel() {
 
 
-    var goodItems: MutableList<Pair<String?, MutableList<Item>>> = mutableListOf()
+    private var goodItems: MutableList<Pair<String?, MutableList<Item>>> = mutableListOf()
+
+    lateinit var creators: List<Item>
+
+    lateinit var section : String
 
 
     fun getCreatorsMap(creators: List<Item>): MutableList<Pair<String?, MutableList<Item>>> {
@@ -31,11 +35,11 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
         return goodItems
     }
 
-    fun isRoleAlreadyAdded(role: String): Boolean {
+    private fun isRoleAlreadyAdded(role: String): Boolean {
         return goodItems.count { it.first.equals(role) } > 0
     }
 
-    fun isCreatorAlreadyAdded(creator: Item): Boolean {
+    private fun isCreatorAlreadyAdded(creator: Item): Boolean {
         if (goodItems.isNotEmpty()) {
             return goodItems.count { it.first.equals(creator.role) && it.second.contains(creator) } > 0
         } else {
@@ -45,11 +49,11 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
         return false
     }
 
-    fun addCreatorAndRole(creator : Item) {
+    private fun addCreatorAndRole(creator : Item) {
         goodItems.add(Pair(creator.role , mutableListOf(creator)))
     }
 
-    fun addCreator(creator : Item) {
+    private fun addCreator(creator : Item) {
         var creators : MutableList<Item> = mutableListOf()
 
         creators = goodItems.filter { it.first.equals(creator.role) }.get(0).second
@@ -58,6 +62,6 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
 
         creators.add(creator)
 
-        goodItems.set(index , Pair(creator.role , creators))
+        goodItems[index] = Pair(creator.role , creators)
     }
 }

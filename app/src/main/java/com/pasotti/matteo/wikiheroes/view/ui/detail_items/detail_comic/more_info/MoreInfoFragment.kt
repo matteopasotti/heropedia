@@ -26,8 +26,6 @@ import javax.inject.Inject
 
 class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
 
-    //TODO we need to prepare the items for the adapter, creating groups by role
-
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
@@ -41,11 +39,14 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
 
     companion object {
 
-        val CREATORS = "CREATORS"
+        const val CREATORS = "CREATORS"
 
-        fun newInstance(creators : ArrayList<Item>) : MoreInfoFragment {
+        const val SECTION = "SECTION"
+
+        fun newInstance(creators : ArrayList<Item>, section : String) : MoreInfoFragment {
             val args: Bundle = Bundle()
             args.putParcelableArrayList(CREATORS , creators)
+            args.putString(SECTION , section)
             val fragment = MoreInfoFragment()
             fragment.arguments = args
             return fragment
@@ -55,7 +56,14 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        creators = arguments!!.getParcelableArrayList(CREATORS)
+        if( savedInstanceState == null ) {
+            creators = arguments!!.getParcelableArrayList(CREATORS)
+
+            viewModel.creators = creators
+
+            viewModel.section = arguments!!.getString(SECTION)
+        }
+
 
     }
 
@@ -69,7 +77,7 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
     }
 
     private fun initView() {
-        adapter = CreatorRowAdapter(this, viewModel.getCreatorsMap(creators))
+        adapter = CreatorRowAdapter(this, viewModel.getCreatorsMap(viewModel.creators))
         binding.listRowsCreators.adapter = adapter
     }
 
@@ -85,7 +93,7 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
 
         val intent = Intent(activity, CreatorDetailActivity::class.java)
         intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
-        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
+        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, viewModel.section)
         startActivity(intent, options.toBundle())
     }
 }

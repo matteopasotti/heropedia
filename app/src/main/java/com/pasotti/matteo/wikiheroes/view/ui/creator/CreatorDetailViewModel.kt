@@ -28,7 +28,7 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
 
     init {
-        itemsLiveData = Transformations.switchMap(page , { getItemsByCreatorId(creator) })
+        itemsLiveData = Transformations.switchMap(page) { getItemsByCreatorId(creator) }
     }
 
     /**
