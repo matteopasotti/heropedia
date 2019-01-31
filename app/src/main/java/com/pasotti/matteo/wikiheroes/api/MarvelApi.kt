@@ -1,10 +1,9 @@
 package com.pasotti.matteo.wikiheroes.api
 
-import androidx.lifecycle.LiveData
 import androidx.annotation.Nullable
+import androidx.lifecycle.LiveData
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,6 +18,13 @@ interface MarvelApi {
                              @Nullable @Query("offset") offset: Int,
                              @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
 
+    @GET("/v1/public/series/{seriesId}")
+    public fun getSeriesBySeriesId(@Path("seriesId") id: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
 
     @GET("/v1/public/characters/{id}")
     public fun getCharacterDetail(@Path("id") id: String,
@@ -26,15 +32,6 @@ interface MarvelApi {
                                   @Query("apikey") apiKey: String,
                                   @Query("hash") hash: String)
             : LiveData<ApiResponse<CharacterResponse>>
-
-
-    @GET("/v1/public/{type}/{id}")
-    public fun getDetail(@Path("type") type: String,
-                         @Path("id") id: String,
-                         @Query("ts") ts: String,
-                         @Query("apikey") apiKey: String,
-                         @Query("hash") hash: String)
-            : Single<DetailResponse>
 
     @GET("/v1/public/characters/{characterId}/comics")
     public fun getComicsByCharacterId(@Path("characterId") characterId: String,
@@ -49,6 +46,15 @@ interface MarvelApi {
                                       @Query("apikey") apiKey: String,
                                       @Query("hash") hash: String,
                                       @Query("ts") ts: String)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters/{characterId}/series")
+    public fun getSeriesByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String,
+                                      @Nullable @Query("offset") offset: Int,
+                                      @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/characters/{characterId}/stories")
@@ -73,15 +79,36 @@ interface MarvelApi {
                                    @Query("orderBy") orderBy: String)
             : LiveData<ApiResponse<DetailResponse>>
 
+    @GET("/v1/public/series/{seriesId}/comics")
+    public fun getComicsBySeriesId(@Path("seriesId") seriesId: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String,
+                                   @Query("orderBy") orderBy: String,
+                                   @Nullable @Query("offset") offset: Int,
+                                   @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
     @GET("/v1/public/creators/{creatorId}/comics")
     public fun getComicsByCreatorId(@Path("creatorId") creatorId: String,
                                     @Query("apikey") apiKey: String,
                                     @Query("hash") hash: String,
                                     @Query("ts") ts: String,
-                                    @Query("noVariants") noVariants : Boolean,
+                                    @Query("noVariants") noVariants: Boolean,
                                     @Query("orderBy") orderBy: String,
                                     @Nullable @Query("offset") offset: Int,
                                     @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("/v1/public/characters/{characterId}/comics")
+    public fun getComicsByCharacterId(@Path("characterId") characterId: String,
+                                      @Query("apikey") apiKey: String,
+                                      @Query("hash") hash: String,
+                                      @Query("ts") ts: String,
+                                      @Query("orderBy") orderBy: String,
+                                      @Nullable @Query("offset") offset: Int,
+                                      @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/creators/{creatorId}/series")

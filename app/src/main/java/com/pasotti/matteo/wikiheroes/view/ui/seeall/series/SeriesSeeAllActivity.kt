@@ -1,8 +1,9 @@
-package com.pasotti.matteo.wikiheroes.view.ui.creator
+package com.pasotti.matteo.wikiheroes.view.ui.seeall.series
 
-import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.Intent
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
@@ -13,82 +14,95 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
-import com.pasotti.matteo.wikiheroes.databinding.ActivityCreatorBinding
+import com.pasotti.matteo.wikiheroes.databinding.ActivitySeriesSeeAllBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
+import org.jetbrains.anko.backgroundDrawable
 import javax.inject.Inject
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
-
-
-    companion object {
-        const val TITLE_SECTION = "TITLE_SECTION"
-        const val CREATOR = "CREATOR"
-    }
+class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(CreatorDetailViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this , viewModelFactory).get(SeriesSeeAllViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityCreatorBinding>(this, R.layout.activity_creator) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivitySeriesSeeAllBinding>(this, R.layout.activity_series_see_all) }
+
+    companion object {
+        const val SERIES_ID = "series_id"
+        const val SERIES_TITLE = "series_title"
+        const val SERIES_IMAGE = "series_image"
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        if( savedInstanceState == null ) {
-            viewModel.firstTime = true
-            //Comics, Series, Events
-            viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
-            viewModel.type = intent.extras.getString(TITLE_SECTION)
+        if(savedInstanceState == null) {
 
             initUI()
 
             observeViewModel()
         }
-
     }
 
-    @SuppressLint("SetTextI18n")
     private fun initUI() {
 
-        setSupportActionBar(binding.toolbarCreatorDetail.toolbar)
-        if(supportActionBar != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setDisplayShowTitleEnabled(false)
+        viewModel.firstTime = true
+
+        binding.backButton.setOnClickListener {
+            onBackPressed()
         }
 
-        binding.toolbarCreatorDetail.toolbar.setNavigationOnClickListener { onBackPressed() }
-        binding.creatorNameText.text = viewModel.creator.name
-        binding.titleCreatorSection.text = " : " + viewModel.type
+        viewModel.seriesId = intent.extras.getString(SERIES_ID)
+        viewModel.seriesImage = intent.extras.getString(SERIES_IMAGE)
+        viewModel.seriesTitle = intent.extras.getString(SERIES_TITLE)
+
+        binding.testText.text = viewModel.seriesTitle
+        val requestOptions = RequestOptions()
+        requestOptions.circleCrop()
+
+        Glide.with(this)
+                .load(viewModel.seriesImage)
+                .apply(requestOptions)
+                .into(binding.circleImage)
+
+        //setGradientBackground(viewModel.getStandardBackgroundColor())
+
 
         //LIST
         val layoutManager = GridLayoutManager(this , 3)
-        binding.listCreatorItems.layoutManager = layoutManager
+        binding.listSerieComics.layoutManager = layoutManager
         viewModel.adapter = DetailAdapter(this)
-        binding.listCreatorItems.adapter = viewModel.adapter
+        binding.listSerieComics.adapter = viewModel.adapter
 
-        binding.listCreatorItems.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
+        binding.listSerieComics.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
             viewModel.pageCounter += 1
             loadMore(viewModel.pageCounter) }, layoutManager))
     }
 
     private fun observeViewModel() {
-        viewModel.itemsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.itemsLiveData.observe(this , Observer { it?.let { processResponse(it) } })
         loadMore(viewModel.pageCounter++)
+    }
+
+    private fun loadMore(page : Int) {
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.postPage(page)
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
@@ -105,14 +119,22 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     private fun renderDataState( items : List<Detail>) {
         viewModel.adapter.updateList(items)
         if(viewModel.firstTime) {
-            binding.listCreatorItems.scheduleLayoutAnimation()
+            binding.listSerieComics.scheduleLayoutAnimation()
             viewModel.firstTime = false
         }
     }
 
-    private fun loadMore(page : Int) {
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.postPage(page)
+
+    private fun setGradientBackground(dominantColor : Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
+            val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+            gradientDrawable.cornerRadius = 0f
+            binding.root.backgroundDrawable = gradientDrawable
+        } else {
+
+        }
+
     }
 
     override fun onItemClick(item: Detail, view: View) {
@@ -124,7 +146,8 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
         val intent = Intent(this, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.type)
+        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
         startActivity(intent, options.toBundle())
     }
+
 }

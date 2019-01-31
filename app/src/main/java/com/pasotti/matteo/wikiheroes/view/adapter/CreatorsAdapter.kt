@@ -6,7 +6,7 @@ import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.CreatorViewHolder
 
-class CreatorsAdapter (val delegate : CreatorViewHolder.Delegate , val creators : List<Item>) : BaseAdapter() {
+class CreatorsAdapter (val delegate : CreatorViewHolder.Delegate, private val creators : List<Item>) : BaseAdapter() {
 
     init {
         addItems(creators)

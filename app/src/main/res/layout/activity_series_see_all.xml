@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/series_see_all_collapsing_header"
+        android:background="@color/black">
+
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:tint="#ffffff"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_button"
+            android:elevation="3dp"/>
+
+
+        <com.github.florent37.shapeofview.shapes.DiagonalView
+            android:id="@+id/header_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:shape_diagonal_angle="13"
+            android:elevation="2dp"
+            app:shape_diagonal_position="bottom"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- YOUR CONTENT -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/image_back_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/login_background_one"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:scaleType="fitXY"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black60"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+        <ImageView
+            android:id="@+id/circle_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:elevation="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/header_view"
+            app:layout_constraintTop_toBottomOf="@+id/header_view"
+            android:layout_marginStart="20dp"/>
+
+        <TextView
+            android:id="@+id/test_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans_bold"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="Spider-Man/Deadpool (2016 - Present)"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/header_view"
+            app:layout_constraintStart_toEndOf="@+id/circle_image"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_serie_comics"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layoutAnimation="@anim/layout_animation_slide_bottom"
+            app:layout_constraintTop_toBottomOf="@+id/circle_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:progress="25"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/custom_progress_loader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circle_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+        
+        
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

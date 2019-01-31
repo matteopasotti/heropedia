@@ -69,17 +69,17 @@ class ErrorDialog : DialogFragment() {
 
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        val v = dialog.window.decorView
+        val v = dialog.window?.decorView
 
-        v.setBackgroundResource(android.R.color.transparent)
+        v?.setBackgroundResource(android.R.color.transparent)
 
         okButton.setOnClickListener {
             dismiss()
         }
 
-        val window = dialog.getWindow()
-        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        window.setGravity(Gravity.CENTER)
+        val window = dialog.window
+        window?.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setGravity(Gravity.CENTER)
 
         return dialog
 

@@ -49,8 +49,8 @@ class CreatorViewHolder(view: View, val delegate: Delegate ,val items : List<Ite
     }
 
     private fun isLastOne(creator : Item) : Boolean {
-        if(items != null && items.isNotEmpty() && items.size > 1) {
-            val index = items.indexOfFirst { it.equals(creator) }
+        if(items.isNotEmpty() && items.size > 1) {
+            val index = items.indexOfFirst { it == creator }
 
             return index == (items.size - 1)
         }

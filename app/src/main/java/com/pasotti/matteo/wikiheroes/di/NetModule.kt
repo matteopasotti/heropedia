@@ -1,6 +1,5 @@
 package com.pasotti.matteo.wikiheroes.di
 
-import com.airbnb.lottie.utils.Utils
 import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import dagger.Module

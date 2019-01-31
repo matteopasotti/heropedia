@@ -4,11 +4,11 @@ import androidx.databinding.DataBindingUtil
 import android.view.View
 import com.pasotti.matteo.wikiheroes.databinding.ItemCharacterBinding
 import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.view.ui.ItemCharacterViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.home.ItemCharacterViewModel
 
 class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
-    //here we define actions which we handle
+    //here we define actions that we handle
     interface Delegate {
         fun onItemClick(character: Character, view: View)
     }
@@ -28,7 +28,7 @@ class CharacterViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(v
 
     private fun drawUI() {
         binding.apply {
-            binding?.setVModel(ItemCharacterViewModel(character))
+            binding?.vModel = ItemCharacterViewModel(character)
             binding?.executePendingBindings()
         }
     }

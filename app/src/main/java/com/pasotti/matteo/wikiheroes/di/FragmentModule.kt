@@ -9,6 +9,10 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentModule {
 
+    /**
+     * Here we attach our Fragments to Dagger Graph
+     */
+
     @ContributesAndroidInjector
     internal abstract fun contributeHorizontalGalleryFragment(): HorizontalGalleryFragment
 

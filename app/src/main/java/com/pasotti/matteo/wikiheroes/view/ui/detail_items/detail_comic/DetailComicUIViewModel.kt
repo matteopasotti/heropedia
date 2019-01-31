@@ -39,8 +39,7 @@ class DetailComicUIViewModel(val item: Detail, val section : String) : DetailIte
         if (item.dates != null && item.dates.size > 0) {
             for (date in item.dates) {
                 if (date.type.equals("onsaleDate")) {
-                    var convertedDate = java.util.Date()
-                    convertedDate = dateFormat.parse(date.date)
+                    val convertedDate = dateFormat.parse(date.date)
                     return sdfDateFormat.format(convertedDate)
 
                 }

@@ -1,16 +1,15 @@
 package com.pasotti.matteo.wikiheroes.view.adapter
 
-import androidx.annotation.LayoutRes
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.annotation.LayoutRes
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import timber.log.Timber
-import java.util.ArrayList
+import java.util.*
 
 abstract class BaseAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<BaseViewHolder>(){
 
@@ -86,7 +85,7 @@ abstract class BaseAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<B
      * Gets the data object associated with a position.
      */
     protected fun getItemByPosition(position: Int): Any? {
-        return items.get(position)
+        return items[position]
     }
 
     override fun getItemViewType(position: Int): Int {

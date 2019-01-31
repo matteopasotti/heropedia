@@ -80,7 +80,7 @@ dependencies {
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
     testImplementation "junit:junit:$junitVersion"
     implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    testImplementation 'androidx.arch.core:core-testing:2.0.0'
+    testImplementation "androidx.arch.core:core-testing:$androidx_version"
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
 
@@ -101,25 +101,17 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
-
-    // DAGGER 2
+    // DAGGER 2 TEST
     compileOnly 'javax.annotation:jsr250-api:1.0'
     kaptTest "com.google.dagger:dagger:$dagger_version"
     testImplementation "com.google.dagger:dagger:$dagger_version"
-
-    //kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
     //ROOM
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
 
     // ViewModel and LiveData
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-
-    //Rx
-    implementation "io.reactivex.rxjava2:rxjava:2.1.8"
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidx_version"
 
 
     //RETROFIT and OKHTTP
@@ -134,15 +126,16 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
-    implementation 'com.flaviofaria:kenburnsview:1.0.7'
-
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    //SHAPEVIEW
+    implementation "com.github.florent37:shapeofview:$shape_view_version"
 
     //ANKO KOTLIN
     implementation "org.jetbrains.anko:anko:$anko_version"
 
     //TIMBER
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     //LOTTIE ANIMATIONS
     implementation "com.airbnb.android:lottie:$lottie_version"

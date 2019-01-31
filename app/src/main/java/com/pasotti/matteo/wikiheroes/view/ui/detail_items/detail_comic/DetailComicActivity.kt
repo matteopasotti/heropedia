@@ -43,12 +43,10 @@ class DetailComicActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        supportPostponeEnterTransition()
-
-        initUI()
+        if( savedInstanceState == null) {
+            supportPostponeEnterTransition()
+            initUI()
+        }
     }
 
 
@@ -88,6 +86,7 @@ class DetailComicActivity : AppCompatActivity() {
 
 
         if(binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
+            // SHOW OTHER ITEMS OF THAT COLLECTION
             Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
         }
     }

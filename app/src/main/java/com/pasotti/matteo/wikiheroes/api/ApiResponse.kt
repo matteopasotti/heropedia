@@ -4,6 +4,10 @@ import android.util.Log
 import retrofit2.Response
 import java.io.IOException
 
+/**
+ * In this class I wrap the response that i receive using Retrofit
+ *
+ */
 class ApiResponse<T> {
 
     val code: Int
@@ -11,7 +15,7 @@ class ApiResponse<T> {
     val error: Throwable?
 
     val isSuccessful: Boolean
-        get() = code >= 200 && code < 300
+        get() = code in 200..299
 
 
     constructor(error: Throwable) {
@@ -35,7 +39,7 @@ class ApiResponse<T> {
                 }
 
             }
-            if (message == null || message.trim { it <= ' ' }.length == 0) {
+            if (message == null || message.trim { it <= ' ' }.isEmpty()) {
                 message = response.message()
             }
             error = IOException(message)

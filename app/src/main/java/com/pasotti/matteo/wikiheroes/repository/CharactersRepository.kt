@@ -26,8 +26,6 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
-    val data = MutableLiveData<Resource<CharacterResponse>>()
-
 
     fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
 
@@ -38,9 +36,7 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
                 offset += defaultLimit
                 val newCharacters = item.data.results
 
-                for (character in newCharacters) {
-                    character.page = page
-                }
+                newCharacters.forEach { character -> character.page = page }
 
                 characterDao.insertCharacters(newCharacters)
             }
@@ -73,34 +69,11 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     }
 
-    fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
-
-    }
-
-    fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
-
-    }
-
-
-    fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-
-        return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
-
-    }
-
     fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-
         return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
-
     }
 
     fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-
         return marvelApi.getEventsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
-
     }
 }

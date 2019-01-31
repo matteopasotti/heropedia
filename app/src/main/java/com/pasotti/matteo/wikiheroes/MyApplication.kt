@@ -21,11 +21,6 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
 
-    val appComponent : AppComponent = DaggerAppComponent.builder()
-            .application(this)
-            .baseUrl(Utils.BASE_URL)
-            .build()
-
     override fun onCreate() {
         super.onCreate()
 

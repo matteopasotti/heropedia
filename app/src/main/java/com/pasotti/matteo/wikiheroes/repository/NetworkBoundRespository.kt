@@ -59,9 +59,9 @@ constructor() {
 
                     false -> {
                         onFetchFailed()
-                        result.addSource(dbSource) { newData ->
+                        result.addSource(dbSource) {
                             result.setValue(
-                                    Resource.error(response!!.error))
+                                    Resource.error(response.error))
                         }
                     }
                 }

@@ -8,11 +8,13 @@ import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.repository.ComicsRepository
+import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import com.pasotti.matteo.wikiheroes.utils.Utils
+import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import javax.inject.Inject
 
 class CreatorDetailViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
+constructor(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var creator : Item
 
@@ -21,6 +23,12 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
     private val defaultLimit = 20
 
     var offset = 0
+
+    var firstTime = false
+
+    lateinit var adapter : DetailAdapter
+
+    var pageCounter = 0
 
     var itemsLiveData: LiveData<ApiResponse<DetailResponse>> = MutableLiveData()
 
@@ -51,14 +59,14 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
         when (type) {
             "Comics" -> {
-                return comicsRepository.getComicsByCreatorId(id!!, offset)
+                return comicsRepository.getComicsByCreatorId(id, offset)
             }
             "Series" -> {
-                return comicsRepository.getSeriesByCreatorId(id!!, offset)
+                return seriesRepository.getSeriesByCreatorId(id, offset)
             }
 
             "Events" -> {
-                return comicsRepository.getEventsByCreatorId(id!!, offset)
+                return comicsRepository.getEventsByCreatorId(id, offset)
             }
 
         }

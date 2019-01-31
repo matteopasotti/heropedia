@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view.ui
+package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import android.app.ActivityOptions
 import androidx.lifecycle.Observer
@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -27,7 +26,6 @@ import android.os.Parcelable
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.item_character.view.*
-import kotlinx.android.synthetic.main.item_small_image.view.*
 import android.util.Pair as UtilPair
 
 
@@ -40,34 +38,26 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeActivityViewModel::class.java) }
 
-    private val adapter by lazy { CharactersAdapter(this) }
-
-    private var page = 0
-
-    private var firstTime = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
+        AndroidInjection.inject(this) //This line initialise our dependencies
         super.onCreate(savedInstanceState)
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        firstTime = true
-
-        initView()
-
-        observeViewModel()
+        if ( savedInstanceState == null ) {
+            viewModel.firstTime = true
+            initView()
+            observeViewModel()
+        }
     }
 
 
     private fun initView() {
         val linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.rvCharacters.layoutManager = linearLayout
-        binding.rvCharacters.adapter = adapter
+        viewModel.adapter = CharactersAdapter(this)
+        binding.rvCharacters.adapter = viewModel.adapter
         binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({
-            page = page + 1
-            loadMore(page) }, linearLayout))
+            viewModel.pageCounter += 1
+            loadMore(viewModel.pageCounter) }, linearLayout))
     }
 
     private fun loadMore(page : Int) {
@@ -77,7 +67,7 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private fun observeViewModel() {
         viewModel.charactersLiveData.observe(this, Observer { it?.let { processResponse(it) } })
-        loadMore(page++)
+        loadMore(viewModel.pageCounter++)
     }
 
     private fun processResponse(response: Resource<List<Character>>) {
@@ -97,32 +87,32 @@ class HomeActivity : AppCompatActivity(), CharacterViewHolder.Delegate {
 
     private fun renderDataState(items : List<Character>) {
 
-        page = items.get(items.size-1).page
-
         binding.progressBar.visibility = View.GONE
 
-        adapter.updateList(items)
+        viewModel.pageCounter = items[items.size-1].page
 
-        if(firstTime) {
+        viewModel.adapter.updateList(items)
+
+        if(viewModel.firstTime) {
             binding.rvCharacters.scheduleLayoutAnimation()
-            firstTime = false
+            viewModel.firstTime = false
         }
 
     }
 
     private fun renderErrorState(throwable: Throwable) {
+        Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
         binding.progressBar.visibility = View.GONE
         ErrorDialog.show(this.supportFragmentManager.beginTransaction(), throwable.toString())
-        Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
     }
 
     override fun onItemClick(character: Character, view: View) {
+
         Timber.i("Clicked Character ${character.name}" )
 
         val img = UtilPair.create(view.image as View, resources.getString(R.string.transition_character_image))
 
         val name = UtilPair.create(view.name as View, resources.getString(R.string.transition_character_name))
-
 
         val options = ActivityOptions.makeSceneTransitionAnimation(this, img , name)
 

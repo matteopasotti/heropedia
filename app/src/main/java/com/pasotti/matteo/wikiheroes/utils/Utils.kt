@@ -2,6 +2,7 @@ package com.pasotti.matteo.wikiheroes.utils
 
 import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.pasotti.matteo.wikiheroes.models.Character
@@ -17,7 +18,7 @@ object Utils {
 
     var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
-    val BASE_URL = "http://gateway.marvel.com"
+    const val BASE_URL = "http://gateway.marvel.com"
 
 
     fun md5(stringToHash: String): String {
@@ -55,7 +56,7 @@ object Utils {
 
     fun checkDetailsImages(items: List<Detail>): List<Detail> {
 
-        var goodItems: MutableList<Detail> = mutableListOf()
+        val goodItems: MutableList<Detail> = mutableListOf()
 
         goodItems.addAll(items.filter { it.thumbnail?.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
 
@@ -63,14 +64,14 @@ object Utils {
     }
 
     fun removeItemById(id : String , items: List<Detail>) : List<Detail> {
-        var goodItems: MutableList<Detail> = mutableListOf()
+        val goodItems: MutableList<Detail> = mutableListOf()
 
-        goodItems.addAll(items.filter { !(it.id.toString().equals(id)) })
+        goodItems.addAll(items.filter { it.id.toString() != id })
 
         return goodItems
     }
 
-    fun getIdByResourceURI(resourceURI: String?): String? {
+    fun getIdByResourceURI(resourceURI: String?): String {
         var result = ""
         if (resourceURI != null && resourceURI != "") {
             var i : Int = resourceURI.length - 1
@@ -94,11 +95,25 @@ object Utils {
 
     fun checkCharactersImages(items: List<Character>): List<Character> {
 
-        var goodItems: MutableList<Character> = mutableListOf()
+        val goodItems: MutableList<Character> = mutableListOf()
 
-        goodItems.addAll(items.filter { it.thumbnail?.path != null && it.thumbnail.path != IMAGE_NOT_AVAILABLE })
+        goodItems.addAll(items.filter { it.thumbnail.path != IMAGE_NOT_AVAILABLE })
 
         return goodItems
+    }
+
+
+    class NestedInfiniteScrollListener(val func: () -> Unit) : NestedScrollView.OnScrollChangeListener {
+        override fun onScrollChange(v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int) {
+            if (v?.getChildAt(v.childCount - 1) != null) {
+                if (scrollY >= v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight && scrollY > oldScrollY) {
+                    //code to fetch more data for endless scrolling
+                    Log.i("NestedInfiniteScrollLis", "End reached")
+                    func()
+                }
+            }
+        }
+
     }
 
     class InfiniteScrollListener(val func: () -> Unit, val layoutManager: androidx.recyclerview.widget.LinearLayoutManager) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
@@ -172,7 +187,7 @@ object Utils {
 
     class DetailsDiffCallback(private val oldItems : List<Detail>, private val newItems : List<Detail>) : DiffUtil.Callback() {
 
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).id == newItems.get(newItemPosition).id
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems[oldItemPosition].id == newItems.get(newItemPosition).id
 
         override fun getOldListSize(): Int {
             return oldItems.size
