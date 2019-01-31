@@ -6,10 +6,10 @@ buildscript {
         kotlin_version = '1.2.61'
         anko_version='0.10.5'
         room_version = '2.1.0-alpha01'
-        lifecycle_version = "1.1.1"
-        dagger_version = "2.15"
-        preference_room = "1.0.9"
-        retrofit_version = "2.4.0"
+        lifecycle_version = '1.1.1'
+        dagger_version = '2.15'
+        preference_room = '1.0.9'
+        retrofit_version = '2.4.0'
         support_version = '1.0.0'
         lottie_version = '2.6.0'
         mockWebServer_version = '3.9.0'
@@ -20,6 +20,10 @@ buildscript {
         junitVersion = '4.12'
         glideVersion = '4.8.0'
         constraintLayoutVersion = '2.0.0-alpha2'
+        roboelectric_version = '4.0'
+        shape_view_version = '1.4.6'
+        timber_version = '4.7.1'
+        androidx_version = '2.0.0'
     }
 
     repositories {

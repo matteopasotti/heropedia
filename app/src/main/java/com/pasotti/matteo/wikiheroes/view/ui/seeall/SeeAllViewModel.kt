@@ -9,11 +9,12 @@ import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
 import com.pasotti.matteo.wikiheroes.repository.ComicsRepository
 import com.pasotti.matteo.wikiheroes.repository.MainRepository
+import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import javax.inject.Inject
 
 class SeeAllViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository, private val charactersRepository: CharactersRepository, private val mainRepository: MainRepository) : ViewModel() {
+constructor(private val comicsRepository: ComicsRepository,private val seriesRepository: SeriesRepository, private val mainRepository: MainRepository) : ViewModel() {
 
     lateinit var adapter : DetailAdapter
 
@@ -64,10 +65,9 @@ constructor(private val comicsRepository: ComicsRepository, private val characte
 
     private fun getItems( id : Int) : LiveData<ApiResponse<DetailResponse>> {
 
-        //val id = Utils.getIdByResourceURI(item.resourceURI)
         when (type) {
             "Character" -> {
-                return charactersRepository.getComicsByCharacterId(id)
+                return comicsRepository.getComicsByCharacterId(id)
             }
 
             "Comics" -> {
@@ -75,10 +75,8 @@ constructor(private val comicsRepository: ComicsRepository, private val characte
             }
 
             "Series" -> {
-                return charactersRepository.getSeriesByCharacterId(id, offset)
+                return seriesRepository.getSeriesByCharacterId(id, offset)
             }
-
-
 
         }
 

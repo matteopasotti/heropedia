@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view.ui.seeall
+package com.pasotti.matteo.wikiheroes.view.ui.seeall.series
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -8,14 +8,17 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
-import com.pasotti.matteo.wikiheroes.databinding.ActivitySeeAllBinding
+import com.pasotti.matteo.wikiheroes.databinding.ActivitySeriesSeeAllBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
@@ -28,71 +31,72 @@ import kotlinx.android.synthetic.main.item_small_image.view.*
 import org.jetbrains.anko.backgroundDrawable
 import javax.inject.Inject
 
-
-class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
-
-
-    companion object {
-        const val TITLE_SECTION = "title_section"
-        const val ID = "id"
-        const val SECTION = "section"
-        const val CHARACTER_NAME = "character_name"
-    }
+class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SeeAllViewModel::class.java)}
+    private val viewModel by lazy { ViewModelProviders.of(this , viewModelFactory).get(SeriesSeeAllViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivitySeeAllBinding>(this, R.layout.activity_see_all) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivitySeriesSeeAllBinding>(this, R.layout.activity_series_see_all) }
+
+    companion object {
+        const val SERIES_ID = "series_id"
+        const val SERIES_TITLE = "series_title"
+        const val SERIES_IMAGE = "series_image"
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        if( savedInstanceState == null ) {
-            viewModel.id = intent.getIntExtra(ID, 0)
-            viewModel.title = intent.getStringExtra(TITLE_SECTION)
-            viewModel.type = intent.getStringExtra(SECTION)
-            viewModel.firstTime = true
-
-            if(viewModel.type == "Comics" || viewModel.type == "Series") {
-                viewModel.characterName = intent.getStringExtra(CHARACTER_NAME)
-                viewModel.title = viewModel.characterName + " : " + viewModel.type
-            }
+        if(savedInstanceState == null) {
 
             initUI()
 
-            observerViewModel()
+            observeViewModel()
         }
     }
 
     private fun initUI() {
 
+        viewModel.firstTime = true
+
         binding.backButton.setOnClickListener {
             onBackPressed()
         }
 
-        binding.title.text = viewModel.title
+        viewModel.seriesId = intent.extras.getString(SERIES_ID)
+        viewModel.seriesImage = intent.extras.getString(SERIES_IMAGE)
+        viewModel.seriesTitle = intent.extras.getString(SERIES_TITLE)
 
-        // set gradient background color
-        setGradientBackground(viewModel.getDominantColor())
+        binding.testText.text = viewModel.seriesTitle
+        val requestOptions = RequestOptions()
+        requestOptions.circleCrop()
 
-        // init list
+        Glide.with(this)
+                .load(viewModel.seriesImage)
+                .apply(requestOptions)
+                .into(binding.circleImage)
+
+        //setGradientBackground(viewModel.getStandardBackgroundColor())
+
+
+        //LIST
         val layoutManager = GridLayoutManager(this , 3)
-        binding.listItems.layoutManager = layoutManager
+        binding.listSerieComics.layoutManager = layoutManager
         viewModel.adapter = DetailAdapter(this)
-        binding.listItems.adapter = viewModel.adapter
+        binding.listSerieComics.adapter = viewModel.adapter
 
-        binding.nested.setOnScrollChangeListener(Utils.NestedInfiniteScrollListener {
+        binding.listSerieComics.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
             viewModel.pageCounter += 1
-            loadMore(viewModel.pageCounter)
-        })
-
+            loadMore(viewModel.pageCounter) }, layoutManager))
     }
 
-    private fun observerViewModel() {
-        viewModel.itemsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
+    private fun observeViewModel() {
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.itemsLiveData.observe(this , Observer { it?.let { processResponse(it) } })
         loadMore(viewModel.pageCounter++)
     }
 
@@ -115,7 +119,7 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     private fun renderDataState( items : List<Detail>) {
         viewModel.adapter.updateList(items)
         if(viewModel.firstTime) {
-            binding.listItems.scheduleLayoutAnimation()
+            binding.listSerieComics.scheduleLayoutAnimation()
             viewModel.firstTime = false
         }
     }
@@ -133,7 +137,6 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     }
 
-
     override fun onItemClick(item: Detail, view: View) {
         val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
 
@@ -143,7 +146,8 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
         val intent = Intent(this, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.type)
-        startActivity(intent, options.toBundle())    }
+        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
+        startActivity(intent, options.toBundle())
+    }
 
 }

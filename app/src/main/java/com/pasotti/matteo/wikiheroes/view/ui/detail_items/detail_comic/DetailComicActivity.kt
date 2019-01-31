@@ -43,12 +43,10 @@ class DetailComicActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        supportPostponeEnterTransition()
-
-        initUI()
+        if( savedInstanceState == null) {
+            supportPostponeEnterTransition()
+            initUI()
+        }
     }
 
 

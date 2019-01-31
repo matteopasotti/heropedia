@@ -1,12 +1,11 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home.splash
 
 import androidx.appcompat.app.AppCompatActivity
-import com.pasotti.matteo.wikiheroes.view.ui.HomeActivity
+import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.pasotti.matteo.wikiheroes.R
-import com.pasotti.matteo.wikiheroes.view.ui.home.login.LoginActivity
 
 
 class SplashActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.pasotti.matteo.wikiheroes.view.ui
+package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable

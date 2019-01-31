@@ -1,17 +1,14 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.pasotti.matteo.wikiheroes.api.ApiResponse
-import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
+import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.repository.MainRepository
 import javax.inject.Inject
 
 class DetailActivityViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository, private val mainRepository: MainRepository) : ViewModel() {
+constructor(private val mainRepository: MainRepository) : ViewModel() {
 
-    fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> = charactersRepository.getComicsByCharacterId(id)
+    lateinit var character : Character
 
     fun saveDominantColor(color : Int) = mainRepository.saveSaveDominantColor(color)
 }

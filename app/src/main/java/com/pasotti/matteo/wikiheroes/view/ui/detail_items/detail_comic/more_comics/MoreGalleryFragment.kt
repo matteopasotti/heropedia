@@ -22,6 +22,7 @@ import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.MoreGalleryAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.MoreImageViewHolder
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -68,7 +69,7 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
         binding = DataBindingUtil.inflate(inflater ,  R.layout.fragment_more_gallery, container, false)
 
-        viewModel.item = arguments!!.getParcelable(ITEM)
+        viewModel.item = this.arguments!!.getParcelable(ITEM)
 
         viewModel.id = arguments!!.getString(ID)
 
@@ -84,12 +85,20 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
+
+        binding.seeallLabel.setOnClickListener {
+            val intent = Intent(activity, SeriesSeeAllActivity::class.java)
+            intent.putExtra(SeriesSeeAllActivity.SERIES_ID, viewModel.seriesId)  //19679
+            intent.putExtra(SeriesSeeAllActivity.SERIES_TITLE, viewModel.seriesTitle)
+            intent.putExtra(SeriesSeeAllActivity.SERIES_IMAGE, viewModel.seriesThumbnail)
+            startActivity(intent)
+        }
     }
 
     private fun observeViewModel() {
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getItems(viewModel.item, arguments!!.getString(TYPE)).observe(this, Observer { it?.let { processResponse(it) } })
-
+        viewModel.getItems(viewModel.item, arguments!!.getString(TYPE)).observe(this, Observer { it -> it?.let { processResponse(it) } })
+        viewModel.getSeriesDetails().observe(this , Observer { it -> it?.let { saveSeriesDetail(it) } })
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
@@ -101,6 +110,13 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
             }
 
             renderDataState(items)
+        }
+    }
+
+    private fun saveSeriesDetail(response: ApiResponse<DetailResponse>) {
+        if(response.isSuccessful && response.body != null) {
+            viewModel.seriesThumbnail = response.body.data.results[0].thumbnail?.path + "." + response.body.data.results[0].thumbnail?.extension
+            viewModel.seriesTitle = response.body.data.results[0].title!!
         }
     }
 

@@ -22,6 +22,11 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import java.util.*
 
+
+/**
+ * Here we want to mock the response of the network request
+ */
+
 @RunWith(JUnit4::class)
 class MarvelServiceTest {
 
@@ -32,12 +37,12 @@ class MarvelServiceTest {
     private lateinit var service: MarvelApi
     private lateinit var mockWebServer: MockWebServer
 
-    val defaultLimit = 10
+    private val defaultLimit = 10
 
-    var offset = 0
+    private var offset = 0
 
-    val timestamp = Date().time
-    val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    private val timestamp = Date().time
+    private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
     @Throws(IOException::class)
     @Before

@@ -49,14 +49,9 @@ class DetailActivity : AppCompatActivity() {
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailCircularBinding>(this, R.layout.activity_detail_circular) }
 
-    private lateinit var char: Character
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         if(savedInstanceState == null) {
             supportPostponeEnterTransition()
@@ -70,7 +65,7 @@ class DetailActivity : AppCompatActivity() {
 
         getCharacterFromIntent()
 
-        binding.character = char
+        binding.character = viewModel.character
 
         val requestOptions = RequestOptions()
         requestOptions.circleCrop()
@@ -111,29 +106,19 @@ class DetailActivity : AppCompatActivity() {
         }
 
 
-        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", char.id, char.name), binding.containerComics.id)
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", viewModel.character.id, viewModel.character.name), binding.containerComics.id)
 
-        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Series", char.id, char.name), binding.containerSeries.id)
-    }
-
-    private fun renderLoadingState() {
-
-        Timber.d("call LOADING")
-    }
-
-    private fun renderErrorState(throwable: Throwable) {
-        ErrorDialog.show(supportFragmentManager.beginTransaction(), throwable.toString())
-        Timber.d("call ERROR response : %s", throwable.toString())
+        Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Series", viewModel.character.id, viewModel.character.name), binding.containerSeries.id)
     }
 
 
     private fun getImageUri(): String {
-        return char.thumbnail.path + IMAGE_TYPE + char.thumbnail.extension
+        return viewModel.character.thumbnail.path + IMAGE_TYPE + viewModel.character.thumbnail.extension
     }
 
 
     private fun getCharacterFromIntent() {
-        char = intent.extras.getParcelable(intent_character)
+        viewModel.character = intent.extras.getParcelable(intent_character)
 
     }
 

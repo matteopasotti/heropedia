@@ -20,22 +20,30 @@ constructor(private val marvelApi: MarvelApi) {
     private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
     fun getComicsBySeriesId(id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber")
+        return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-issueNumber")
+    }
+
+    fun getComicsBySeriesId(id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-issueNumber", offset, defaultLimit)
     }
 
     fun getComicsByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "issueNumber", offset, defaultLimit)
+        return marvelApi.getComicsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "-onsaleDate", offset, defaultLimit)
     }
 
     fun getComicsByCharacterId(id : Int, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
     }
 
-    fun getSeriesByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
-    }
-
     fun getEventsByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getEventsByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber", offset, defaultLimit)
+    }
+
+    fun getComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
+    }
+
+    fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
     }
 }

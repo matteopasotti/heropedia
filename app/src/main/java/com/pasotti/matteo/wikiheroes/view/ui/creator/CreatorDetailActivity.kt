@@ -44,35 +44,21 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityCreatorBinding>(this, R.layout.activity_creator) }
 
-    private lateinit var titleSection : String
-
-    lateinit var adapter : DetailAdapter
-
-    private var firstTime = false
-
-    private var page = 0
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         if( savedInstanceState == null ) {
-            firstTime = true
+            viewModel.firstTime = true
             //Comics, Series, Events
-            titleSection = intent.extras.getString(TITLE_SECTION)
-
             viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
-            viewModel.type = titleSection
+            viewModel.type = intent.extras.getString(TITLE_SECTION)
 
             initUI()
 
             observeViewModel()
         }
-
 
     }
 
@@ -80,7 +66,6 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     private fun initUI() {
 
         setSupportActionBar(binding.toolbarCreatorDetail.toolbar)
-
         if(supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setDisplayShowTitleEnabled(false)
@@ -90,21 +75,20 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         binding.creatorNameText.text = viewModel.creator.name
         binding.titleCreatorSection.text = " : " + viewModel.type
 
-
         //LIST
         val layoutManager = GridLayoutManager(this , 3)
         binding.listCreatorItems.layoutManager = layoutManager
-        adapter = DetailAdapter(this)
-        binding.listCreatorItems.adapter = adapter
+        viewModel.adapter = DetailAdapter(this)
+        binding.listCreatorItems.adapter = viewModel.adapter
 
         binding.listCreatorItems.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
-            page += 1
-            loadMore(page) }, layoutManager))
+            viewModel.pageCounter += 1
+            loadMore(viewModel.pageCounter) }, layoutManager))
     }
 
     private fun observeViewModel() {
         viewModel.itemsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
-        loadMore(page++)
+        loadMore(viewModel.pageCounter++)
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
@@ -119,11 +103,10 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     }
 
     private fun renderDataState( items : List<Detail>) {
-
-        adapter.updateList(items)
-        if(firstTime) {
+        viewModel.adapter.updateList(items)
+        if(viewModel.firstTime) {
             binding.listCreatorItems.scheduleLayoutAnimation()
-            firstTime = false
+            viewModel.firstTime = false
         }
     }
 

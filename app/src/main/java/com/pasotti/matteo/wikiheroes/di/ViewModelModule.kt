@@ -3,7 +3,7 @@ package com.pasotti.matteo.wikiheroes.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import com.pasotti.matteo.wikiheroes.view.ui.HomeActivityViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicViewModel
@@ -11,12 +11,17 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comi
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
 internal abstract class ViewModelModule {
+
+    /**
+     * Here we're providing entries to a multibound map, providing the value (ViewModel) and the key (ViewModelKey)
+     */
 
     @Binds
     @IntoMap
@@ -42,6 +47,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MoreInfoViewModel::class)
     internal abstract fun bindMoreInfoViewModel(moreInfoViewModel: MoreInfoViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SeriesSeeAllViewModel::class)
+    internal abstract fun bindSeriesSeeAllViewModel( seeAllViewModel: SeriesSeeAllViewModel ) : ViewModel
 
     @Binds
     @IntoMap

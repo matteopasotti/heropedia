@@ -15,6 +15,8 @@ import javax.inject.Singleton
     (AppModule::class),
     (NetModule::class)])
 interface AppComponent {
+
+    // Create an instance of the Component
     @Component.Builder
     interface Builder {
         @BindsInstance

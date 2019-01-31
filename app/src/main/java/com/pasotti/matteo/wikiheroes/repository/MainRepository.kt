@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 class MainRepository @Inject
-constructor(val preferenceManager: PreferenceManager) {
+constructor(private val preferenceManager: PreferenceManager) {
 
     fun saveSaveDominantColor(color : Int) {
         preferenceManager.setInt(PreferenceManager.DOMINANT_COLOR, color)
@@ -15,4 +15,6 @@ constructor(val preferenceManager: PreferenceManager) {
 
     fun getDominantColor() : Int = preferenceManager.getInt(PreferenceManager.DOMINANT_COLOR, 0)
     // put the value of black color
+
+    fun getStandardColor() : Int = -13094864
 }
