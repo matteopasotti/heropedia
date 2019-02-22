@@ -60,8 +60,7 @@ constructor() {
                     false -> {
                         onFetchFailed()
                         result.addSource(dbSource) {
-                            result.setValue(
-                                    Resource.error(response.error))
+                            result.setValue(Resource.error(response.error))
                         }
                     }
                 }
