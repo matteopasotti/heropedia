@@ -17,6 +17,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
+import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailCircularBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
@@ -47,7 +48,9 @@ class DetailActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailCircularBinding>(this, R.layout.activity_detail_circular) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
+
+    lateinit var gradientDrawable : GradientDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -64,6 +67,15 @@ class DetailActivity : AppCompatActivity() {
     private fun initUI() {
 
         getCharacterFromIntent()
+
+        // ------------------     TOOLBAR  -------------------------------------------
+        setSupportActionBar(binding.toolbarCharacterDetail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = null
+        binding.toolbarCharacterDetail.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         binding.character = viewModel.character
 
@@ -88,7 +100,7 @@ class DetailActivity : AppCompatActivity() {
                                 val dominantColor = it?.getDominantColor(resources.getColor(R.color.black, null))!!
                                 val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
                                 viewModel.saveDominantColor(dominantColor)
-                                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+                                gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
                                 gradientDrawable.cornerRadius = 0f
                                 binding.viewGradient.backgroundDrawable = gradientDrawable
 
@@ -101,10 +113,11 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }).into(binding.circularImage)
 
-        binding.backButton.setOnClickListener {
+        /*binding.backButton.setOnClickListener {
             onBackPressed()
-        }
+        }*/
 
+        //binding.collapsingToolbar.contentScrim = gradientDrawable
 
         Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", viewModel.character.id, viewModel.character.name), binding.containerComics.id)
 

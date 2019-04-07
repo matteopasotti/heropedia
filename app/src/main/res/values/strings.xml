@@ -8,4 +8,7 @@
     <string name="transition_character_name">transition_character_name</string>
     <string name="image_gallery_content_descriptor">imageGallery</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+    <string name="title_characters">characters</string>
+    <string name="title_comics">comics</string>
+    <string name="title_saved">saved</string>
 </resources>
