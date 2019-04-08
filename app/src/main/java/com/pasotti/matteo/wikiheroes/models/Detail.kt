@@ -1,9 +1,15 @@
 package com.pasotti.matteo.wikiheroes.models
 
 import android.os.Parcelable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.TypeConverters
+import com.pasotti.matteo.wikiheroes.room.RoomConverters
 import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
+
+@Entity(primaryKeys = ["id"])
 @Parcelize
 data class Detail( val id: Int,
                    val digitalId: String?,
@@ -19,6 +25,7 @@ data class Detail( val id: Int,
                    val issn: String?,
                    val format: String?,
                    val pageCount: Int,
+                   @Embedded(prefix = "series_")
                    val series: Item?,
                    val dates: MutableList<Date>?,
                    val prices: MutableList<Price>?,
@@ -27,4 +34,5 @@ data class Detail( val id: Int,
                    val resourceURI: String,
                    val thumbnail: Thumbnail?,
                    val images: MutableList<Thumbnail>?,
-                   val urls: MutableList<ItemUrl>?) : Parcelable
+                   val urls: MutableList<ItemUrl>?,
+                   var page : Int) : Parcelable

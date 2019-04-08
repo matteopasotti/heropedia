@@ -6,6 +6,7 @@ import android.preference.PreferenceManager
 import androidx.room.Room
 import com.pasotti.matteo.wikiheroes.room.AppDatabase
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
+import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.room.ItemDao
 import dagger.Module
 import dagger.Provides
@@ -35,6 +36,13 @@ class AppModule {
     @Singleton
     fun provideItemDao(database: AppDatabase): ItemDao {
         return database.itemDao()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideComicsDao(database: AppDatabase): ComicsDao {
+        return database.comicsDao()
     }
 
     @Singleton

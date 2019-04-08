@@ -135,6 +135,7 @@ interface MarvelApi {
     @GET("v1/public/comics")
     public fun getComicsOfTheWeek(@Query("dateDescriptor") dateDescriptor: String,
                                   @Query("orderBy") orderBy: String,
+                                  @Query("format") format: String,
                                   @Query("ts") ts: String,
                                   @Query("apikey") apiKey: String,
                                   @Query("hash") hash: String,

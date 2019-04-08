@@ -3,7 +3,10 @@ package com.pasotti.matteo.wikiheroes.repository
 import androidx.lifecycle.LiveData
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
+import com.pasotti.matteo.wikiheroes.api.Resource
+import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
 import javax.inject.Inject
@@ -11,9 +14,11 @@ import javax.inject.Singleton
 
 @Singleton
 class ComicsRepository @Inject
-constructor(private val marvelApi: MarvelApi) {
+constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
 
     private val defaultLimit = 20
+
+    var offset = 0
 
     private val timestamp = Date().time
 
@@ -43,8 +48,40 @@ constructor(private val marvelApi: MarvelApi) {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
     }
 
-    fun getComicsOfTheWeek( offset: Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsOfTheWeek("thisWeek" , "-onsaleDate" , timestamp.toString() ,Utils.MARVEL_PUBLIC_KEY ,  hash,  offset, defaultLimit )
+    fun getComicsOfTheWeek( page : Int) : LiveData<Resource<List<Detail>>> {
+        return object : NetworkBoundResource<List<Detail>, DetailResponse>() {
+            override fun saveFetchData(item: DetailResponse) {
+                offset += defaultLimit
+                val newComics = item.data.results
+
+                newComics.forEach { comic -> comic.page = page }
+
+                comicsDao.insertComics(newComics)
+            }
+
+            override fun shouldFetch(data: List<Detail>?): Boolean {
+                if(data != null && data.isNotEmpty()) {
+                    offset = data.size
+                }
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb(): LiveData<List<Detail>> {
+                return if(page == 0) {
+                    comicsDao.getComics()
+                } else  {
+                    comicsDao.getComicsByPage(page)
+                }
+            }
+
+            override fun fetchService(): LiveData<ApiResponse<DetailResponse>> {
+                return marvelApi.getComicsOfTheWeek("thisWeek" , "-onsaleDate" , "comic", timestamp.toString() ,Utils.MARVEL_PUBLIC_KEY ,  hash,  offset, defaultLimit )
+            }
+
+            override fun onFetchFailed() {
+            }
+
+        }.asLiveData
     }
 
     fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {

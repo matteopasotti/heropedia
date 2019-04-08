@@ -87,7 +87,7 @@ class DetailComicActivity : AppCompatActivity() {
 
         if(binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
             // SHOW OTHER ITEMS OF THAT COLLECTION
-            Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
+           Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
         }
     }
 
