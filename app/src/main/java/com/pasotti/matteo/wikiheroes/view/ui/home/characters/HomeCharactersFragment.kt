@@ -1,8 +1,12 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home.characters
 
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +22,29 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
+import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.item_character.view.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
 
 
     override fun onItemClick(character: Character, view: View) {
+        Timber.i("Clicked Character ${character.name}" )
+
+        val img = Pair.create(view.image as View, resources.getString(R.string.transition_character_image))
+
+        val name = Pair.create(view.name as View, resources.getString(R.string.transition_character_name))
+
+        val options = ActivityOptions.makeSceneTransitionAnimation(activity, img , name)
+
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra(DetailActivity.intent_character , character as Parcelable)
+        startActivity(intent, options.toBundle())
     }
 
 
@@ -54,6 +72,10 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater ,  R.layout.fragment_home_characters, container, false)
+
+        if ( savedInstanceState == null ) {
+            viewModel.firstTime = true
+        }
 
         initView()
 

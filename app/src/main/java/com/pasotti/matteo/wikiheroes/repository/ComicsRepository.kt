@@ -43,6 +43,10 @@ constructor(private val marvelApi: MarvelApi) {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
     }
 
+    fun getComicsOfTheWeek( offset: Int) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsOfTheWeek("thisWeek" , "-onsaleDate" , timestamp.toString() ,Utils.MARVEL_PUBLIC_KEY ,  hash,  offset, defaultLimit )
+    }
+
     fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
     }

@@ -4,6 +4,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comi
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoFragment
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.characters.HomeCharactersFragment
+import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -25,4 +26,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeCharactersFragment() : HomeCharactersFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeHomeComicsFragment() : HomeComicsFragment
 }

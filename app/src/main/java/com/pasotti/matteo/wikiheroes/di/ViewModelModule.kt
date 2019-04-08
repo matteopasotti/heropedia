@@ -10,6 +10,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailCom
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragmentViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllViewModel
 import dagger.Binds
@@ -67,6 +68,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CreatorDetailViewModel::class)
     internal abstract fun bindCreatorDetailViewModel( creatorDetailViewModel: CreatorDetailViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeComicsViewModel::class)
+    internal abstract fun bindHomeComicsViewModel( homeComicsViewModel: HomeComicsViewModel) : ViewModel
 
 
     @Binds

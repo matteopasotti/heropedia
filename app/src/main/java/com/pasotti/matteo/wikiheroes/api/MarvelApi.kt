@@ -130,4 +130,15 @@ interface MarvelApi {
                                     @Nullable @Query("offset") offset: Int,
                                     @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("v1/public/comics")
+    public fun getComicsOfTheWeek(@Query("dateDescriptor") dateDescriptor: String,
+                                  @Query("orderBy") orderBy: String,
+                                  @Query("ts") ts: String,
+                                  @Query("apikey") apiKey: String,
+                                  @Query("hash") hash: String,
+                                  @Nullable @Query("offset") offset: Int,
+                                  @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
 }
