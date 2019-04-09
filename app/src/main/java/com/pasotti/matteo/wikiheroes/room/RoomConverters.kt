@@ -1,11 +1,12 @@
 package com.pasotti.matteo.wikiheroes.room
 
+import android.text.TextUtils
 import androidx.room.TypeConverter
 import java.util.*
 import com.google.gson.reflect.TypeToken
-import java.util.Collections.emptyList
 import com.google.gson.Gson
 import com.pasotti.matteo.wikiheroes.models.*
+import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.Date
 
 
@@ -170,4 +171,41 @@ class RoomConverters {
     fun itemListToString(items: List<Item>): String {
         return gson.toJson(items)
     }
+
+    @TypeConverter
+    fun fromWeekToString( week : Utils.WEEK) : String? {
+        if( week == null) {
+            return null
+        }
+
+        return week.toString()
+    }
+
+    @TypeConverter
+    fun fromStringToWeek( week : String) : Utils.WEEK {
+        if(TextUtils.isEmpty(week)) {
+            return Utils.WEEK.none
+        }
+
+        if(week == "thisWeek") {
+            return Utils.WEEK.thisWeek
+        } else if( week == "lastWeek") {
+            return Utils.WEEK.lastWeek
+        } else if( week == "nextWeek") {
+            return Utils.WEEK.nextWeek
+        }
+
+
+        return Utils.WEEK.none
+    }
+
+    /*
+    @TypeConverter
+    public static Category fromStringToCategory(String category) {
+        if (TextUtil.isEmpty(category))
+            return DEFAULT_CATEGORY;
+        return YOUR_LOGIC_FOR_CONVERSION;
+    }
+     */
+
 }

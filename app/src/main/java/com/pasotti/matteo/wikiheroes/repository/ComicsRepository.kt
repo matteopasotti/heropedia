@@ -48,13 +48,18 @@ constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
     }
 
-    fun getComicsOfTheWeek( page : Int) : LiveData<Resource<List<Detail>>> {
+    fun getComicsOfTheWeek( page : Int, week: Utils.WEEK) : LiveData<Resource<List<Detail>>> {
         return object : NetworkBoundResource<List<Detail>, DetailResponse>() {
             override fun saveFetchData(item: DetailResponse) {
                 offset += defaultLimit
                 val newComics = item.data.results
 
-                newComics.forEach { comic -> comic.page = page }
+                newComics.forEach { comic ->
+                    run {
+                        comic.page = page
+                        comic.week = week
+                    }
+                }
 
                 comicsDao.insertComics(newComics)
             }
@@ -68,14 +73,17 @@ constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
 
             override fun loadFromDb(): LiveData<List<Detail>> {
                 return if(page == 0) {
-                    comicsDao.getComics()
+                    comicsDao.getComics(week)
                 } else  {
-                    comicsDao.getComicsByPage(page)
+                    comicsDao.getComicsByPage(page , week)
                 }
             }
 
             override fun fetchService(): LiveData<ApiResponse<DetailResponse>> {
-                return marvelApi.getComicsOfTheWeek("thisWeek" , "-onsaleDate" , "comic", timestamp.toString() ,Utils.MARVEL_PUBLIC_KEY ,  hash,  offset, defaultLimit )
+                if(page == 0) {
+                    offset = 0
+                }
+                return marvelApi.getComicsOfTheWeek(week.toString() , "-onsaleDate" , "comic", timestamp.toString() ,Utils.MARVEL_PUBLIC_KEY ,  hash,  offset, defaultLimit )
             }
 
             override fun onFetchFailed() {

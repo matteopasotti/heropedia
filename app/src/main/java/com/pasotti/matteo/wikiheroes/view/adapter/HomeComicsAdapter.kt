@@ -12,6 +12,12 @@ class HomeComicsAdapter ( val delegate : HomeComicsViewHolder.Delegate) : BaseAd
         addItems(ArrayList<Detail>())
     }
 
+    fun addList( comics: List<Detail>) {
+        clearItems()
+        addItems(comics)
+        notifyDataSetChanged()
+    }
+
     fun updateList( comics : List<Detail>) {
         addItems(comics)
         notifyItemInserted(items.size)

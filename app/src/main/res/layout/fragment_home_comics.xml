@@ -8,6 +8,46 @@
         android:layout_height="match_parent"
         android:background="@color/mid_black">
 
+
+        <!-- SELECTION OF THE WEEK -->
+        <TextView
+            android:id="@+id/previous_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PREVIOUS"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/product_sans_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"/>
+
+
+        <TextView
+            android:id="@+id/this_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="THIS"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/product_sans_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/previous_week"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            android:id="@+id/next_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NEXT"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/product_sans_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/this_week"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="16dp"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_comics"
             android:layout_width="0dp"
@@ -18,7 +58,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/previous_week"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layoutAnimation="@anim/layout_animation_slide_bottom"/>
 

@@ -21,6 +21,14 @@ object Utils {
     const val BASE_URL = "http://gateway.marvel.com"
 
 
+    enum class WEEK {
+        lastWeek,
+        thisWeek,
+        nextWeek,
+        none
+    }
+
+
     fun md5(stringToHash: String): String {
         val md5 = "MD5"
 

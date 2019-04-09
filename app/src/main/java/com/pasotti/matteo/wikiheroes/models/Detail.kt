@@ -3,10 +3,8 @@ package com.pasotti.matteo.wikiheroes.models
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.TypeConverters
-import com.pasotti.matteo.wikiheroes.room.RoomConverters
+import com.pasotti.matteo.wikiheroes.utils.Utils
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
 
 @Entity(primaryKeys = ["id"])
@@ -35,4 +33,5 @@ data class Detail( val id: Int,
                    val thumbnail: Thumbnail?,
                    val images: MutableList<Thumbnail>?,
                    val urls: MutableList<ItemUrl>?,
-                   var page : Int) : Parcelable
+                   var page : Int,
+                   var week: Utils.WEEK = Utils.WEEK.none) : Parcelable
