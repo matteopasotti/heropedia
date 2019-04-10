@@ -46,7 +46,7 @@
             android:theme="@style/Widget.BottomNavigationView"
             app:itemTextColor="@color/navigation_home_selector"
             app:itemIconTint="@color/navigation_home_selector"
-            android:background="@color/darkGrey"
+            android:background="@drawable/bg_gradient_bottom_nav"
             app:layout_behavior="com.pasotti.matteo.wikiheroes.utils.BottomNavigationBehavior"
             app:menu="@menu/navigation"/>
 

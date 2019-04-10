@@ -90,5 +90,14 @@ class DetailComicUIViewModel(val item: Detail, val section : String) : DetailIte
         }
     }
 
+    @Bindable
+    fun getComicUrl() : String {
+        if(item.urls != null && item.urls.isNotEmpty()) {
+            return item.urls[0].url
+        }
+
+        return "http://marvel.com"
+    }
+
 
 }

@@ -27,7 +27,9 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
+        //refresh db every 5 days
         viewModel.checkDateSyncComics()
+        viewModel.checkDateSynchCharacters()
 
         Handler().postDelayed({
             val mainIntent = Intent(this, MainActivity::class.java)

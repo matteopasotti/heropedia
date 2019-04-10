@@ -9,14 +9,16 @@ import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
+import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.concurrent.thread
 
 @Singleton
 class CharactersRepository @Inject
-constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
+constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi , val preferenceManager: PreferenceManager) {
 
     val defaultLimit = 10
 
@@ -75,5 +77,19 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi) {
 
     fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getEventsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+    }
+
+    fun checkSyncCharacters() {
+
+        val todayDate = Utils.getCurrentDate()
+        var lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
+
+        // refresh comics every 5 days
+        if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 5L) {
+            thread {
+                characterDao.deleteCharacters()
+            }
+
+        }
     }
 }

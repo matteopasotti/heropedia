@@ -202,18 +202,19 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         if(!items.isNullOrEmpty()) {
             viewModel.pageCounter = items[items.size-1].page
 
-            if(viewModel.weekHasChanged) {
-                viewModel.weekHasChanged = false
-                viewModel.firstTime = true
-            }
-
-
             if(viewModel.firstTime) {
                 binding.rvComics.scheduleLayoutAnimation()
                 viewModel.firstTime = false
             }
 
-            viewModel.adapter.addList(items)
+            if(viewModel.weekHasChanged) {
+                viewModel.weekHasChanged = false
+                binding.rvComics.scheduleLayoutAnimation()
+                viewModel.adapter.addList(items)
+            } else {
+                viewModel.adapter.updateList(items)
+            }
+
         }
 
 
