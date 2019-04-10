@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         // set toolbar
         setSupportActionBar(binding.toolbar)
+        supportActionBar!!.title = ""
 
 
         pagerAdapter = HomeFragmentPageAdapter(supportFragmentManager)
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.offscreenPageLimit = (pagerAdapter.count - 1)
 
         binding.navigation.setOnNavigationItemSelectedListener { item ->
-            binding.toolbar.title = item.title
             when (item.itemId) {
                 R.id.navigation_characters -> {
                     binding.viewPager.currentItem = 0
@@ -52,14 +53,8 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
 
-        initTitle()
-
     }
 
-
-    private fun initTitle() {
-        binding.toolbar.post(Runnable { binding.toolbar.title = binding.navigation.menu.getItem(0).title })
-    }
 
 
     private class HomeFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -76,6 +71,11 @@ class MainActivity : AppCompatActivity() {
         override fun getCount(): Int {
             return 3
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_home_toolbar, menu);
+        return true;
     }
 
 }
