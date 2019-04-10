@@ -1,10 +1,7 @@
 package com.pasotti.matteo.wikiheroes.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.utils.Utils
 
@@ -26,4 +23,7 @@ interface ComicsDao {
 
     @Query("SELECT * FROM Detail WHERE title = :title")
     fun getComicByTitle( title : String) : LiveData<Detail>
+
+    @Query("DELETE FROM Detail")
+    fun deleteComics()
 }

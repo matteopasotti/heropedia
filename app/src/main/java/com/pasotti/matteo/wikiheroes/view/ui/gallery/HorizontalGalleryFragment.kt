@@ -114,6 +114,9 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
     }
 
     private fun renderDataState ( items : List<Detail>) {
+        items.forEach {
+            it.week = Utils.WEEK.none
+        }
         adapter.updateList(items)
     }
 

@@ -109,6 +109,10 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
                 items = Utils.removeItemById(viewModel.id, items)
             }
 
+            items.forEach {
+                it.week = Utils.WEEK.none
+            }
+
             renderDataState(items)
         }
     }

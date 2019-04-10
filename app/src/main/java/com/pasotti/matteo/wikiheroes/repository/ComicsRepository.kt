@@ -7,14 +7,16 @@ import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.room.ComicsDao
+import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.concurrent.thread
 
 @Singleton
 class ComicsRepository @Inject
-constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
+constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao , val preferenceManager: PreferenceManager) {
 
     private val defaultLimit = 20
 
@@ -51,23 +53,28 @@ constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
     fun getComicsOfTheWeek( page : Int, week: Utils.WEEK) : LiveData<Resource<List<Detail>>> {
         return object : NetworkBoundResource<List<Detail>, DetailResponse>() {
             override fun saveFetchData(item: DetailResponse) {
-                offset += defaultLimit
+
+                preferenceManager.setString(PreferenceManager.LAST_DATE_SYNC , Utils.getCurrentDate())
                 val newComics = item.data.results
-
-                newComics.forEach { comic ->
-                    run {
-                        comic.page = page
-                        comic.week = week
+                if(newComics.isNotEmpty()) {
+                    offset += defaultLimit
+                    newComics.forEach { comic ->
+                        run {
+                            comic.page = page
+                            comic.week = week
+                        }
                     }
-                }
 
-                comicsDao.insertComics(newComics)
+                    comicsDao.insertComics(newComics)
+                }
             }
 
             override fun shouldFetch(data: List<Detail>?): Boolean {
+
                 if(data != null && data.isNotEmpty()) {
                     offset = data.size
                 }
+
                 return data == null || data.isEmpty()
             }
 
@@ -94,5 +101,19 @@ constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao) {
 
     fun getOldestComicsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
+    }
+
+    fun checkSyncComics() {
+
+        val todayDate = Utils.getCurrentDate()
+        var lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
+
+        // refresh comics every 5 days
+        if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 5L) {
+            thread {
+                comicsDao.deleteComics()
+            }
+
+        }
     }
 }

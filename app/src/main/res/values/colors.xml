@@ -9,6 +9,9 @@
     <color name="black60">#66000000</color>
     <color name="mid_black">#191919</color>
     <color name="top_black">#323232</color>
+    <color name="darkGrey">#28262A</color>
+    <color name="mediumGrey">#bdbdbd</color>
+    <color name="lightGrey">#eeeeee</color>
     <color name="fui_transparent">#00000000</color>
 
     <color name="whiteFadeBg">#f0ffffff</color>

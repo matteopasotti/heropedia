@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
@@ -26,10 +27,9 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailCom
 import com.pasotti.matteo.wikiheroes.view.viewholder.HomeComicsViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.home_item_comic.view.*
+import org.jetbrains.anko.textColor
 import timber.log.Timber
 import javax.inject.Inject
-import android.R
-
 
 
 class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
@@ -59,12 +59,10 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater ,  R.layout.fragment_home_comics, container, false)
+        binding = DataBindingUtil.inflate(inflater ,  com.pasotti.matteo.wikiheroes.R.layout.fragment_home_comics, container, false)
 
         if ( savedInstanceState == null ) {
             viewModel.firstTime = true
-
-            //todo develop the logic for week field
         }
 
         initView()
@@ -77,20 +75,37 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         binding.rvComics.layoutManager = linearLayout
         viewModel.adapter = HomeComicsAdapter(this)
         binding.rvComics.adapter = viewModel.adapter
-        binding.rvComics.addOnScrollListener(Utils.InfiniteScrollListener({
+
+
+
+        binding.nested.setOnScrollChangeListener(Utils.NestedInfiniteScrollListener {
             viewModel.pageCounter += 1
-            loadMore(viewModel.pageCounter) }, linearLayout))
+            loadMore(viewModel.pageCounter)
+        })
 
 
+        binding.thisWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         //SELECTION OF THE WEEK
         binding.previousWeek.setOnClickListener {
             //lastWeek
             if(viewModel.currentWeek != Utils.WEEK.lastWeek) {
                 //load items of lastWeek
-                binding.thisWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
-                binding.nextWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
+                binding.thisWeek.paintFlags = 0
+                binding.nextWeek.paintFlags = 0
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.previousWeek.textColor = resources.getColor(R.color.yellow , null)
+                } else {
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.previousWeek.textColor = resources.getColor(R.color.yellow)
+                }
+
                 binding.previousWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
                 viewModel.currentWeek = Utils.WEEK.lastWeek
                 changeWeek()
             }
@@ -100,9 +115,22 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         binding.thisWeek.setOnClickListener {
             if(viewModel.currentWeek != Utils.WEEK.thisWeek) {
                 //load items of thisWeek
-                binding.previousWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
-                binding.nextWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
+                binding.previousWeek.paintFlags = 0
+                binding.nextWeek.paintFlags = 0
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.yellow , null)
+                } else {
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.thisWeek.textColor = resources.getColor(R.color.yellow)
+                }
+
                 binding.thisWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
                 viewModel.currentWeek = Utils.WEEK.thisWeek
                 changeWeek()
             }
@@ -112,9 +140,20 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         binding.nextWeek.setOnClickListener {
             if(viewModel.currentWeek != Utils.WEEK.nextWeek) {
                 //load items of nextWeek
-                binding.thisWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
-                binding.previousWeek.paintFlags = UNDERLINE_TEXT_FLAG.inv()
+                binding.thisWeek.paintFlags = 0
+                binding.previousWeek.paintFlags = 0
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.yellow , null)
+                } else {
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
+                    binding.nextWeek.textColor = resources.getColor(R.color.yellow)
+                }
                 binding.nextWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
                 viewModel.currentWeek = Utils.WEEK.nextWeek
                 changeWeek()
             }
@@ -134,6 +173,7 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
     private fun changeWeek() {
         viewModel.weekHasChanged = true
+        viewModel.pageCounter = 0
         viewModel.postPage(0)
     }
 
@@ -165,9 +205,6 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
             if(viewModel.weekHasChanged) {
                 viewModel.weekHasChanged = false
                 viewModel.firstTime = true
-                viewModel.adapter.addList(items)
-            } else {
-                viewModel.adapter.updateList(items)
             }
 
 
@@ -175,6 +212,8 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
                 binding.rvComics.scheduleLayoutAnimation()
                 viewModel.firstTime = false
             }
+
+            viewModel.adapter.addList(items)
         }
 
 

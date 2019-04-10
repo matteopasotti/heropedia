@@ -113,6 +113,9 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     }
 
     private fun renderDataState( items : List<Detail>) {
+        items.forEach {
+            it.week = Utils.WEEK.none
+        }
         viewModel.adapter.updateList(items)
         if(viewModel.firstTime) {
             binding.listItems.scheduleLayoutAnimation()

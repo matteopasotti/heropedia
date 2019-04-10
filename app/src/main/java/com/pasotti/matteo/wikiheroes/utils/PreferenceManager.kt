@@ -11,6 +11,7 @@ constructor(private val preferences: SharedPreferences){
     companion object {
         //Keys
         @JvmStatic val DOMINANT_COLOR = "dominant_color"
+        @JvmStatic val LAST_DATE_SYNC = "last_date_sync"
     }
 
     fun setString(key: String, value: String) {

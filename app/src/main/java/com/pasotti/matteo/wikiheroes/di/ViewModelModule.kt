@@ -13,6 +13,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.splash.SplashActivityViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -73,6 +74,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeComicsViewModel::class)
     internal abstract fun bindHomeComicsViewModel( homeComicsViewModel: HomeComicsViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashActivityViewModel::class)
+    internal abstract fun bindSplashActivityViewModel( splashActivityViewModel: SplashActivityViewModel) : ViewModel
 
 
     @Binds
