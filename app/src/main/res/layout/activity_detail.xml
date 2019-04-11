@@ -123,6 +123,22 @@
                         tools:text="Iron Man" />
 
 
+
+                        <CheckBox
+                            android:id="@+id/heart_check_box"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:button="@null"
+                            android:focusable="true"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/heart_icon"
+                            android:stateListAnimator="@animator/scale"
+                            app:layout_constraintTop_toTopOf="@+id/character_name"
+                            app:layout_constraintBottom_toBottomOf="@+id/character_name"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar

@@ -174,10 +174,6 @@ class RoomConverters {
 
     @TypeConverter
     fun fromWeekToString( week : Utils.WEEK) : String? {
-        if( week == null) {
-            return null
-        }
-
         return week.toString()
     }
 

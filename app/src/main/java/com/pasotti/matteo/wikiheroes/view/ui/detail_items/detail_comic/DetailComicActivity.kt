@@ -6,6 +6,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -46,6 +47,8 @@ class DetailComicActivity : AppCompatActivity() {
         if( savedInstanceState == null) {
             supportPostponeEnterTransition()
             initUI()
+
+            observeViewModel()
         }
     }
 
@@ -61,6 +64,16 @@ class DetailComicActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setDisplayShowTitleEnabled(false)
+        }
+
+        binding.shopButton.addIcon.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                // add to shop list
+                viewModel.addToShop()
+            } else {
+                // remove from shop list
+                viewModel.removeFromShop()
+            }
         }
 
         binding.toolbarComicDetail.toolbar.setNavigationOnClickListener { onBackPressed() }
@@ -93,5 +106,12 @@ class DetailComicActivity : AppCompatActivity() {
 
     private fun getImageUri(): String {
         return viewModel.item.thumbnail?.path + "." + viewModel.item.thumbnail?.extension
+    }
+
+
+    private fun observeViewModel() {
+        viewModel.getItemFromShop().observe( this , Observer { response ->
+            binding.shopButton.addIcon.isChecked = response != null
+        })
     }
 }

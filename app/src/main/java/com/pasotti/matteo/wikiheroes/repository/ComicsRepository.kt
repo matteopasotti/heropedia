@@ -6,7 +6,9 @@ import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import com.pasotti.matteo.wikiheroes.models.ShopItem
 import com.pasotti.matteo.wikiheroes.room.ComicsDao
+import com.pasotti.matteo.wikiheroes.room.ShopDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
@@ -16,7 +18,7 @@ import kotlin.concurrent.thread
 
 @Singleton
 class ComicsRepository @Inject
-constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao , val preferenceManager: PreferenceManager) {
+constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao, val shopDao: ShopDao, val preferenceManager: PreferenceManager) {
 
     private val defaultLimit = 20
 
@@ -115,5 +117,26 @@ constructor(private val marvelApi: MarvelApi , val comicsDao: ComicsDao , val pr
             }
 
         }
+    }
+
+    fun addToShop( det : Detail) {
+        thread {
+            val shopItem = ShopItem( det.id , det)
+            shopDao.insertItemInShop(shopItem)
+        }
+    }
+
+    fun removeFromShop( det : Detail) {
+        thread {
+            shopDao.removeItemFromShop(det.id)
+        }
+    }
+
+    fun getItemFromShop( det: Detail ) : LiveData<ShopItem> {
+        return shopDao.getItemFromShop(det.id)
+    }
+
+    fun getItemsFromShop() : LiveData<List<ShopItem>> {
+        return shopDao.getItemsInShop()
     }
 }

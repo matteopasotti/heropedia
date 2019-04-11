@@ -6,8 +6,9 @@ import androidx.room.TypeConverters
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
+import com.pasotti.matteo.wikiheroes.models.ShopItem
 
-@Database(entities = [(Character::class), (Item::class) , (Detail::class) ], version = 5)
+@Database(entities = [(Character::class), (Item::class) , (Detail::class) , (ShopItem::class) ], version = 6)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 
@@ -16,4 +17,6 @@ abstract class AppDatabase: RoomDatabase() {
     abstract fun itemDao() : ItemDao
 
     abstract fun comicsDao() : ComicsDao
+
+    abstract fun shopDao() : ShopDao
 }

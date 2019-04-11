@@ -21,6 +21,7 @@ import com.pasotti.matteo.wikiheroes.R
 /**
  * This class is borrowed from {@link https://github.com/hdodenhof/CircleImageView} and re-written in kotlin
  */
+@Suppress("DEPRECATION")
 open class CircleImageView : ImageView {
 
     private val drawableRect = RectF()

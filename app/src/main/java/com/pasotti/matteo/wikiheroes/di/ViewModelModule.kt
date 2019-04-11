@@ -11,6 +11,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comi
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.home.desk.HomeDeskViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.splash.SplashActivityViewModel
@@ -79,6 +80,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SplashActivityViewModel::class)
     internal abstract fun bindSplashActivityViewModel( splashActivityViewModel: SplashActivityViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeDeskViewModel::class)
+    internal abstract fun bindHomeDeskViewModel( homeDeskViewModel: HomeDeskViewModel) :ViewModel
 
 
     @Binds
