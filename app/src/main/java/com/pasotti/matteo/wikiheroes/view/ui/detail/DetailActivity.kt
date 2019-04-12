@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -60,6 +61,8 @@ class DetailActivity : AppCompatActivity() {
             supportPostponeEnterTransition()
 
             initUI()
+
+            observeViewModel()
         }
 
     }
@@ -69,11 +72,11 @@ class DetailActivity : AppCompatActivity() {
         getCharacterFromIntent()
 
         // ------------------     TOOLBAR  -------------------------------------------
-        setSupportActionBar(binding.toolbarCharacterDetail)
+        setSupportActionBar(binding.toolbarCharacterDetail.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = null
-        binding.toolbarCharacterDetail.setNavigationOnClickListener {
+        binding.toolbarCharacterDetail.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
 
@@ -117,7 +120,10 @@ class DetailActivity : AppCompatActivity() {
             onBackPressed()
         }*/
 
-        //binding.collapsingToolbar.contentScrim = gradientDrawable
+        binding.toolbarCharacterDetail.heartCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.character.isFav = isChecked
+            viewModel.updateCharacter()
+        }
 
         Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", viewModel.character.id, viewModel.character.name), binding.containerComics.id)
 
@@ -133,6 +139,14 @@ class DetailActivity : AppCompatActivity() {
     private fun getCharacterFromIntent() {
         viewModel.character = intent.extras.getParcelable(intent_character)
 
+    }
+
+    private fun observeViewModel() {
+        viewModel.getCharacterById(viewModel.character.id).observe( this , Observer { response ->
+            if(response != null) {
+                binding.toolbarCharacterDetail.heartCheckBox.isChecked = response.isFav
+            }
+        })
     }
 
 }

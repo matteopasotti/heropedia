@@ -16,27 +16,21 @@ constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
 
     var comicsLiveData: LiveData<Resource<List<Detail>>> = MutableLiveData()
 
-    var pageCounter = 0
-
     var firstTime = false
 
     var weekHasChanged = false
 
     var currentWeek : Utils.WEEK = Utils.WEEK.thisWeek
 
-    lateinit var comicsThisWeek : List<Detail>
-
-    lateinit var comicsLastWeek : List<Detail>
-
-    lateinit var comicsNextWeek : List<Detail>
-
     lateinit var adapter : HomeComicsAdapter
 
-    private val page: MutableLiveData<Int> = MutableLiveData()
+    private val week : MutableLiveData<Utils.WEEK> = MutableLiveData()
 
     init {
-        comicsLiveData = Transformations.switchMap(page) { comicsRepository.getComicsOfTheWeek(page.value!! , currentWeek)}
+        comicsLiveData = Transformations.switchMap(week) { comicsRepository.getComicsOfTheWeek(week.value!!)}
     }
 
-    fun postPage(page: Int) { this.page.value = page }
+    fun changeWeek(newWeek : Utils.WEEK) {
+        this.week.value = newWeek
+    }
 }

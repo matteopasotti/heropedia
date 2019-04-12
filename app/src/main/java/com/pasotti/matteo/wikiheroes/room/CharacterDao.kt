@@ -16,6 +16,9 @@ interface CharacterDao {
     @Update
     fun updateCharacters(characters: List<Character>)
 
+    @Query("SELECT * FROM Character WHERE Character.id = :id")
+    fun getCharacterById( id : Int) : LiveData<Character>
+
     @Query("SELECT * FROM Character WHERE page = :page")
     fun getCharacters(page : Int): LiveData<List<Character>>
 
@@ -34,5 +37,8 @@ interface CharacterDao {
 
     @Query("DELETE FROM Character")
     fun deleteCharacters()
+
+    @Query("SELECT * FROM Character WHERE isFav = 1")
+    fun getFavCharacters() : LiveData<List<Character>>
 
 }

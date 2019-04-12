@@ -57,20 +57,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
+                app:contentScrim="@color/fui_transparent"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-
-                <!-- <ImageView
-                    android:id="@+id/circular_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    android:transitionName="@string/transition_character_image"
-                    tools:background="@drawable/ironman" /> -->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -123,30 +113,20 @@
                         tools:text="Iron Man" />
 
 
-
-                        <CheckBox
-                            android:id="@+id/heart_check_box"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:button="@null"
-                            android:focusable="true"
-                            android:layout_marginEnd="16dp"
-                            android:background="@drawable/heart_icon"
-                            android:stateListAnimator="@animator/scale"
-                            app:layout_constraintTop_toTopOf="@+id/character_name"
-                            app:layout_constraintBottom_toBottomOf="@+id/character_name"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.appcompat.widget.Toolbar
+                <include
+                    android:id="@+id/toolbarCharacterDetail"
+                    layout="@layout/toolbar_character_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
+
+                <!-- <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbarCharacterDetail"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" /> -->
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 

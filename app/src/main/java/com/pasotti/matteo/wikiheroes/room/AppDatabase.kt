@@ -8,7 +8,7 @@ import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.models.ShopItem
 
-@Database(entities = [(Character::class), (Item::class) , (Detail::class) , (ShopItem::class) ], version = 6)
+@Database(entities = [(Character::class), (Item::class) , (Detail::class) , (ShopItem::class) ], version = 7)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase: RoomDatabase() {
 

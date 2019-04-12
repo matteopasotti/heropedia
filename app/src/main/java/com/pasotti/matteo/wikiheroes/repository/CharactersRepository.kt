@@ -85,11 +85,25 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi , val prefe
         var lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
 
         // refresh comics every 5 days
-        if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 5L) {
+        if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 2L) {
             thread {
                 characterDao.deleteCharacters()
             }
 
         }
+    }
+
+    fun insertCharacter( character: Character) {
+        thread {
+            characterDao.insertCharacter(character)
+        }
+    }
+
+    fun getCharacterById( id : Int) : LiveData<Character> {
+        return characterDao.getCharacterById(id)
+    }
+
+    fun getFavCharacters() : LiveData<List<Character>> {
+        return characterDao.getFavCharacters()
     }
 }
