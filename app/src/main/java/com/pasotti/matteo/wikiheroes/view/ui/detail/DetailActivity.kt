@@ -116,13 +116,12 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }).into(binding.circularImage)
 
-        /*binding.backButton.setOnClickListener {
-            onBackPressed()
-        }*/
-
         binding.toolbarCharacterDetail.heartCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.character.isFav = isChecked
-            viewModel.updateCharacter()
+            if(isChecked) {
+                viewModel.addFavCharacter(viewModel.character)
+            } else {
+                viewModel.removeFavCharacter(viewModel.character)
+            }
         }
 
         Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", viewModel.character.id, viewModel.character.name), binding.containerComics.id)
@@ -142,10 +141,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
-        viewModel.getCharacterById(viewModel.character.id).observe( this , Observer { response ->
-            if(response != null) {
-                binding.toolbarCharacterDetail.heartCheckBox.isChecked = response.isFav
-            }
+        viewModel.getFavCharacterById(viewModel.character.id).observe( this , Observer { response ->
+            binding.toolbarCharacterDetail.heartCheckBox.isChecked = response != null
         })
     }
 

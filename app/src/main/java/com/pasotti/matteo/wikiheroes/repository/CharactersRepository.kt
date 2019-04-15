@@ -8,7 +8,9 @@ import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import com.pasotti.matteo.wikiheroes.models.FavCharacter
 import com.pasotti.matteo.wikiheroes.room.CharacterDao
+import com.pasotti.matteo.wikiheroes.room.FavCharacterDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
@@ -18,7 +20,7 @@ import kotlin.concurrent.thread
 
 @Singleton
 class CharactersRepository @Inject
-constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi , val preferenceManager: PreferenceManager) {
+constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao, val marvelApi: MarvelApi , val preferenceManager: PreferenceManager) {
 
     val defaultLimit = 10
 
@@ -103,7 +105,24 @@ constructor(val characterDao: CharacterDao, val marvelApi: MarvelApi , val prefe
         return characterDao.getCharacterById(id)
     }
 
-    fun getFavCharacters() : LiveData<List<Character>> {
-        return characterDao.getFavCharacters()
+    fun getFavCharacters() : LiveData<List<FavCharacter>> {
+        return favCharacterDao.getFavCharacters()
+    }
+
+    fun addFavCharacter( character: Character) {
+        thread {
+            val favCharacter = FavCharacter( character.id , character)
+            favCharacterDao.insertFavCharacter(favCharacter)
+        }
+    }
+
+    fun removeFavCharacter( character: Character) {
+        thread {
+            favCharacterDao.removeFavCharacter(character.id)
+        }
+    }
+
+    fun getFavCharacterById( id : Int) : LiveData<FavCharacter> {
+        return favCharacterDao.getFavCharacterById(id)
     }
 }

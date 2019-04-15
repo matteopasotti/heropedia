@@ -48,6 +48,12 @@ class AppModule {
         return database.shopDao()
     }
 
+    @Provides
+    @Singleton
+    fun provideFavCharacterDao( database: AppDatabase) : FavCharacterDao {
+        return database.favCharacterDao()
+    }
+
     @Singleton
     @Provides
     fun providePreferences(application: Application): SharedPreferences {

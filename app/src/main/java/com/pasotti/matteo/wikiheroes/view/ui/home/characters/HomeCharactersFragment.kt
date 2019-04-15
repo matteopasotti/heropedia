@@ -93,7 +93,8 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
         binding.rvCharacters.adapter = viewModel.adapter
         binding.rvCharacters.addOnScrollListener(Utils.InfiniteScrollListener({
             viewModel.pageCounter += 1
-            loadMore(viewModel.pageCounter) }, linearLayout))
+            //loadMore(viewModel.pageCounter)
+        }, linearLayout))
     }
 
     private fun loadMore(page : Int) {

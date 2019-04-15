@@ -38,7 +38,4 @@ interface CharacterDao {
     @Query("DELETE FROM Character")
     fun deleteCharacters()
 
-    @Query("SELECT * FROM Character WHERE isFav = 1")
-    fun getFavCharacters() : LiveData<List<Character>>
-
 }

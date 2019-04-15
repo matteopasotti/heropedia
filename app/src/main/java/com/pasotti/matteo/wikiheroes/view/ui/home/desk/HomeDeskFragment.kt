@@ -19,6 +19,7 @@ import com.pasotti.matteo.wikiheroes.databinding.FragmentHomeDeskBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
+import com.pasotti.matteo.wikiheroes.models.FavCharacter
 import com.pasotti.matteo.wikiheroes.models.ShopItem
 import com.pasotti.matteo.wikiheroes.utils.ItemOffsetDecoration
 import com.pasotti.matteo.wikiheroes.utils.Utils
@@ -98,11 +99,16 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
         viewModel.getFavCharacters().observe( this , Observer { response ->  processFavCharactersResponse(response)})
     }
 
-    private fun processFavCharactersResponse( response : List<Character>) {
+    private fun processFavCharactersResponse( response : List<FavCharacter>) {
         if(response.isNotEmpty()) {
             binding.charactersSection.visibility = View.VISIBLE
             binding.text.visibility = View.GONE
-            viewModel.adapterCharacters.updateList(response)
+            var listItems : MutableList<Character> = mutableListOf()
+
+            response.forEach {
+                listItems.add(it.character)
+            }
+            viewModel.adapterCharacters.updateList(listItems)
         } else {
             binding.charactersSection.visibility = View.GONE
         }

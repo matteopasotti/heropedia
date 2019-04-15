@@ -13,7 +13,9 @@ constructor(private val mainRepository: MainRepository, private val charactersRe
 
     fun saveDominantColor(color : Int) = mainRepository.saveSaveDominantColor(color)
 
-    fun updateCharacter() = charactersRepository.insertCharacter(character)
+    fun getFavCharacterById( id : Int) = charactersRepository.getFavCharacterById(id)
 
-    fun getCharacterById( id : Int) = charactersRepository.getCharacterById(id)
+    fun addFavCharacter( character: Character) = charactersRepository.addFavCharacter(character)
+
+    fun removeFavCharacter( character: Character ) = charactersRepository.removeFavCharacter(character)
 }

@@ -127,12 +127,12 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
 
-        val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
+        //val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
 
         val intent = Intent(activity, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
         intent.putExtra(DetailComicActivity.INTENT_SECTION , viewModel.section)
-        startActivity(intent, options.toBundle())
+        startActivity(intent)
     }
 
 }

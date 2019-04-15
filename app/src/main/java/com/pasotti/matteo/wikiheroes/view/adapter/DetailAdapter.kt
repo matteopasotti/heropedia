@@ -15,9 +15,8 @@ class DetailAdapter(val delegate : DetailViewHolder.Delegate) : BaseAdapter(){
     }
 
     fun updateList( newItems : List<Detail>) {
-        clearItems()
         addItems(newItems)
-        notifyDataSetChanged()
+        notifyItemInserted(items.size)
     }
 
     /*fun dispatch(newList: List<Detail>) {
