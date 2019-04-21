@@ -4,8 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -19,15 +17,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
-import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailCircularBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import org.jetbrains.anko.backgroundDrawable
-import timber.log.Timber
 import javax.inject.Inject
 
 

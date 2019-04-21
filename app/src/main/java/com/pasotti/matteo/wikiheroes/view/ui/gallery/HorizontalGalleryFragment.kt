@@ -108,8 +108,10 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         binding.progressBar.visibility = View.GONE
-        if(response.isSuccessful && response.body != null) {
+        if(response.isSuccessful && response.body != null && !response.body.data.results.isNullOrEmpty()) {
             renderDataState(Utils.checkDetailsImages(response.body.data.results))
+        } else {
+            binding.root.visibility = View.INVISIBLE
         }
     }
 

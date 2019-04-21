@@ -125,4 +125,9 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
     fun getFavCharacterById( id : Int) : LiveData<FavCharacter> {
         return favCharacterDao.getFavCharacterById(id)
     }
+
+
+    fun searchCharacterByName( nameStartsWith : String) : LiveData<ApiResponse<CharacterResponse>> {
+        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "name")
+    }
 }

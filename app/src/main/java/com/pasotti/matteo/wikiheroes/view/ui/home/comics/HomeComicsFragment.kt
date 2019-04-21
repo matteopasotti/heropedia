@@ -160,6 +160,7 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
 
     private fun changeWeek(week : Utils.WEEK) {
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.weekHasChanged = true
         viewModel.changeWeek(week)
     }

@@ -1,7 +1,9 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,6 +14,7 @@ import com.pasotti.matteo.wikiheroes.databinding.ActivityMainBinding
 import com.pasotti.matteo.wikiheroes.view.ui.home.characters.HomeCharactersFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.desk.HomeDeskFragment
+import com.pasotti.matteo.wikiheroes.view.ui.search.SearchActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -75,7 +78,23 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_home_toolbar, menu);
-        return true;
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if( item != null) {
+            when( item.itemId) {
+                R.id.action_search -> {
+                    val intent = Intent(this , SearchActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.enter, R.anim.exit)
+                    return true
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+
     }
 
 }

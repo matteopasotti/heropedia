@@ -1,7 +1,9 @@
 package com.pasotti.matteo.wikiheroes.utils
 
+import android.content.Context
 import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -251,6 +253,20 @@ object Utils {
 
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
+
+    }
+
+
+    fun showAlert(context: Context?, message : String) {
+        if(context != null) {
+            AlertDialog.Builder(context).apply {
+                setMessage(message)
+                setPositiveButton("OK") { _, _ ->
+                    //pass
+                }
+                show()
+            }
+        }
 
     }
 

@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black">
@@ -87,7 +88,8 @@
                             android:layout_height="220dp"
                             android:layout_marginStart="20dp"
                             android:scaleType="fitXY"
-                            android:transitionName="@string/transition_detail_image"
+                            app:layout_constraintDimensionRatio="1:2"
+                            android:transitionName="@string/transition_avatar_orig"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             tools:background="@drawable/spiderman_comic" />

@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.di
 
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailImageFragment
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragment
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoFragment
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
@@ -30,6 +31,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeComicsFragment() : HomeComicsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeDetailImageFragment() : DetailImageFragment
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeDeskFragment() : HomeDeskFragment

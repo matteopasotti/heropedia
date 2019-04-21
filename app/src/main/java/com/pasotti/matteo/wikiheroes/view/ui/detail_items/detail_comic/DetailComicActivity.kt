@@ -1,9 +1,19 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.graphics.Point
+import android.graphics.Rect
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.DecelerateInterpolator
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -29,7 +39,16 @@ class DetailComicActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailComicViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ComicDetailBinding>( this, R.layout.comic_detail )}
+    private val binding by lazy { DataBindingUtil.setContentView<ComicDetailBinding>(this, R.layout.comic_detail) }
+
+    // Hold a reference to the current animator,
+    // so that it can be canceled mid-way.
+    private var currentAnimator: Animator? = null
+
+    // The system "short" animation time duration, in milliseconds. This
+    // duration is ideal for subtle animations or animations that occur
+    // very frequently.
+    private var shortAnimationDuration: Int = 0
 
     companion object {
 
@@ -44,7 +63,7 @@ class DetailComicActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        if( savedInstanceState == null) {
+        if (savedInstanceState == null) {
             supportPostponeEnterTransition()
             initUI()
 
@@ -61,13 +80,13 @@ class DetailComicActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbarComicDetail.toolbar)
 
-        if(supportActionBar != null) {
+        if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
         binding.shopButton.addIcon.setOnCheckedChangeListener { _, isChecked ->
-            if(isChecked) {
+            if (isChecked) {
                 // add to shop list
                 viewModel.addToShop()
             } else {
@@ -95,12 +114,29 @@ class DetailComicActivity : AppCompatActivity() {
 
         binding.titleDetail.text = viewModel.item.title
 
-        Utils.addFragmentToActivity(supportFragmentManager , MoreInfoFragment.newInstance(ArrayList(viewModel.item.creators?.items), viewModel.section), binding.containerMoreDetails.id)
+        binding.imageDetail.setOnClickListener {
+            supportFragmentManager
+                    .beginTransaction()
+                    .addSharedElement(binding.imageDetail, "transition_avatar_dest")
+                    .replace(binding.container.id, DetailImageFragment.newInstance(getImageUri()), "DetailImageFragment")
+                    .addToBackStack(null)
+                    .commit()
+
+            /*ft.setCustomAnimations(R.anim.pop_enter_anim, R.anim.pop_exit_anim)
+
+            val detailImageFragment = DetailImageFragment.newInstance(getImageUri())
+            ft.add(binding.container.id, detailImageFragment, "DetailImageFragment")
+
+            ft.commit()*/
+
+        }
+
+        Utils.addFragmentToActivity(supportFragmentManager, MoreInfoFragment.newInstance(ArrayList(viewModel.item.creators?.items), viewModel.section), binding.containerMoreDetails.id)
 
 
-        if(binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
+        if (binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
             // SHOW OTHER ITEMS OF THAT COLLECTION
-           Utils.addFragmentToActivity(supportFragmentManager , MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
+            Utils.addFragmentToActivity(supportFragmentManager, MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
         }
     }
 
@@ -110,7 +146,7 @@ class DetailComicActivity : AppCompatActivity() {
 
 
     private fun observeViewModel() {
-        viewModel.getItemFromShop().observe( this , Observer { response ->
+        viewModel.getItemFromShop().observe(this, Observer { response ->
             binding.shopButton.addIcon.isChecked = response != null
         })
     }

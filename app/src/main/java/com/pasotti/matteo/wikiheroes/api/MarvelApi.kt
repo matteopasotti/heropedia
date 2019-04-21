@@ -141,4 +141,11 @@ interface MarvelApi {
                                   @Nullable @Query("offset") offset: Int,
                                   @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters")
+    public fun searchCharacterNameStartsWith(@Query("nameStartsWith") nameStartsWith : String,
+                                             @Query("apikey") apiKey: String,
+                                             @Query("hash") hash: String,
+                                             @Query("ts") ts: String,
+                                             @Query("orderBy") orderBy: String) : LiveData<ApiResponse<CharacterResponse>>
 }

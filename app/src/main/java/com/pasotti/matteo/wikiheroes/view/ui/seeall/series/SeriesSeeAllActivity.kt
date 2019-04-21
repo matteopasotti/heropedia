@@ -54,7 +54,6 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         if(savedInstanceState == null) {
 
             initUI()
-
             observeViewModel()
         }
     }
