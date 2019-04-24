@@ -51,69 +51,66 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- SEARCH OPTIONS -->
-        <CheckBox
-            android:id="@+id/option_character_textview"
+        <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_option_search"
-            android:button="@null"
-            android:fontFamily="@font/product_sans_regular"
-            android:padding="6dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/character"
-            android:textColor="@color/txt_color_state_list"
-            app:layout_constraintEnd_toStartOf="@+id/option_comic_textview"
-            app:layout_constraintHorizontal_chainStyle="packed"
+            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" >
 
 
-        <CheckBox
-            android:id="@+id/option_comic_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_option_search"
-            android:button="@null"
-            android:fontFamily="@font/product_sans_regular"
-            android:padding="6dp"
-            android:text="@string/comic"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/txt_color_state_list"
-            app:layout_constraintEnd_toStartOf="@+id/option_series_textview"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/option_character_textview"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            <RadioButton
+                android:id="@+id/option_character_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_option_search"
+                android:button="@null"
+                android:fontFamily="@font/product_sans_regular"
+                android:padding="6dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/character"
+                android:textColor="@color/txt_color_state_list" />
 
-        <CheckBox
-            android:id="@+id/option_series_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_option_search"
-            android:button="@null"
-            android:fontFamily="@font/product_sans_regular"
-            android:padding="6dp"
-            android:text="@string/series"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/txt_color_state_list"
-            app:layout_constraintEnd_toStartOf="@+id/option_person_textview"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/option_comic_textview"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            <RadioButton
+                android:id="@+id/option_comic_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_option_search"
+                android:button="@null"
+                android:fontFamily="@font/product_sans_regular"
+                android:padding="6dp"
+                android:text="@string/comic"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/txt_color_state_list" />
 
-        <CheckBox
-            android:id="@+id/option_person_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_option_search"
-            android:button="@null"
-            android:fontFamily="@font/product_sans_regular"
-            android:padding="6dp"
-            android:text="@string/person"
-            android:textColor="@color/txt_color_state_list"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toEndOf="@+id/option_series_textview"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            <RadioButton
+                android:id="@+id/option_series_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_option_search"
+                android:button="@null"
+                android:fontFamily="@font/product_sans_regular"
+                android:padding="6dp"
+                android:text="@string/series"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/txt_color_state_list" />
+
+            <RadioButton
+                android:id="@+id/option_person_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_option_search"
+                android:button="@null"
+                android:fontFamily="@font/product_sans_regular"
+                android:padding="6dp"
+                android:text="@string/person"
+                android:textColor="@color/txt_color_state_list"
+                android:layout_marginStart="8dp" />
+
+
+        </RadioGroup>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_results"
@@ -125,7 +122,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/option_character_textview" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <TextView
             android:id="@+id/text_intro"
@@ -140,7 +137,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/option_character_textview"/>
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -153,7 +150,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/option_character_textview" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
