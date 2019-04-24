@@ -31,4 +31,6 @@
     <string name="comic">Comic</string>
     <string name="character">Character</string>
     <string name="search">Search..</string>
+    <string name="start_year">Start Year :</string>
+    <string name="end_year">End Year :</string>
 </resources>

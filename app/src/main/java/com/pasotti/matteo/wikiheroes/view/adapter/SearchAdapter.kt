@@ -8,9 +8,11 @@ import com.pasotti.matteo.wikiheroes.models.SearchObjectItem
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectCharacterViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectSeriesViewHolder
 
 class SearchAdapter ( val delegateComic : SearchObjectComicViewHolder.Delegate ,
-                      val delegateCharacter : SearchObjectCharacterViewHolder.Delegate) : BaseAdapter() {
+                      val delegateCharacter : SearchObjectCharacterViewHolder.Delegate,
+                      val delegateSeries : SearchObjectSeriesViewHolder.Delegate) : BaseAdapter() {
 
 
     init {
@@ -34,8 +36,12 @@ class SearchAdapter ( val delegateComic : SearchObjectComicViewHolder.Delegate ,
             return R.layout.item_character
         }
 
-        if(item is Detail) {
+        if(item is Detail && item.getType() == SearchObjectItem.TYPE_COMIC) {
             return R.layout.home_item_comic
+        }
+
+        if(item is Detail && item.getType() == SearchObjectItem.TYPE_SERIES) {
+            return R.layout.item_series
         }
 
         return R.layout.home_item_comic
@@ -44,7 +50,8 @@ class SearchAdapter ( val delegateComic : SearchObjectComicViewHolder.Delegate ,
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
         return when (layout) {
             R.layout.item_character -> SearchObjectCharacterViewHolder(view , delegateCharacter)
-            else -> SearchObjectComicViewHolder(view, delegateComic)
+            R.layout.home_item_comic -> SearchObjectComicViewHolder(view, delegateComic)
+            else -> SearchObjectSeriesViewHolder(view, delegateSeries)
         }
     }
 }

@@ -24,12 +24,14 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailCom
 import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectCharacterViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectSeriesViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_character.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Delegate, SearchObjectComicViewHolder.Delegate {
+class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Delegate, SearchObjectComicViewHolder.Delegate, SearchObjectSeriesViewHolder.Delegate {
+
 
 
     @Inject
@@ -55,7 +57,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
         val linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.listResults.layoutManager = linearLayout
-        viewModel.adapter = SearchAdapter(this, this)
+        viewModel.adapter = SearchAdapter(this, this, this)
         binding.listResults.adapter = viewModel.adapter
 
         binding.optionCharacterTextview.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -77,7 +79,12 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         }
 
         binding.optionSeriesTextview.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.searchOption = "Series"
+            if (isChecked) {
+                viewModel.searchOption = "Series"
+                if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    search()
+                }
+            }
         }
 
         binding.optionPersonTextview.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -105,6 +112,10 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
                 "Comic" -> {
                     searchComic(binding.searchEdit.text.toString())
+                }
+
+                "Series" -> {
+                    searchSeries(binding.searchEdit.text.toString())
                 }
 
             }
@@ -156,6 +167,31 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
                 })
     }
 
+    private fun searchSeries( searchText: String ) {
+        viewModel.searchSeries(searchText).observe( this , Observer { response ->
+            if (response != null && response.isSuccessful) {
+                if (response.body!!.data != null && !response.body!!.data.results.isNullOrEmpty()) {
+
+                    val items: MutableList<Detail> = mutableListOf()
+                    response.body!!.data.results.forEach {
+                        it.week = Utils.WEEK.none
+                        items.add(it)
+                    }
+
+                    binding.progressBar.visibility = View.GONE
+                    viewModel.adapter.createList(items)
+                } else {
+                    // no results
+                    binding.progressBar.visibility = View.GONE
+                    Utils.showAlert(this, "No results found.")
+                }
+            } else {
+                renderErrorState(response.error)
+            }
+        })
+    }
+
+
     private fun renderErrorState(throwable: Throwable?) {
         binding.progressBar.visibility = View.GONE
         throwable?.message?.let { Utils.showAlert(this, it) }
@@ -173,6 +209,14 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.intent_character, character as Parcelable)
         startActivity(intent, options.toBundle())
+    }
+
+
+    override fun onSeriesClicked(item: Detail, view: View) {
+        val intent = Intent(this, DetailComicActivity::class.java)
+        intent.putExtra(DetailComicActivity.INTENT_COMIC, item as Parcelable)
+        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Series")
+        startActivity(intent)
     }
 
 
