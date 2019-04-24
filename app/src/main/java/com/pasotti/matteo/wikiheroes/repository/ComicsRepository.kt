@@ -153,4 +153,8 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
     fun getThisWeekDate(): String? {
         return preferenceManager.getString(PreferenceManager.THIS_WEEK, "")
     }
+
+    fun searchComicsNameStartsWith(nameStartsWith : String) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.searchComicsNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-onsaleDate")
+    }
 }

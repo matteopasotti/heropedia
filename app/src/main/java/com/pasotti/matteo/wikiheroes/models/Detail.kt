@@ -34,4 +34,8 @@ data class Detail( val id: Int,
                    val images: MutableList<Thumbnail>?,
                    val urls: MutableList<ItemUrl>?,
                    var page : Int,
-                   var week: Utils.WEEK = Utils.WEEK.none) : Parcelable
+                   var week: Utils.WEEK = Utils.WEEK.none) : Parcelable , SearchObjectItem() {
+    override fun getType(): Int {
+        return SearchObjectItem.TYPE_COMIC
+    }
+}

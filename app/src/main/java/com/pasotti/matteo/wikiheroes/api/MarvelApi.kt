@@ -148,4 +148,12 @@ interface MarvelApi {
                                              @Query("hash") hash: String,
                                              @Query("ts") ts: String,
                                              @Query("orderBy") orderBy: String) : LiveData<ApiResponse<CharacterResponse>>
+
+
+    @GET("/v1/public/comics")
+    public fun searchComicsNameStartsWith(@Query("titleStartsWith") titleStartsWith : String,
+                                          @Query("apikey") apiKey: String,
+                                          @Query("hash") hash: String,
+                                          @Query("ts") ts: String,
+                                          @Query("orderBy") orderBy: String) : LiveData<ApiResponse<DetailResponse>>
 }

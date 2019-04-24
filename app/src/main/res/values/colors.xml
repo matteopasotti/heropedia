@@ -17,6 +17,7 @@
     <color name="whiteFadeBg">#f0ffffff</color>
 
     <color name="yellow">#ffff32</color>
+    <color name="dark_yellow">#ffc107</color>
 
 
 </resources>

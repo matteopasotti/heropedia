@@ -25,4 +25,10 @@
 
     <string name="transition_avatar_orig" translatable="false">transition_avatar_orig</string>
     <string name="transition_avatar_dest" translatable="false">transition_avatar_dest</string>
+    <string name="select_what_you_want_to_search">Select what you want to search</string>
+    <string name="person">Person</string>
+    <string name="series">Series</string>
+    <string name="comic">Comic</string>
+    <string name="character">Character</string>
+    <string name="search">Search..</string>
 </resources>
