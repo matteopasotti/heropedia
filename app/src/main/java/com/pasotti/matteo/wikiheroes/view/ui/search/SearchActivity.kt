@@ -16,23 +16,20 @@ import com.pasotti.matteo.wikiheroes.databinding.ActivitySearchBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
+import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import com.pasotti.matteo.wikiheroes.view.adapter.CharactersAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
+import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
-import com.pasotti.matteo.wikiheroes.view.viewholder.CharacterViewHolder
-import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectCharacterViewHolder
-import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectComicViewHolder
-import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectSeriesViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.*
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_character.view.*
+import kotlinx.android.synthetic.main.item_creator.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Delegate, SearchObjectComicViewHolder.Delegate, SearchObjectSeriesViewHolder.Delegate {
-
-
+class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Delegate, SearchObjectComicViewHolder.Delegate, SearchObjectSeriesViewHolder.Delegate, SearchObjectCreatorViewHolder.Delegate {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
@@ -57,10 +54,10 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
         val linearLayout = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.listResults.layoutManager = linearLayout
-        viewModel.adapter = SearchAdapter(this, this, this)
+        viewModel.adapter = SearchAdapter(this, this, this, this)
         binding.listResults.adapter = viewModel.adapter
 
-        binding.optionCharacterTextview.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.optionCharacterTextview.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.searchOption = "Character"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
@@ -69,7 +66,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             }
         }
 
-        binding.optionComicTextview.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.optionComicTextview.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.searchOption = "Comic"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
@@ -78,7 +75,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             }
         }
 
-        binding.optionSeriesTextview.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.optionSeriesTextview.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.searchOption = "Series"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
@@ -87,8 +84,13 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             }
         }
 
-        binding.optionPersonTextview.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.searchOption = "Person"
+        binding.optionPersonTextview.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.searchOption = "Person"
+                if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    search()
+                }
+            }
         }
 
 
@@ -105,17 +107,23 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
     private fun search() {
         if (viewModel.searchOption != null) {
             binding.progressBar.visibility = View.VISIBLE
+            val searchText : String = binding.searchEdit.text.toString()
             when (viewModel.searchOption) {
+
                 "Character" -> {
-                    searchCharacter(binding.searchEdit.text.toString())
+                    searchCharacter(searchText)
                 }
 
                 "Comic" -> {
-                    searchComic(binding.searchEdit.text.toString())
+                    searchComic(searchText)
                 }
 
                 "Series" -> {
-                    searchSeries(binding.searchEdit.text.toString())
+                    searchSeries(searchText)
+                }
+
+                "Person" -> {
+                    searchCreator(searchText)
                 }
 
             }
@@ -128,10 +136,10 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         viewModel.searchComics(searchText)
                 .observe(this, Observer { response ->
                     if (response != null && response.isSuccessful) {
-                        if (response.body!!.data != null && !response.body!!.data.results.isNullOrEmpty()) {
+                        if (!response.body!!.data.results.isNullOrEmpty()) {
 
                             val items: MutableList<Detail> = mutableListOf()
-                            response.body!!.data.results.forEach {
+                            response.body.data.results.forEach {
                                 it.week = Utils.WEEK.none
                                 items.add(it)
                             }
@@ -153,7 +161,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         viewModel.searchCharacter(searchText)
                 .observe(this, Observer { response ->
                     if (response != null && response.isSuccessful) {
-                        if (response.body!!.data != null && !response.body!!.data.results.isNullOrEmpty()) {
+                        if (!response.body!!.data.results.isNullOrEmpty()) {
                             binding.progressBar.visibility = View.GONE
                             viewModel.adapter.createList(response.body!!.data.results)
                         } else {
@@ -167,10 +175,27 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
                 })
     }
 
+    private fun searchCreator( searchText: String ) {
+        viewModel.searchCreator(searchText).observe( this , Observer { response ->
+            if (response != null && response.isSuccessful) {
+                if (!response.body!!.data.results.isNullOrEmpty()) {
+                    binding.progressBar.visibility = View.GONE
+                    viewModel.adapter.createList(response.body!!.data.results)
+                } else {
+                    // no results
+                    binding.progressBar.visibility = View.GONE
+                    Utils.showAlert(this, "No results found.")
+                }
+            } else {
+                renderErrorState(response.error)
+            }
+        })
+    }
+
     private fun searchSeries( searchText: String ) {
         viewModel.searchSeries(searchText).observe( this , Observer { response ->
             if (response != null && response.isSuccessful) {
-                if (response.body!!.data != null && !response.body!!.data.results.isNullOrEmpty()) {
+                if (!response.body!!.data.results.isNullOrEmpty()) {
 
                     val items: MutableList<Detail> = mutableListOf()
                     response.body!!.data.results.forEach {
@@ -225,6 +250,17 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         intent.putExtra(DetailComicActivity.INTENT_COMIC, item as Parcelable)
         intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
         startActivity(intent)
+    }
+
+    override fun onCreatorClicked(item : Detail, view: View) {
+        val txt = Pair.create(view.creator_name as View, resources.getString(R.string.transition_creator_name))
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, txt)
+
+        val intent = Intent(this, CreatorDetailActivity::class.java)
+        val creator = Item(item.resourceURI , item.fullName!!, null , null)
+        intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
+        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
+        startActivity(intent, options.toBundle())
     }
 
 }

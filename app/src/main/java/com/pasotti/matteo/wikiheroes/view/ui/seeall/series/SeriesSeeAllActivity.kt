@@ -150,7 +150,7 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         val intent = Intent(this, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
         intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
-        startActivity(intent, options.toBundle())
+        startActivity(intent)
     }
 
 }

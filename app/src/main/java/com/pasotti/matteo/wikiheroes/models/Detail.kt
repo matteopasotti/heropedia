@@ -36,10 +36,15 @@ data class Detail( val id: Int,
                    val images: MutableList<Thumbnail>?,
                    val urls: MutableList<ItemUrl>?,
                    var page : Int,
+                   var fullName : String?,
                    var week: Utils.WEEK = Utils.WEEK.none) : Parcelable , SearchObjectItem() {
     override fun getType(): Int {
         if(this.endYear != 0 && this.startYear != 0) {
             return SearchObjectItem.TYPE_SERIES
+        }
+
+        if(fullName != null) {
+            return SearchObjectItem.TYPE_PERSON
         }
         return SearchObjectItem.TYPE_COMIC
     }

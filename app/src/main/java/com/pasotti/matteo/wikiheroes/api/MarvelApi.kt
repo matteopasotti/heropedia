@@ -143,24 +143,32 @@ interface MarvelApi {
             : LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/characters")
-    public fun searchCharacterNameStartsWith(@Query("nameStartsWith") nameStartsWith : String,
+    public fun searchCharacterNameStartsWith(@Query("nameStartsWith") nameStartsWith: String,
                                              @Query("apikey") apiKey: String,
                                              @Query("hash") hash: String,
                                              @Query("ts") ts: String,
-                                             @Query("orderBy") orderBy: String) : LiveData<ApiResponse<CharacterResponse>>
+                                             @Query("orderBy") orderBy: String): LiveData<ApiResponse<CharacterResponse>>
 
 
     @GET("/v1/public/comics")
-    public fun searchComicsNameStartsWith(@Query("titleStartsWith") titleStartsWith : String,
+    public fun searchComicsNameStartsWith(@Query("titleStartsWith") titleStartsWith: String,
                                           @Query("apikey") apiKey: String,
                                           @Query("hash") hash: String,
                                           @Query("ts") ts: String,
-                                          @Query("orderBy") orderBy: String) : LiveData<ApiResponse<DetailResponse>>
+                                          @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/series")
-    public fun searchSeriesNameStartsWith(@Query("titleStartsWith") titleStartsWith : String,
+    public fun searchSeriesNameStartsWith(@Query("titleStartsWith") titleStartsWith: String,
                                           @Query("apikey") apiKey: String,
                                           @Query("hash") hash: String,
                                           @Query("ts") ts: String,
-                                          @Query("orderBy") orderBy: String) : LiveData<ApiResponse<DetailResponse>>
+                                          @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("/v1/public/creators")
+    public fun searchCreatorByName(@Query("nameStartsWith") nameStartsWith: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String,
+                                   @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
 }

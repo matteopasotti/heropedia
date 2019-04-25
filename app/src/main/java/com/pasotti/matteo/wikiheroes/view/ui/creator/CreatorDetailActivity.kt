@@ -103,7 +103,13 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     }
 
     private fun renderDataState( items : List<Detail>) {
-        viewModel.adapter.updateList(items)
+
+        val newItems : MutableList<Detail> = mutableListOf()
+        items.forEach {
+            it.week = Utils.WEEK.none
+            newItems.add(it)
+        }
+        viewModel.adapter.updateList(newItems)
         if(viewModel.firstTime) {
             binding.listCreatorItems.scheduleLayoutAnimation()
             viewModel.firstTime = false
@@ -125,6 +131,6 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         val intent = Intent(this, DetailComicActivity::class.java)
         intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
         intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.type)
-        startActivity(intent, options.toBundle())
+        startActivity(intent)
     }
 }
