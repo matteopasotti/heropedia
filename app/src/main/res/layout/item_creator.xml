@@ -25,7 +25,7 @@
             tools:text="Name"
             android:maxLines="1"
             android:textColor="@android:color/white"
-            android:textSize="11sp"
+            android:textSize="14sp"
             android:transitionName="@string/transition_creator_name"
             android:fontFamily="@font/product_sans_italic"
             app:layout_constraintStart_toStartOf="parent"

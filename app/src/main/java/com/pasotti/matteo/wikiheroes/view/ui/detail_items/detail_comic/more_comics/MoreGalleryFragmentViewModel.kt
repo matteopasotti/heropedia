@@ -14,9 +14,9 @@ import javax.inject.Inject
 class MoreGalleryFragmentViewModel@Inject
 constructor(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
 
-    lateinit var item : Item
+    lateinit var resourceURI : String
 
-    lateinit var id : String  //id of the item
+    lateinit var id : String  //id of the resourceURI
 
     lateinit var seriesId : String
 
@@ -27,13 +27,13 @@ constructor(private val comicsRepository: ComicsRepository, private val seriesRe
     var seriesTitle : String = ""
 
 
-    fun getItems(item : Item, type: String) : LiveData<ApiResponse<DetailResponse>> {
+    fun getItems(resourceUri : String, type: String) : LiveData<ApiResponse<DetailResponse>> {
 
-        seriesId = Utils.getIdByResourceURI(item.resourceURI)
+        seriesId = Utils.getIdByResourceURI(resourceUri)
 
         when(type) {
             "Series" -> {
-                //return comicsRepository.getComicsBySeriesId(id!!)
+                return comicsRepository.getComicsBySeriesId(id!!)
             }
 
             "Comics" -> {

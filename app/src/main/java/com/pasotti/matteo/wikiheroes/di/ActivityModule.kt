@@ -3,7 +3,7 @@ package com.pasotti.matteo.wikiheroes.di
 import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivity
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.ui.home.splash.SplashActivity
 import com.pasotti.matteo.wikiheroes.view.ui.search.SearchActivity
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllActivity
@@ -25,7 +25,7 @@ abstract class ActivityModule {
     internal abstract fun contributeDetailActivity(): DetailActivity
 
     @ContributesAndroidInjector
-    internal abstract fun contributeDeatilComicActivity(): DetailComicActivity
+    internal abstract fun contributeDeatilComicActivity(): DetailItemActivity
 
     @ContributesAndroidInjector
     internal abstract fun contributeSeeAllActivity() : SeeAllActivity

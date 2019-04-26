@@ -18,10 +18,9 @@ import com.pasotti.matteo.wikiheroes.databinding.FragmentMoreGalleryBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.MoreGalleryAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.MoreImageViewHolder
 import dagger.android.support.AndroidSupportInjection
@@ -41,13 +40,13 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
     companion object {
 
-        private const val ITEM = "item"
+        private const val RESOURCE_URI = "resourceUri"
         private const val TYPE = "type"
         private const val ID = "id"
 
-        fun newInstance(id : String, item : Item, type : String) : MoreGalleryFragment {
+        fun newInstance(id : String, resourceURI : String, type : String) : MoreGalleryFragment {
             val args: Bundle = Bundle()
-            args.putParcelable(ITEM , item)
+            args.putString(RESOURCE_URI , resourceURI)
             args.putString(TYPE, type)
             args.putString(ID, id)
             val fragment = MoreGalleryFragment()
@@ -69,7 +68,7 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
         binding = DataBindingUtil.inflate(inflater ,  R.layout.fragment_more_gallery, container, false)
 
-        viewModel.item = this.arguments!!.getParcelable(ITEM)
+        viewModel.resourceURI = this.arguments!!.getString(RESOURCE_URI)
 
         viewModel.id = arguments!!.getString(ID)
 
@@ -97,7 +96,7 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
     private fun observeViewModel() {
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getItems(viewModel.item, arguments!!.getString(TYPE)).observe(this, Observer { it -> it?.let { processResponse(it) } })
+        viewModel.getItems(viewModel.resourceURI, arguments!!.getString(TYPE)).observe(this, Observer { it -> it?.let { processResponse(it) } })
         viewModel.getSeriesDetails().observe(this , Observer { it -> it?.let { saveSeriesDetail(it) } })
     }
 
@@ -130,9 +129,9 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
 
     override fun onItemClick(item: Detail, view: View) {
         if(item.id != viewModel.id.toInt()) {
-            val intent = Intent(activity, DetailComicActivity::class.java)
-            intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-            intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.section)
+            val intent = Intent(activity, DetailItemActivity::class.java)
+            intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+            intent.putExtra(DetailItemActivity.INTENT_SECTION, viewModel.section)
             startActivity(intent)
         }
 

@@ -77,7 +77,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun collectionItemToString( someObject : CollectionItem) : String {
+    fun collectionItemToString( someObject : CollectionItem?) : String? {
+        if(someObject == null) {
+            return null
+        }
         return gson.toJson(someObject)
     }
 

@@ -1,19 +1,9 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic
 
 import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.graphics.Point
-import android.graphics.Rect
-import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
-import android.view.animation.DecelerateInterpolator
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -32,12 +22,12 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class DetailComicActivity : AppCompatActivity() {
+class DetailItemActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailComicViewModel::class.java) }
+    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailItemViewModel::class.java) }
 
     private val binding by lazy { DataBindingUtil.setContentView<ComicDetailBinding>(this, R.layout.comic_detail) }
 
@@ -52,9 +42,9 @@ class DetailComicActivity : AppCompatActivity() {
 
     companion object {
 
-        const val TAG = "DetailComicActivity"
+        const val TAG = "DetailItemActivity"
 
-        const val INTENT_COMIC = "comic"
+        const val INTENT_ITEM = "resourceURI"
 
         const val INTENT_SECTION = "section"
     }
@@ -74,7 +64,7 @@ class DetailComicActivity : AppCompatActivity() {
 
     private fun initUI() {
 
-        viewModel.item = intent.extras.getParcelable(INTENT_COMIC)
+        viewModel.item = intent.extras.getParcelable(INTENT_ITEM)
         viewModel.section = intent.extras.getString(INTENT_SECTION)
         binding.viewModel = DetailComicUIViewModel(viewModel.item, intent.getStringExtra(INTENT_SECTION))
 
@@ -136,7 +126,14 @@ class DetailComicActivity : AppCompatActivity() {
 
         if (binding!!.viewModel!!.getMoreComicsVisibility() == View.VISIBLE) {
             // SHOW OTHER ITEMS OF THAT COLLECTION
-            Utils.addFragmentToActivity(supportFragmentManager, MoreGalleryFragment.newInstance(viewModel.item.id.toString(), viewModel.item.series!!, viewModel.section), binding.containerMoreComics.id)
+            var resourceUri : String = ""
+            if(viewModel.section == "Series") {
+                resourceUri = viewModel.item.resourceURI
+            } else if( viewModel.section == "Comics") {
+                resourceUri = viewModel.item.series!!.resourceURI
+            }
+
+            Utils.addFragmentToActivity(supportFragmentManager, MoreGalleryFragment.newInstance(viewModel.item.id.toString(), resourceUri, viewModel.section), binding.containerMoreComics.id)
         }
     }
 
@@ -149,5 +146,20 @@ class DetailComicActivity : AppCompatActivity() {
         viewModel.getItemFromShop().observe(this, Observer { response ->
             binding.shopButton.addIcon.isChecked = response != null
         })
+
+        if(viewModel.section == "Series") {
+            viewModel.getSeriesDetailById(viewModel.item.id).observe( this , Observer { response ->
+                if(response.isSuccessful) {
+
+                } else {
+                    renderErrorState(response.error)
+                }
+            })
+        }
+    }
+
+    private fun renderErrorState(throwable: Throwable?) {
+        binding.progressBar.visibility = View.GONE
+        throwable?.message?.let { Utils.showAlert(this, it) }
     }
 }

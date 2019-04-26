@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -22,7 +21,7 @@ import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
@@ -128,9 +127,9 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
         val options = ActivityOptions.makeSceneTransitionAnimation(this, img, txt)
 
-        val intent = Intent(this, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, viewModel.type)
+        val intent = Intent(this, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION, viewModel.type)
         startActivity(intent)
     }
 }

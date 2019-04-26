@@ -23,17 +23,14 @@ import com.pasotti.matteo.wikiheroes.models.FavCharacter
 import com.pasotti.matteo.wikiheroes.models.ShopItem
 import com.pasotti.matteo.wikiheroes.utils.ItemOffsetDecoration
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.FavCharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.ShopComicAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
-import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.FavCharacterViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.ShopComicViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fav_character_row.view.*
-import kotlinx.android.synthetic.main.item_character.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -132,9 +129,9 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
     }
 
     override fun onItemClick(item: Detail, view: View) {
-        val intent = Intent(activity, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION , "Comics")
+        val intent = Intent(activity, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION , "Comics")
         startActivity(intent)
     }
 

@@ -21,7 +21,7 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.HomeComicsAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.HomeComicsViewHolder
 import dagger.android.support.AndroidSupportInjection
 import org.jetbrains.anko.textColor
@@ -209,9 +209,9 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
 
     override fun onItemClick(item: Detail, view: View) {
-        val intent = Intent(activity, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION , "Comics")
+        val intent = Intent(activity, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION , "Comics")
         startActivity(intent)
     }
 }

@@ -4,10 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
 import com.pasotti.matteo.wikiheroes.repository.ComicsRepository
+import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import javax.inject.Inject
 
-class DetailComicViewModel @Inject
-constructor( private val comicsRepository: ComicsRepository) : ViewModel() {
+class DetailItemViewModel @Inject
+constructor( private val comicsRepository: ComicsRepository , private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var item : Detail
 
@@ -18,4 +19,7 @@ constructor( private val comicsRepository: ComicsRepository) : ViewModel() {
     fun removeFromShop() = comicsRepository.removeFromShop(item)
 
     fun getItemFromShop() = comicsRepository.getItemFromShop(item)
+
+    //get series details by id
+    fun getSeriesDetailById(seriesId : Int) = seriesRepository.getSeriesDetailById(seriesId.toString())
 }

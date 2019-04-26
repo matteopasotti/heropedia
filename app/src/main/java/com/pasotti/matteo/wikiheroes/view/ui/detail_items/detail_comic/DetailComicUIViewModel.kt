@@ -70,7 +70,9 @@ class DetailComicUIViewModel(val item: Detail, val section : String) : DetailIte
 
     @Bindable
     fun getMoreComicsVisibility(): Int {
-        return if (item.series?.resourceURI != null && item.issueNumber != null && item.issueNumber != "0") {
+        return if (section == "Comics" && item.series?.resourceURI != null && item.issueNumber != null && item.issueNumber != "0") {
+            View.VISIBLE
+        } else if(section == "Series") {
             View.VISIBLE
         } else {
             View.GONE

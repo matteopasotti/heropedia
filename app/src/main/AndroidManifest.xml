@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.detail_items.detail_comic.DetailComicActivity"
+        <activity android:name=".view.ui.detail_items.detail_comic.DetailItemActivity"
             android:screenOrientation="portrait" />
     </application>
 

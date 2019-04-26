@@ -39,4 +39,8 @@ constructor(private val marvelApi: MarvelApi) {
     fun searchSeriesNameStartsWith( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>>{
         return marvelApi.searchSeriesNameStartsWith(nameStartWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-startYear")
     }
+
+    fun getSeriesDetailById( seriesId : String) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesDetailById(seriesId , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+    }
 }

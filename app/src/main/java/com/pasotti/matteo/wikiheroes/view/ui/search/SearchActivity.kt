@@ -21,7 +21,7 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.*
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_character.view.*
@@ -238,17 +238,17 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
 
     override fun onSeriesClicked(item: Detail, view: View) {
-        val intent = Intent(this, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC, item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Series")
+        val intent = Intent(this, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM, item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION, "Series")
         startActivity(intent)
     }
 
 
     override fun onComicClicked(item: Detail, view: View) {
-        val intent = Intent(this, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC, item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
+        val intent = Intent(this, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM, item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION, "Comics")
         startActivity(intent)
     }
 
