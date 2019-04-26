@@ -6,7 +6,7 @@ import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.ShopItem
+import com.pasotti.matteo.wikiheroes.models.DeskItem
 import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.room.ShopDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
@@ -118,7 +118,7 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
 
     fun addToShop(det: Detail) {
         thread {
-            val shopItem = ShopItem(det.id, det)
+            val shopItem = DeskItem(det.id, det)
             shopDao.insertItemInShop(shopItem)
         }
     }
@@ -129,12 +129,12 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
         }
     }
 
-    fun getItemFromShop(det: Detail): LiveData<ShopItem> {
+    fun getItemFromShop(det: Detail): LiveData<DeskItem> {
         return shopDao.getItemFromShop(det.id)
     }
 
-    fun getItemsFromShop(): LiveData<List<ShopItem>> {
-        return shopDao.getItemsInShop()
+    fun getItemsFromShop(): LiveData<List<DeskItem>> {
+        return shopDao.getComicsInDesk()
     }
 
 

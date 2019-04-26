@@ -4,9 +4,9 @@ import android.view.View
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
-import com.pasotti.matteo.wikiheroes.view.viewholder.ShopComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.DeskComicViewHolder
 
-class ShopComicAdapter (val delegate : ShopComicViewHolder.Delegate, private val thisWeekDate : String?) : BaseAdapter() {
+class DeskComicsAdapter (val delegate : DeskComicViewHolder.Delegate, private val thisWeekDate : String?) : BaseAdapter() {
 
     init {
         addItems(ArrayList<Detail>())
@@ -20,14 +20,14 @@ class ShopComicAdapter (val delegate : ShopComicViewHolder.Delegate, private val
 
 
     override fun layout(item: Any?): Int {
-        return R.layout.shop_item_row
+        return R.layout.desk_comic_row
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
         return if(thisWeekDate == null) {
-            ShopComicViewHolder( view, delegate, "")
+            DeskComicViewHolder( view, delegate, "")
         } else {
-            ShopComicViewHolder( view, delegate, thisWeekDate)
+            DeskComicViewHolder( view, delegate, thisWeekDate)
         }
     }
 }

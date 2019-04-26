@@ -2,14 +2,14 @@ package com.pasotti.matteo.wikiheroes.view.viewholder
 
 import android.view.View
 import androidx.databinding.DataBindingUtil
-import com.pasotti.matteo.wikiheroes.databinding.ShopItemRowBinding
+import com.pasotti.matteo.wikiheroes.databinding.DeskComicRowBinding
 import com.pasotti.matteo.wikiheroes.models.Detail
 
-class ShopComicViewHolder (view: View, val delegate: Delegate,val thisWeek : String) : BaseViewHolder(view) {
+class DeskComicViewHolder (view: View, val delegate: Delegate, val thisWeek : String) : BaseViewHolder(view) {
 
     private lateinit var item: Detail
 
-    private val binding by lazy { DataBindingUtil.bind<ShopItemRowBinding>(view) }
+    private val binding by lazy { DataBindingUtil.bind<DeskComicRowBinding>(view) }
 
 
     //here we define actions which we handle

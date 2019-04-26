@@ -20,22 +20,23 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.FavCharacter
-import com.pasotti.matteo.wikiheroes.models.ShopItem
+import com.pasotti.matteo.wikiheroes.models.DeskItem
 import com.pasotti.matteo.wikiheroes.utils.ItemOffsetDecoration
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.FavCharacterAdapter
-import com.pasotti.matteo.wikiheroes.view.adapter.ShopComicAdapter
+import com.pasotti.matteo.wikiheroes.view.adapter.DeskComicsAdapter
+import com.pasotti.matteo.wikiheroes.view.adapter.DeskSeriesAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.FavCharacterViewHolder
-import com.pasotti.matteo.wikiheroes.view.viewholder.ShopComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.DeskComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.DeskSeriesViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fav_character_row.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacterViewHolder.Delegate {
-
+class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacterViewHolder.Delegate , DeskSeriesViewHolder.Delegate {
 
     lateinit var binding : FragmentHomeDeskBinding
 
@@ -73,10 +74,10 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
     }
 
     private fun initView() {
-        binding.text.text = "Desk Fragment"
 
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         val linearLayoutManager2 = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
+        val linearLayoutManager3 = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.adapterCharacters = FavCharacterAdapter(this)
         binding.listCharactersItems.layoutManager = linearLayoutManager2
@@ -84,16 +85,24 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
         binding.listCharactersItems.addItemDecoration(itemDecoration)
         binding.listCharactersItems.adapter = viewModel.adapterCharacters
 
-        viewModel.adapter = ShopComicAdapter(this , viewModel.getThisWeekDate())
+        viewModel.adapter = DeskComicsAdapter(this , viewModel.getThisWeekDate())
 
         binding.listShopItems.layoutManager = linearLayoutManager
         binding.listShopItems.adapter = viewModel.adapter
+
+        viewModel.adapterSeries = DeskSeriesAdapter(this)
+        binding.listSeries.layoutManager = linearLayoutManager3
+        binding.listSeries.adapter = viewModel.adapterSeries
     }
 
     fun observeViewModel() {
-        viewModel.getItemsFromShop().observe(this , Observer { response -> processShopItemsResponse(response) })
+        viewModel.getComicsFromShop().observe(this , Observer { response -> processDeskComicsResponse(response) })
 
         viewModel.getFavCharacters().observe( this , Observer { response ->  processFavCharactersResponse(response)})
+
+        viewModel.getSeriesFromDesk().observe( this , Observer { response ->
+            processDeskSeriesResponse(response)
+        })
     }
 
     private fun processFavCharactersResponse( response : List<FavCharacter>) {
@@ -111,8 +120,24 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
         }
     }
 
+    private fun processDeskSeriesResponse( response : List<DeskItem>) {
+        if(response.isNotEmpty()) {
+            binding.deskSeriesSection.visibility = View.VISIBLE
+            binding.text.visibility = View.GONE
+            var listItems : MutableList<Detail> = mutableListOf()
 
-    private fun processShopItemsResponse( response : List<ShopItem>) {
+            response.forEach {
+                it.item.week = Utils.WEEK.none
+                listItems.add(it.item)
+            }
+            viewModel.adapterSeries.updateList(listItems)
+        } else {
+            binding.deskSeriesSection.visibility = View.GONE
+        }
+    }
+
+
+    private fun processDeskComicsResponse(response : List<DeskItem>) {
         if(response.isNotEmpty()) {
             binding.shopSection.visibility = View.VISIBLE
             binding.text.visibility = View.GONE
@@ -147,5 +172,12 @@ class HomeDeskFragment : Fragment() , ShopComicViewHolder.Delegate , FavCharacte
         val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra(DetailActivity.intent_character , character as Parcelable)
         startActivity(intent , options.toBundle())
+    }
+
+    override fun onSeriesClicked(item: Detail, view: View) {
+        val intent = Intent(activity, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION , "Series")
+        startActivity(intent)
     }
 }

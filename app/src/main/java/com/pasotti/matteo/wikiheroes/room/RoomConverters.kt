@@ -44,7 +44,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun fromListDateToString( someObjects : MutableList<com.pasotti.matteo.wikiheroes.models.Date>) : String {
+    fun fromListDateToString( someObjects : MutableList<com.pasotti.matteo.wikiheroes.models.Date>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
         return gson.toJson(someObjects)
     }
 
@@ -98,7 +101,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun thumbnailListToString( someObjects: MutableList<Thumbnail>) : String {
+    fun thumbnailListToString( someObjects: MutableList<Thumbnail>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
         return gson.toJson(someObjects)
     }
 
@@ -116,7 +122,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun priceListToString( someObjects: MutableList<Price>) : String {
+    fun priceListToString( someObjects: MutableList<Price>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
         return gson.toJson(someObjects)
     }
 
@@ -153,7 +162,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun itemUrlListToString(someObjects: MutableList<ItemUrl>): String {
+    fun itemUrlListToString(someObjects: MutableList<ItemUrl>?): String? {
+        if( someObjects == null) {
+            return null
+        }
         return gson.toJson(someObjects)
     }
 
@@ -171,7 +183,10 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun itemListToString(items: List<Item>): String {
+    fun itemListToString(items: List<Item>?): String? {
+        if(items == null) {
+            return null
+        }
         return gson.toJson(items)
     }
 

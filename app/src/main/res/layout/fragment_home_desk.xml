@@ -75,7 +75,7 @@
                         android:id="@+id/label_shop_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Shop List"
+                        android:text="@string/comics"
                         android:textSize="18sp"
                         android:textColor="@android:color/white"
                         android:fontFamily="@font/product_sans_bold"
@@ -88,6 +88,44 @@
                         android:layout_height="wrap_content"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintTop_toBottomOf="@+id/label_shop_list"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="15dp"
+                        android:nestedScrollingEnabled="false"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/desk_series_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/shop_section"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="16dp"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:id="@+id/label_series_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/series"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/product_sans_bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_series"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@+id/label_series_list"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginTop="15dp"

@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Entity
 
 
-@Entity(primaryKeys = ["shopItemId"])
-data class ShopItem(val shopItemId: Int,
+@Entity(primaryKeys = ["deskItemId"])
+data class DeskItem(val deskItemId: Int,
                     @Embedded(prefix = "item_")
                     val item: Detail)

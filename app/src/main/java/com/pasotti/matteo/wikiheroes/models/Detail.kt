@@ -47,6 +47,7 @@ data class Detail( val id: Int,
         if(fullName != null) {
             return SearchObjectItem.TYPE_PERSON
         }
+
         return SearchObjectItem.TYPE_COMIC
     }
 }
