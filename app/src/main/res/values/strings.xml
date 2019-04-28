@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WikiHeroes</string>
+    <string name="app_name">Heropedia</string>
     <string name="content_description_item_in_character">item_character_image</string>
     <string name="transition_character_image">transition_character_image</string>
     <string name="transition_detail_image">transition_detail_image</string>

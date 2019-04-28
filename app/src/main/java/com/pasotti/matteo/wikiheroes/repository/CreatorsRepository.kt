@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class CreatorsRepository @Inject
 constructor(private val marvelApi: MarvelApi, val preferenceManager: PreferenceManager) {
 
-    private val defaultLimit = 20
+    private val defaultLimit = 10
 
     var offset = 0
 
@@ -23,6 +23,6 @@ constructor(private val marvelApi: MarvelApi, val preferenceManager: PreferenceM
     private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
 
     fun searchCreatorByName( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchCreatorByName(nameStartWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "firstName")
+        return marvelApi.searchCreatorByName(nameStartWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "firstName" , offset, defaultLimit)
     }
 }

@@ -1,12 +1,14 @@
 package com.pasotti.matteo.wikiheroes.view.ui.search
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -17,6 +19,7 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
+import com.pasotti.matteo.wikiheroes.models.SearchObjectItem
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
@@ -61,6 +64,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             if (isChecked) {
                 viewModel.searchOption = "Character"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    viewModel.switchTab = true
                     search()
                 }
             }
@@ -70,6 +74,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             if (isChecked) {
                 viewModel.searchOption = "Comic"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    viewModel.switchTab = true
                     search()
                 }
             }
@@ -79,6 +84,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             if (isChecked) {
                 viewModel.searchOption = "Series"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    viewModel.switchTab = true
                     search()
                 }
             }
@@ -88,14 +94,24 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
             if (isChecked) {
                 viewModel.searchOption = "Person"
                 if (viewModel.searchOption != null && viewModel.adapter.items.size > 0) {
+                    viewModel.switchTab = true
                     search()
                 }
             }
         }
 
+        //INFINITE SCROLL LISTENER
+        binding.listResults.addOnScrollListener(Utils.InfiniteScrollListener({
+            viewModel.increasePage()
+            search()
+        }, linearLayout))
+
 
         binding.searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.resetLists()
+                viewModel.searchText = binding.searchEdit.text.toString()
+                closeKeyboard(binding.searchEdit)
                 search()
                 true
             } else {
@@ -107,23 +123,22 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
     private fun search() {
         if (viewModel.searchOption != null) {
             binding.progressBar.visibility = View.VISIBLE
-            val searchText : String = binding.searchEdit.text.toString()
             when (viewModel.searchOption) {
 
                 "Character" -> {
-                    searchCharacter(searchText)
+                    searchCharacter(viewModel.searchText)
                 }
 
                 "Comic" -> {
-                    searchComic(searchText)
+                    searchComic(viewModel.searchText)
                 }
 
                 "Series" -> {
-                    searchSeries(searchText)
+                    searchSeries(viewModel.searchText)
                 }
 
                 "Person" -> {
-                    searchCreator(searchText)
+                    searchCreator(viewModel.searchText)
                 }
 
             }
@@ -133,87 +148,169 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
     }
 
     private fun searchComic(searchText: String) {
-        viewModel.searchComics(searchText)
-                .observe(this, Observer { response ->
-                    if (response != null && response.isSuccessful) {
-                        if (!response.body!!.data.results.isNullOrEmpty()) {
+        if(viewModel.comics == null || (viewModel.comicsPageCounter != 0 && !viewModel.switchTab)) {
+            viewModel.searchComics(searchText)
+                    .observe(this, Observer { response ->
+                        if (response != null && response.isSuccessful) {
+                            if (!response.body!!.data.results.isNullOrEmpty()) {
 
-                            val items: MutableList<Detail> = mutableListOf()
-                            response.body.data.results.forEach {
-                                it.week = Utils.WEEK.none
-                                items.add(it)
+                                val items: MutableList<Detail> = mutableListOf()
+                                response.body.data.results.forEach {
+                                    it.week = Utils.WEEK.none
+                                    items.add(it)
+                                }
+
+                                binding.progressBar.visibility = View.GONE
+                                if(viewModel.comics == null) {
+                                    viewModel.comics = mutableListOf()
+                                    viewModel.comics!!.addAll(items)
+                                    viewModel.adapter.createList(items)
+                                } else {
+                                    viewModel.comics!!.addAll(items)
+                                    viewModel.adapter.addNewItems(items)
+                                }
+
+                                viewModel.switchTab = false
+                                viewModel.increaseOffset()
+                            } else {
+                                // no results
+                                binding.progressBar.visibility = View.GONE
+                                Utils.showAlert(this, "No results found.")
                             }
-
-                            binding.progressBar.visibility = View.GONE
-                            viewModel.adapter.createList(items)
                         } else {
-                            // no results
-                            binding.progressBar.visibility = View.GONE
-                            Utils.showAlert(this, "No results found.")
+                            renderErrorState(response.error)
                         }
-                    } else {
-                        renderErrorState(response.error)
-                    }
-                })
+                    })
+        } else {
+            binding.progressBar.visibility = View.GONE
+            viewModel.adapter.createList(viewModel.comics!!)
+            viewModel.switchTab = false
+        }
+
     }
 
     private fun searchCharacter(searchText: String) {
-        viewModel.searchCharacter(searchText)
-                .observe(this, Observer { response ->
-                    if (response != null && response.isSuccessful) {
-                        if (!response.body!!.data.results.isNullOrEmpty()) {
-                            binding.progressBar.visibility = View.GONE
-                            viewModel.adapter.createList(response.body!!.data.results)
+        if(viewModel.characters == null || (viewModel.charactersPageCounter != 0 && !viewModel.switchTab)) {
+            viewModel.searchCharacter(searchText)
+                    .observe(this, Observer { response ->
+                        if (response != null && response.isSuccessful) {
+                            if (!response.body!!.data.results.isNullOrEmpty()) {
+                                binding.progressBar.visibility = View.GONE
+
+                                val items: MutableList<SearchObjectItem> = mutableListOf()
+                                response.body.data.results.forEach {
+                                    items.add(it)
+                                }
+
+                                if(viewModel.characters == null) {
+                                    viewModel.characters = mutableListOf()
+                                    viewModel.characters!!.addAll(items)
+                                    viewModel.adapter.createList(items)
+                                } else {
+                                    viewModel.characters!!.addAll(items)
+                                    viewModel.adapter.addNewItems(items)
+                                }
+                                viewModel.switchTab = false
+                                viewModel.increaseOffset()
+                                //viewModel.adapter.createList(response.body!!.data.results)
+                            } else {
+                                // no results
+                                binding.progressBar.visibility = View.GONE
+                                Utils.showAlert(this, "No results found.")
+                            }
                         } else {
-                            // no results
-                            binding.progressBar.visibility = View.GONE
-                            Utils.showAlert(this, "No results found.")
+                            renderErrorState(response.error)
                         }
-                    } else {
-                        renderErrorState(response.error)
-                    }
-                })
+                    })
+        } else {
+            binding.progressBar.visibility = View.GONE
+            viewModel.adapter.createList(viewModel.characters!!)
+            viewModel.switchTab = false
+        }
+
     }
 
     private fun searchCreator( searchText: String ) {
-        viewModel.searchCreator(searchText).observe( this , Observer { response ->
-            if (response != null && response.isSuccessful) {
-                if (!response.body!!.data.results.isNullOrEmpty()) {
-                    binding.progressBar.visibility = View.GONE
-                    viewModel.adapter.createList(response.body!!.data.results)
+        if(viewModel.persons == null || (viewModel.personPageCounter != 0 && !viewModel.switchTab)) {
+            viewModel.searchCreator(searchText).observe( this , Observer { response ->
+                if (response != null && response.isSuccessful) {
+                    if (!response.body!!.data.results.isNullOrEmpty()) {
+                        binding.progressBar.visibility = View.GONE
+
+                        val items: MutableList<SearchObjectItem> = mutableListOf()
+                        response.body.data.results.forEach {
+                            items.add(it)
+                        }
+
+                        if(viewModel.persons == null) {
+                            viewModel.persons = mutableListOf()
+                            viewModel.persons!!.addAll(items)
+                            viewModel.adapter.createList(items)
+                        } else {
+                            viewModel.persons!!.addAll(items)
+                            viewModel.adapter.addNewItems(items)
+                        }
+                        viewModel.switchTab = false
+                        viewModel.increaseOffset()
+                    } else {
+                        // no results
+                        binding.progressBar.visibility = View.GONE
+                        Utils.showAlert(this, "No results found.")
+                    }
                 } else {
-                    // no results
-                    binding.progressBar.visibility = View.GONE
-                    Utils.showAlert(this, "No results found.")
+                    renderErrorState(response.error)
                 }
-            } else {
-                renderErrorState(response.error)
-            }
-        })
+            })
+        } else {
+            binding.progressBar.visibility = View.GONE
+            viewModel.adapter.createList(viewModel.persons!!)
+            viewModel.switchTab = false
+        }
+
     }
 
     private fun searchSeries( searchText: String ) {
-        viewModel.searchSeries(searchText).observe( this , Observer { response ->
-            if (response != null && response.isSuccessful) {
-                if (!response.body!!.data.results.isNullOrEmpty()) {
+        if(viewModel.series == null || (viewModel.seriesPageCounter != 0 && !viewModel.switchTab)) {
+            viewModel.searchSeries(searchText).observe( this , Observer { response ->
+                if (response != null && response.isSuccessful) {
+                    if (!response.body!!.data.results.isNullOrEmpty()) {
 
-                    val items: MutableList<Detail> = mutableListOf()
-                    response.body!!.data.results.forEach {
-                        it.week = Utils.WEEK.none
-                        items.add(it)
+
+                        binding.progressBar.visibility = View.GONE
+                        viewModel.increaseOffset()
+
+                        val items: MutableList<Detail> = mutableListOf()
+                        response.body!!.data.results.forEach {
+                            it.week = Utils.WEEK.none
+                            items.add(it)
+                        }
+
+                        if(viewModel.series == null) {
+                            viewModel.series = mutableListOf()
+                            viewModel.series!!.addAll(items)
+                            viewModel.adapter.createList(items)
+                        } else {
+                            viewModel.series!!.addAll(items)
+                            viewModel.adapter.addNewItems(items)
+                        }
+
+                        viewModel.switchTab = false
+
+                    } else {
+                        // no results
+                        binding.progressBar.visibility = View.GONE
+                        Utils.showAlert(this, "No results found.")
                     }
-
-                    binding.progressBar.visibility = View.GONE
-                    viewModel.adapter.createList(items)
                 } else {
-                    // no results
-                    binding.progressBar.visibility = View.GONE
-                    Utils.showAlert(this, "No results found.")
+                    renderErrorState(response.error)
                 }
-            } else {
-                renderErrorState(response.error)
-            }
-        })
+            })
+        } else {
+            binding.progressBar.visibility = View.GONE
+            viewModel.adapter.createList(viewModel.series!!)
+            viewModel.switchTab = false
+        }
+
     }
 
 
@@ -261,6 +358,11 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
         intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
         startActivity(intent, options.toBundle())
+    }
+
+    private fun closeKeyboard(view : View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken , 0)
     }
 
 }

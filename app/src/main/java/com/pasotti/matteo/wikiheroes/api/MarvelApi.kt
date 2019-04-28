@@ -147,7 +147,9 @@ interface MarvelApi {
                                              @Query("apikey") apiKey: String,
                                              @Query("hash") hash: String,
                                              @Query("ts") ts: String,
-                                             @Query("orderBy") orderBy: String): LiveData<ApiResponse<CharacterResponse>>
+                                             @Query("orderBy") orderBy: String,
+                                             @Nullable @Query("offset") offset: Int,
+                                             @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
 
 
     @GET("/v1/public/comics")
@@ -155,14 +157,18 @@ interface MarvelApi {
                                           @Query("apikey") apiKey: String,
                                           @Query("hash") hash: String,
                                           @Query("ts") ts: String,
-                                          @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
+                                          @Query("orderBy") orderBy: String,
+                                          @Nullable @Query("offset") offset: Int,
+                                          @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/series")
     public fun searchSeriesNameStartsWith(@Query("titleStartsWith") titleStartsWith: String,
                                           @Query("apikey") apiKey: String,
                                           @Query("hash") hash: String,
                                           @Query("ts") ts: String,
-                                          @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
+                                          @Query("orderBy") orderBy: String,
+                                          @Nullable @Query("offset") offset: Int,
+                                          @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
 
 
     @GET("/v1/public/creators")
@@ -170,7 +176,9 @@ interface MarvelApi {
                                    @Query("apikey") apiKey: String,
                                    @Query("hash") hash: String,
                                    @Query("ts") ts: String,
-                                   @Query("orderBy") orderBy: String): LiveData<ApiResponse<DetailResponse>>
+                                   @Query("orderBy") orderBy: String,
+                                   @Nullable @Query("offset") offset: Int,
+                                   @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
 
     @GET("/v1/public/series/{seriesId}")
     public fun getSeriesDetailById(@Path("seriesId") seriesId: String,

@@ -18,6 +18,8 @@ constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
 
     private val defaultLimit = 20
 
+    var offset = 0
+
     private val timestamp = Date().time
 
     private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
@@ -39,7 +41,7 @@ constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
     }
 
     fun searchSeriesNameStartsWith( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>>{
-        return marvelApi.searchSeriesNameStartsWith(nameStartWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-startYear")
+        return marvelApi.searchSeriesNameStartsWith(nameStartWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-startYear" , offset , defaultLimit)
     }
 
     fun getSeriesDetailById( seriesId : String) : LiveData<ApiResponse<DetailResponse>> {

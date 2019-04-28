@@ -128,6 +128,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
 
     fun searchCharacterByName( nameStartsWith : String) : LiveData<ApiResponse<CharacterResponse>> {
-        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "name")
+        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "name", offset, defaultLimit)
     }
 }

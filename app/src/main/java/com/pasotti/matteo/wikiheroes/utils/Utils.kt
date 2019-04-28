@@ -145,6 +145,14 @@ object Utils {
                 totalItemCount = layoutManager.itemCount
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
 
+
+                val needsLoad = (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)
+
+                Log.i("InfiniteScrollListener", "isLoading = $loading")
+                Log.i("InfiniteScrollListener", "totalItemCount = $totalItemCount")
+                Log.i("InfiniteScrollListener", "visibleItemCount = $visibleItemCount")
+                Log.i("InfiniteScrollListener", "totalItemCount - visibleItemCount <= (firstVisibleItem + visibleThreshold) = $needsLoad")
+
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false

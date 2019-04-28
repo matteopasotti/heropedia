@@ -20,7 +20,7 @@ import kotlin.concurrent.thread
 class ComicsRepository @Inject
 constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shopDao: ShopDao, val preferenceManager: PreferenceManager) {
 
-    private val defaultLimit = 20
+    private val defaultLimit = 10
 
     var offset = 0
 
@@ -155,6 +155,6 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
     }
 
     fun searchComicsNameStartsWith(nameStartsWith : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchComicsNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-onsaleDate")
+        return marvelApi.searchComicsNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-onsaleDate", offset , defaultLimit)
     }
 }
