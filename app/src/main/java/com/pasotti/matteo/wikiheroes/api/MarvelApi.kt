@@ -180,6 +180,12 @@ interface MarvelApi {
                                    @Nullable @Query("offset") offset: Int,
                                    @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
 
+    @GET("/v1/public/creators/{creatorId}")
+    public fun getCreatorDetailById(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String) : LiveData<ApiResponse<DetailResponse>>
+
     @GET("/v1/public/series/{seriesId}")
     public fun getSeriesDetailById(@Path("seriesId") seriesId: String,
                                    @Query("apikey") apiKey: String,

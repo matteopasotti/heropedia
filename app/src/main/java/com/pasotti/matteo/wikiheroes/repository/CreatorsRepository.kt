@@ -25,4 +25,9 @@ constructor(private val marvelApi: MarvelApi, val preferenceManager: PreferenceM
     fun searchCreatorByName( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.searchCreatorByName(nameStartWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "firstName" , offset, defaultLimit)
     }
+
+
+    fun getCreatorDetailById( id : String) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getCreatorDetailById(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+    }
 }

@@ -87,11 +87,11 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.previousWeek.textColor = resources.getColor(R.color.yellow , null)
+                    binding.previousWeek.textColor = resources.getColor(R.color.dark_yellow , null)
                 } else {
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
-                    binding.previousWeek.textColor = resources.getColor(R.color.yellow)
+                    binding.previousWeek.textColor = resources.getColor(R.color.dark_yellow)
                 }
 
                 binding.previousWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
@@ -113,11 +113,11 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.thisWeek.textColor = resources.getColor(R.color.yellow , null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.dark_yellow , null)
                 } else {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
-                    binding.thisWeek.textColor = resources.getColor(R.color.yellow)
+                    binding.thisWeek.textColor = resources.getColor(R.color.dark_yellow)
                 }
 
                 binding.thisWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
@@ -138,11 +138,11 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.nextWeek.textColor = resources.getColor(R.color.yellow , null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.dark_yellow , null)
                 } else {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
-                    binding.nextWeek.textColor = resources.getColor(R.color.yellow)
+                    binding.nextWeek.textColor = resources.getColor(R.color.dark_yellow)
                 }
                 binding.nextWeek.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 

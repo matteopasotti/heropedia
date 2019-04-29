@@ -24,6 +24,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.home.MainActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.person.PersonDetailActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.search.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>

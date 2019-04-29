@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mid_black">
+        android:background="@android:color/black">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested"
@@ -30,9 +30,9 @@
                     android:id="@+id/select_week_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SELECT A WEEK : "
+                    android:text="SELECT A WEEK :"
                     android:fontFamily="@font/product_sans_bold_italic"
-                    android:textColor="@color/whiteFadeBg"
+                    android:textColor="@color/dark_yellow"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="16dp"/>
@@ -43,7 +43,7 @@
                     android:id="@+id/previous_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LAST"
+                    android:text="last"
                     android:textColor="@color/whiteFadeBg"
                     android:fontFamily="@font/product_sans_bold_italic"
                     app:layout_constraintTop_toBottomOf="@+id/select_week_label"
@@ -56,8 +56,8 @@
                     android:id="@+id/this_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="THIS"
-                    android:textColor="@color/yellow"
+                    android:text="this"
+                    android:textColor="@color/dark_yellow"
                     android:fontFamily="@font/product_sans_bold_italic"
                     app:layout_constraintTop_toTopOf="@+id/previous_week"
                     app:layout_constraintStart_toEndOf="@+id/previous_week"
@@ -67,7 +67,7 @@
                     android:id="@+id/next_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NEXT"
+                    android:text="next"
                     android:textColor="@color/whiteFadeBg"
                     android:fontFamily="@font/product_sans_bold_italic"
                     app:layout_constraintTop_toTopOf="@+id/previous_week"

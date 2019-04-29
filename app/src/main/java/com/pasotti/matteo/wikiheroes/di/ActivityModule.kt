@@ -5,6 +5,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.ui.home.splash.SplashActivity
+import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.search.SearchActivity
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllActivity
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllActivity
@@ -41,6 +42,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeSearchActivity() : SearchActivity
+
+    @ContributesAndroidInjector
+    internal abstract fun contributePersonDetailActivity() : PersonDetailActivity
 
 
 }
