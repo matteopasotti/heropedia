@@ -45,6 +45,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txt_see_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SEE ALL"
+            android:padding="8dp"
+            android:gravity="center"
+            android:visibility="visible"
+            android:textColor="@android:color/black"
+            android:background="@color/dark_yellow"
+            android:fontFamily="@font/product_sans_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

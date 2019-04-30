@@ -24,14 +24,14 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:progress="25"
-            android:progressDrawable="@drawable/custom_progressbar"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/custom_progress_loader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

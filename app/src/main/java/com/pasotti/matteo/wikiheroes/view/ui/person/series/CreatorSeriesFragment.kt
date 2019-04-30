@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.view.ui.person.series
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.HomeComicsAdapter
+import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.person.comics.CreatorFragmentsViewModel
 import com.pasotti.matteo.wikiheroes.view.viewholder.HomeComicsViewHolder
 import dagger.android.support.AndroidSupportInjection
@@ -107,5 +109,12 @@ class CreatorSeriesFragment : Fragment(),  HomeComicsViewHolder.Delegate {
         viewModel.adapter = HomeComicsAdapter(this)
 
         binding.rvCreatorSeries.adapter = viewModel.adapter
+
+        binding.txtSeeAll.setOnClickListener {
+            val intent = Intent( activity , CreatorDetailActivity::class.java)
+            intent.putExtra(CreatorDetailActivity.CREATOR , viewModel.creator)
+            intent.putExtra(CreatorDetailActivity.TITLE_SECTION , "Series")
+            startActivity(intent)
+        }
     }
 }
