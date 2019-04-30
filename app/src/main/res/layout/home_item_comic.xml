@@ -16,23 +16,35 @@
         android:layout_height="wrap_content"
         tools:background="@color/black">
 
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/content_description_item_in_character"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/spiderman_comic"
-            android:transitionName="@string/transition_detail_image"
-            app:imageUrl="@{viewModel.urlImage}"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp">
+
+
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_item_in_character"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/spiderman_comic"
+                android:transitionName="@string/transition_detail_image"
+                app:imageUrl="@{viewModel.urlImage}" />
+
+        </androidx.cardview.widget.CardView>
+
+
+
 
         <TextView
             android:id="@+id/title_detail"
@@ -48,8 +60,8 @@
             android:text="@{viewModel.title}"
             android:transitionName="@string/transition_detail_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/card_image"
+            app:layout_constraintTop_toTopOf="@+id/card_image"
             tools:text="Title" />
 
         <TextView
@@ -63,7 +75,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:visibility="@{viewModel.publishedDateVisibility}"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/card_image"
             app:layout_constraintTop_toBottomOf="@+id/title_detail"
             tools:text="Published:" />
 
@@ -78,7 +90,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:visibility="@{viewModel.publishedDateVisibility}"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/card_image"
             app:layout_constraintTop_toBottomOf="@+id/publishedLabel"
             tools:text="28/12/1992" />
 
@@ -106,7 +118,7 @@
             android:visibility="@{viewModel.numberPagesVisibility}"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/card_image"
             app:layout_constraintTop_toBottomOf="@+id/published_date"
             tools:text="Pages:" />
 

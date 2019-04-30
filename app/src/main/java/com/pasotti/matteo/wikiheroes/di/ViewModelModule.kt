@@ -14,6 +14,7 @@ import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailIma
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.home.desk.HomeDeskViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivityViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.person.comics.CreatorFragmentsViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.search.SearchActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.series.SeriesSeeAllViewModel
@@ -103,6 +104,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PersonDetailActivityViewModel::class)
     internal abstract fun bindPersonDetailActivityViewModel( personDetailActivityViewModel: PersonDetailActivityViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreatorFragmentsViewModel::class)
+    internal abstract fun bindCreatorFragmentViewModel(creatorFragmentsViewModel: CreatorFragmentsViewModel) : ViewModel
 
 
     @Binds

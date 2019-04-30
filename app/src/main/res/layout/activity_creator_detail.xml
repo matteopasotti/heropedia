@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:background="@color/mid_black">
+        android:background="@android:color/black">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -94,14 +94,76 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- BODY PUT FRAMELAYOUT FOR FRAGMENTS -->
-            <com.pasotti.matteo.wikiheroes.utils.CustomViewPager
-                android:id="@+id/view_pager"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:elevation="1dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:tabGravity="fill"
+                    app:tabPaddingStart="0dp"
+                    app:tabPaddingEnd="0dp"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/dark_yellow"
+                    android:background="@android:color/black"/>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tabs"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--<androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                android:background="@android:color/holo_green_light">
+
+                 <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:elevation="1dp"
+                    app:tabGravity="fill"
+                    app:tabPaddingStart="0dp"
+                    app:tabPaddingEnd="0dp"
+                    app:tabMode="fixed"
+                    app:tabIndicatorColor="@color/dark_yellow"
+                    android:background="@color/black60"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tabs"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         </androidx.core.widget.NestedScrollView>
 

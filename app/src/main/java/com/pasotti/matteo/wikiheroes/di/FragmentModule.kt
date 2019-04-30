@@ -7,6 +7,8 @@ import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.characters.HomeCharactersFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsFragment
 import com.pasotti.matteo.wikiheroes.view.ui.home.desk.HomeDeskFragment
+import com.pasotti.matteo.wikiheroes.view.ui.person.comics.CreatorComicsFragment
+import com.pasotti.matteo.wikiheroes.view.ui.person.series.CreatorSeriesFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -37,4 +39,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeHomeDeskFragment() : HomeDeskFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeCreatorComicsFragment() : CreatorComicsFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeCreatorSeriesFragment() : CreatorSeriesFragment
 }

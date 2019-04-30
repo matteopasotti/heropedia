@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import android.util.Pair
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pasotti.matteo.wikiheroes.R
@@ -19,6 +20,7 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.view.adapter.CreatorRowAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
+import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.CreatorViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.creator_item.view.*
@@ -88,12 +90,18 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
 
     override fun onItemClick(creator: Item, view: View) {
 
-        val txt = Pair.create(view.creator_name as View, resources.getString(R.string.transition_creator_name))
-        val options = ActivityOptions.makeSceneTransitionAnimation(activity, txt)
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getCreatorDetail(creator).observe( this , Observer { response ->
+            binding.progressBar.visibility = View.GONE
+            if(response.isSuccessful && response != null && response.body!!.data.results.isNotEmpty()) {
+                val detail = response.body.data.results[0]
+                val intent = Intent( activity , PersonDetailActivity::class.java)
+                intent.putExtra(PersonDetailActivity.CREATOR , creator as Parcelable)
+                intent.putExtra(PersonDetailActivity.IMAGE , detail.thumbnail?.path + "." + detail.thumbnail?.extension)
+                startActivity(intent)
+            }
 
-        val intent = Intent(activity, CreatorDetailActivity::class.java)
-        intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
-        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, viewModel.section)
-        startActivity(intent, options.toBundle())
+        })
     }
+
 }

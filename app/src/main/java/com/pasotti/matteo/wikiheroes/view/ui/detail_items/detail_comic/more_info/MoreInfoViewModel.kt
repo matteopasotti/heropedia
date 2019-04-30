@@ -3,10 +3,12 @@ package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_inf
 import androidx.lifecycle.ViewModel
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
+import com.pasotti.matteo.wikiheroes.repository.CreatorsRepository
+import com.pasotti.matteo.wikiheroes.utils.Utils
 import javax.inject.Inject
 
 class MoreInfoViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository) : ViewModel() {
+constructor(private val charactersRepository: CharactersRepository , private val creatorsRepository: CreatorsRepository) : ViewModel() {
 
 
     private var goodItems: MutableList<Pair<String?, MutableList<Item>>> = mutableListOf()
@@ -64,4 +66,6 @@ constructor(private val charactersRepository: CharactersRepository) : ViewModel(
 
         goodItems[index] = Pair(creator.role , creators)
     }
+
+    fun getCreatorDetail( creator: Item) = creatorsRepository.getCreatorDetailById(Utils.getIdByResourceURI(creator.resourceURI))
 }

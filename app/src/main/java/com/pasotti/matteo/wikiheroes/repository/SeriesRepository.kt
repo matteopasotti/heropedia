@@ -32,6 +32,10 @@ constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
         return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
     }
 
+    fun getSeriesByCreatorId( id : String) : LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", 0, defaultLimit)
+    }
+
     fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
     }

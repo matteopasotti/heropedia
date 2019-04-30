@@ -40,6 +40,10 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
         return marvelApi.getComicsByCreatorId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "-onsaleDate", offset, defaultLimit)
     }
 
+    fun getComicsByCreatorId(id: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getComicsByCreatorId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "-onsaleDate", 0, defaultLimit)
+    }
+
     fun getComicsByCharacterId(id: Int, offset: Int): LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
     }

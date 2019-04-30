@@ -25,6 +25,7 @@ import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
+import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.*
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_character.view.*
@@ -239,6 +240,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
                         val items: MutableList<SearchObjectItem> = mutableListOf()
                         response.body.data.results.forEach {
+                            it.week = Utils.WEEK.none
                             items.add(it)
                         }
 
@@ -353,11 +355,16 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         val txt = Pair.create(view.creator_name as View, resources.getString(R.string.transition_creator_name))
         val options = ActivityOptions.makeSceneTransitionAnimation(this, txt)
 
-        val intent = Intent(this, CreatorDetailActivity::class.java)
+        val intent = Intent(this, PersonDetailActivity::class.java)
+
+        //val intent = Intent(this, CreatorDetailActivity::class.java)
+
         val creator = Item(item.resourceURI , item.fullName!!, null , null)
-        intent.putExtra(CreatorDetailActivity.CREATOR , creator as Parcelable)
-        intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
-        startActivity(intent, options.toBundle())
+        intent.putExtra(PersonDetailActivity.CREATOR , creator as Parcelable)
+        intent.putExtra(PersonDetailActivity.IMAGE , item.thumbnail?.path + "." +item.thumbnail?.extension)
+        //intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")
+        //startActivity(intent, options.toBundle())
+        startActivity(intent)
     }
 
     private fun closeKeyboard(view : View) {
