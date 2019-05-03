@@ -35,4 +35,5 @@
     <string name="comics">Comics</string>
     <string name="series">Series</string>
     <string name="sorry_no_items_found_for_this_creator">Sorry, no items found for this creator</string>
+    <string name="people">People</string>
 </resources>

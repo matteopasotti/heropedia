@@ -17,26 +17,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.FragmentHomeDeskBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.models.Detail
-import com.pasotti.matteo.wikiheroes.models.FavCharacter
-import com.pasotti.matteo.wikiheroes.models.DeskItem
+import com.pasotti.matteo.wikiheroes.models.*
 import com.pasotti.matteo.wikiheroes.utils.ItemOffsetDecoration
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.FavCharacterAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.DeskComicsAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.DeskSeriesAdapter
+import com.pasotti.matteo.wikiheroes.view.adapter.FavCreatorAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
+import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.FavCharacterViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.DeskComicViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.DeskSeriesViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.FavCreatorViewHolder
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fav_character_row.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacterViewHolder.Delegate , DeskSeriesViewHolder.Delegate {
+class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacterViewHolder.Delegate , DeskSeriesViewHolder.Delegate , FavCreatorViewHolder.Delegate {
 
     lateinit var binding : FragmentHomeDeskBinding
 
@@ -78,6 +78,7 @@ class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacte
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         val linearLayoutManager2 = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         val linearLayoutManager3 = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
+        val linearLayoutManager4 = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.adapterCharacters = FavCharacterAdapter(this)
         binding.listCharactersItems.layoutManager = linearLayoutManager2
@@ -93,6 +94,10 @@ class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacte
         viewModel.adapterSeries = DeskSeriesAdapter(this)
         binding.listSeries.layoutManager = linearLayoutManager3
         binding.listSeries.adapter = viewModel.adapterSeries
+
+        viewModel.adapterPeople = FavCreatorAdapter(this)
+        binding.listPeople.layoutManager = linearLayoutManager4
+        binding.listPeople.adapter = viewModel.adapterPeople
     }
 
     fun observeViewModel() {
@@ -103,6 +108,8 @@ class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacte
         viewModel.getSeriesFromDesk().observe( this , Observer { response ->
             processDeskSeriesResponse(response)
         })
+
+        viewModel.getPeopleFromDesk().observe( this , Observer { response ->  processFavPeopleResponse(response)})
     }
 
     private fun processFavCharactersResponse( response : List<FavCharacter>) {
@@ -117,6 +124,16 @@ class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacte
             viewModel.adapterCharacters.updateList(listItems)
         } else {
             binding.charactersSection.visibility = View.GONE
+        }
+    }
+
+    private fun processFavPeopleResponse( response : List<Item>) {
+        if(response.isNotEmpty()) {
+            binding.deskPersonsSection.visibility = View.VISIBLE
+            binding.text.visibility = View.GONE
+            viewModel.adapterPeople.updateItems(response)
+        } else {
+            binding.deskPersonsSection.visibility = View.GONE
         }
     }
 
@@ -179,5 +196,20 @@ class HomeDeskFragment : Fragment() , DeskComicViewHolder.Delegate , FavCharacte
         intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
         intent.putExtra(DetailItemActivity.INTENT_SECTION , "Series")
         startActivity(intent)
+    }
+
+    override fun onCreatorClicked(creator: Item, view: View) {
+        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getCreatorDetail(creator).observe( this , Observer { response ->
+            binding.progressBar.visibility = View.GONE
+            if(response.isSuccessful && response != null && response.body!!.data.results.isNotEmpty()) {
+                val detail = response.body.data.results[0]
+                val intent = Intent( activity , PersonDetailActivity::class.java)
+                intent.putExtra(PersonDetailActivity.CREATOR , creator as Parcelable)
+                intent.putExtra(PersonDetailActivity.IMAGE , detail.thumbnail?.path + "." + detail.thumbnail?.extension)
+                startActivity(intent)
+            }
+
+        })
     }
 }

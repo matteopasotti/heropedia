@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -56,19 +57,21 @@ class PersonDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initUI()
+
+        observeViewModel()
     }
 
     private fun initUI() {
 
-        setSupportActionBar(binding.toolbarCharacterDetail.toolbar)
+        setSupportActionBar(binding.toolbarPersonDetail.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.title = null
-        binding.toolbarCharacterDetail.toolbar.setNavigationOnClickListener {
+        binding.toolbarPersonDetail.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
 
-       val image = intent.extras.getString(IMAGE)
+       viewModel.image = intent.extras.getString(IMAGE)
         viewModel.creator = intent.extras.getParcelable(CREATOR)
 
         binding.creatorName.text = viewModel.creator.name
@@ -79,7 +82,7 @@ class PersonDetailActivity : AppCompatActivity() {
         Glide.with(this)
                 .asBitmap()
                 .apply(requestOptions)
-                .load(image)
+                .load(viewModel.image)
                 .listener(object : RequestListener<Bitmap> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
                         supportStartPostponedEnterTransition()
@@ -107,6 +110,15 @@ class PersonDetailActivity : AppCompatActivity() {
         binding.tabs.getTabAt(1)!!.customView = tabTwo
 
         selectTab(0)
+
+        binding.toolbarPersonDetail.heartCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                viewModel.creator.image = viewModel.image
+                viewModel.saveCreator(viewModel.creator)
+            } else {
+                viewModel.removeCreator(viewModel.creator)
+            }
+        }
     }
 
     private fun getImageUri(): String {
@@ -115,5 +127,11 @@ class PersonDetailActivity : AppCompatActivity() {
 
     private fun selectTab(index: Int) {
         binding.viewpager.setCurrentItem(index, true)
+    }
+
+    private fun observeViewModel() {
+        viewModel.getFavCreator(viewModel.creator).observe( this , Observer { response ->
+            binding.toolbarPersonDetail.heartCheckBox.isChecked = response != null
+        })
     }
 }

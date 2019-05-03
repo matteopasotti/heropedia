@@ -359,7 +359,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
 
         //val intent = Intent(this, CreatorDetailActivity::class.java)
 
-        val creator = Item(item.resourceURI , item.fullName!!, null , null)
+        val creator = Item(item.resourceURI , item.fullName!!, null , null, null)
         intent.putExtra(PersonDetailActivity.CREATOR , creator as Parcelable)
         intent.putExtra(PersonDetailActivity.IMAGE , item.thumbnail?.path + "." +item.thumbnail?.extension)
         //intent.putExtra(CreatorDetailActivity.TITLE_SECTION, "Comics")

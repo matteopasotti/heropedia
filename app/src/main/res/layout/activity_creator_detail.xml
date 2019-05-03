@@ -79,7 +79,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <include
-                    android:id="@+id/toolbarCharacterDetail"
+                    android:id="@+id/toolbar_person_detail"
                     layout="@layout/toolbar_character_detail"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"/>
