@@ -217,13 +217,18 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
                             } else {
                                 // no results
                                 binding.progressBar.visibility = View.GONE
-                                Utils.showAlert(this, "No results found.")
+                                if(viewModel.charactersPageCounter == 0) {
+                                    Utils.showAlert(this, "No results found.")
+                                }
+
                             }
                         } else {
                             renderErrorState(response.error)
                         }
                     })
         } else {
+
+            // i'm switching tab so i load the current list of items without any webcall
             binding.progressBar.visibility = View.GONE
             viewModel.adapter.createList(viewModel.characters!!)
             viewModel.switchTab = false
@@ -257,7 +262,9 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
                     } else {
                         // no results
                         binding.progressBar.visibility = View.GONE
-                        Utils.showAlert(this, "No results found.")
+                        if(viewModel.personPageCounter == 0) {
+                            Utils.showAlert(this, "No results found.")
+                        }
                     }
                 } else {
                     renderErrorState(response.error)
@@ -301,7 +308,9 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
                     } else {
                         // no results
                         binding.progressBar.visibility = View.GONE
-                        Utils.showAlert(this, "No results found.")
+                        if(viewModel.seriesPageCounter == 0) {
+                            Utils.showAlert(this, "No results found.")
+                        }
                     }
                 } else {
                     renderErrorState(response.error)
