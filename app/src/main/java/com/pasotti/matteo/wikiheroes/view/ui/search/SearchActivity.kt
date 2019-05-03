@@ -111,7 +111,6 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
         binding.searchEdit.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.resetLists()
-                viewModel.searchText = binding.searchEdit.text.toString()
                 closeKeyboard(binding.searchEdit)
                 search()
                 true
@@ -122,6 +121,7 @@ class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Dele
     }
 
     private fun search() {
+        viewModel.searchText = binding.searchEdit.text.toString()
         if (viewModel.searchOption != null) {
             binding.progressBar.visibility = View.VISIBLE
             when (viewModel.searchOption) {
