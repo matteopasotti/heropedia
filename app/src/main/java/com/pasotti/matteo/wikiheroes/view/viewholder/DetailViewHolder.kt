@@ -27,8 +27,6 @@ class DetailViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view
     }
 
     private fun drawUI() {
-        //item.thumbnail.path + "/portrait_small"
-        //binding?.url = item.thumbnail.path + "." + item.thumbnail.extension
         binding?.detail = item
         binding?.url = item.thumbnail?.path + "." + item.thumbnail?.extension
         binding?.executePendingBindings()

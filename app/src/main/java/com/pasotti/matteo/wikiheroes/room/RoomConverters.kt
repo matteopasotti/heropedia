@@ -1,13 +1,13 @@
 package com.pasotti.matteo.wikiheroes.room
 
+import android.text.TextUtils
 import androidx.room.TypeConverter
 import java.util.*
-import com.pasotti.matteo.wikiheroes.models.ItemUrl
 import com.google.gson.reflect.TypeToken
-import java.util.Collections.emptyList
 import com.google.gson.Gson
-import com.pasotti.matteo.wikiheroes.models.Item
-import com.pasotti.matteo.wikiheroes.models.Price
+import com.pasotti.matteo.wikiheroes.models.*
+import com.pasotti.matteo.wikiheroes.utils.Utils
+import java.util.Date
 
 
 class RoomConverters {
@@ -33,12 +33,67 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun stringToItemUrlList(data: String?): List<ItemUrl> {
+    fun fromStringtoDate( data: String?) : MutableList<com.pasotti.matteo.wikiheroes.models.Date>? {
+        if( data == null ) {
+            return null
+        }
+
+        val obj = object : TypeToken<List<com.pasotti.matteo.wikiheroes.models.Date>>(){}.type
+
+        return gson.fromJson(data, obj)
+    }
+
+    @TypeConverter
+    fun fromListDateToString( someObjects : MutableList<com.pasotti.matteo.wikiheroes.models.Date>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToThumbnail( data: String?) : Thumbnail? {
+        if( data == null ) {
+            return null
+        }
+
+        val obj = object : TypeToken<Thumbnail>(){}.type
+
+        return gson.fromJson(data, obj)
+    }
+
+    @TypeConverter
+    fun thumbnailToString( someObject: Thumbnail) : String {
+        return gson.toJson(someObject)
+    }
+
+    @TypeConverter
+    fun stringToCollectionItem( data: String? ) : CollectionItem? {
+
+        if( data == null ) {
+            return null
+        }
+
+        val obj = object : TypeToken<CollectionItem>(){}.type
+
+        return gson.fromJson(data, obj)
+    }
+
+    @TypeConverter
+    fun collectionItemToString( someObject : CollectionItem?) : String? {
+        if(someObject == null) {
+            return null
+        }
+        return gson.toJson(someObject)
+    }
+
+    @TypeConverter
+    fun stringToListThumbnail( data: String?) : MutableList<Thumbnail> {
         if (data == null) {
             return Collections.emptyList()
         }
 
-        val listType = object : TypeToken<List<ItemUrl>>() {
+        val listType = object : TypeToken<MutableList<Thumbnail>>() {
 
         }.type
 
@@ -46,7 +101,71 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun itemUrlListToString(someObjects: List<ItemUrl>): String {
+    fun thumbnailListToString( someObjects: MutableList<Thumbnail>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToListPrice( data: String?) : MutableList<Price> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+
+        val listType = object : TypeToken<MutableList<Price>>() {
+
+        }.type
+
+        return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun priceListToString( someObjects: MutableList<Price>?) : String? {
+        if(someObjects == null) {
+            return null
+        }
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToListDate( data : String?) : List<Date> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+
+        val listType = object : TypeToken<List<Date>>() {
+
+        }.type
+
+        return gson.fromJson(data, listType)
+
+    }
+
+    @TypeConverter
+    fun dateListToString( someObjects: List<Date>) : String {
+        return gson.toJson(someObjects)
+    }
+
+    @TypeConverter
+    fun stringToItemUrlList(data: String?): MutableList<ItemUrl> {
+        if (data == null) {
+            return Collections.emptyList()
+        }
+
+        val listType = object : TypeToken<MutableList<ItemUrl>>() {
+
+        }.type
+
+        return gson.fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun itemUrlListToString(someObjects: MutableList<ItemUrl>?): String? {
+        if( someObjects == null) {
+            return null
+        }
         return gson.toJson(someObjects)
     }
 
@@ -64,7 +183,43 @@ class RoomConverters {
     }
 
     @TypeConverter
-    fun itemListToString(items: List<Item>): String {
+    fun itemListToString(items: List<Item>?): String? {
+        if(items == null) {
+            return null
+        }
         return gson.toJson(items)
     }
+
+    @TypeConverter
+    fun fromWeekToString( week : Utils.WEEK) : String? {
+        return week.toString()
+    }
+
+    @TypeConverter
+    fun fromStringToWeek( week : String) : Utils.WEEK {
+        if(TextUtils.isEmpty(week)) {
+            return Utils.WEEK.none
+        }
+
+        if(week == "thisWeek") {
+            return Utils.WEEK.thisWeek
+        } else if( week == "lastWeek") {
+            return Utils.WEEK.lastWeek
+        } else if( week == "nextWeek") {
+            return Utils.WEEK.nextWeek
+        }
+
+
+        return Utils.WEEK.none
+    }
+
+    /*
+    @TypeConverter
+    public static Category fromStringToCategory(String category) {
+        if (TextUtil.isEmpty(category))
+            return DEFAULT_CATEGORY;
+        return YOUR_LOGIC_FOR_CONVERSION;
+    }
+     */
+
 }

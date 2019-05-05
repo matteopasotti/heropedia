@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentTransaction
 
 
+@Suppress("DEPRECATION")
 class ErrorDialog : DialogFragment() {
 
     interface okButtonListener {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WikiHeroes</string>
+    <string name="app_name">Heropedia</string>
     <string name="content_description_item_in_character">item_character_image</string>
     <string name="transition_character_image">transition_character_image</string>
     <string name="transition_detail_image">transition_detail_image</string>
@@ -8,4 +8,32 @@
     <string name="transition_character_name">transition_character_name</string>
     <string name="image_gallery_content_descriptor">imageGallery</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
+    <string name="title_characters">characters</string>
+    <string name="title_comics">comics</string>
+    <string name="title_saved">saved</string>
+
+
+    <string name="heart_stroke_left">M28.7194825,38.2960196 L25.6688233,35.5523072 C21.6213379,31.793335 18.0159912,28.8906251 18.0159912,24.845337 C18.0159912,21.5882568 20.6305373,19.9651315 23.6337891,19.9651442 C24.9985352,19.96515 26.7993165,21.180664 28.643982,23.1297608</string>
+    <string name="heart_stroke_right">M27.2310342,38.2944327 L30.7645263,35.2004395 C34.8336142,31.2354829 37.751709,29.1181308 38.0040283,25.0838624 C38.1681943,22.4590544 35.7730552,20.034668 33.3791503,20.034668 C30.4320068,20.034668 29.671997,21.0472412 27.2310342,23.1328126</string>
+    <string name="heart_full_path">M28,39 L26.405,37.5667575 C20.74,32.4713896 17,29.1089918 17,24.9945504 C17,21.6321526 19.6565,19 23.05,19 C24.964,19 26.801,19.8828338 28,21.2724796 C29.199,19.8828338 31.036,19 32.95,19 C36.3435,19 39,21.6321526 39,24.9945504 C39,29.1089918 35.26,32.4713896 29.595,37.5667575 L28,39 L28,39 Z</string>
+    <string name="heart_clip_hidden">M18 37 L38 37 L38 37 L18 37 Z</string>
+    <string name="heart_clip_shown">M0 0 L56 0 L56 56 L0 56 Z</string>
+
+    <string name="minus_vector_path">M 5,11 L 11,11 L 11,11 L 13,11 L 13,11 L 19,11 L 19,13 L 13,13 L 13,13 L 11,13 L 11,13 L 5,13 Z</string>
+    <string name="plus_vector_path">M 5,11 L 11,11 L 11,5 L 13,5 L 13,11 L 19,11 L 19,13 L 13,13 L 13,19 L 11,19 L 11,13 L 5,13 Z</string>
+    <string name="description_zoom_touch_close">image_zoomed</string>
+
+    <string name="transition_avatar_orig" translatable="false">transition_avatar_orig</string>
+    <string name="transition_avatar_dest" translatable="false">transition_avatar_dest</string>
+    <string name="select_what_you_want_to_search">Select what you want to search</string>
+    <string name="person">Person</string>
+    <string name="comic">Comic</string>
+    <string name="character">Character</string>
+    <string name="search">Search..</string>
+    <string name="start_year">Start Year :</string>
+    <string name="end_year">End Year :</string>
+    <string name="comics">Comics</string>
+    <string name="series">Series</string>
+    <string name="sorry_no_items_found_for_this_creator">Sorry, no items found for this creator</string>
+    <string name="people">People</string>
 </resources>

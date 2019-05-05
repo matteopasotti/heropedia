@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vModel"
+            type="com.pasotti.matteo.wikiheroes.view.ui.home.desk.CreatorUIViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/fui_transparent">
+
+
+        <ImageView
+            android:id="@+id/creator_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:circularImageUrl="@{vModel.imageCreator}"
+            tools:background="@drawable/ironman"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vModel.creatorName}"
+            tools:text="Spiderman"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp"
+            tools:textColor="@android:color/black"
+            android:fontFamily="@font/product_sans_bold"
+            app:layout_constraintTop_toBottomOf="@+id/creator_image"
+            app:layout_constraintStart_toStartOf="@+id/creator_image"
+            app:layout_constraintEnd_toEndOf="@+id/creator_image"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

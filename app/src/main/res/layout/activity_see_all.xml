@@ -57,6 +57,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:transitionName="@string/transition_creator_name"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="CREATOR NAME" />
 

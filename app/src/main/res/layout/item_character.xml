@@ -46,7 +46,6 @@
                     android:layout_gravity="bottom"
                     android:text="@{vModel.characterName}"
                     tools:text="Iron Man"
-
                     android:maxLines="2"
                     android:gravity="center_vertical"
                     android:paddingStart="16dp"

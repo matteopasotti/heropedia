@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
+                android:background="@color/fui_transparent">
+
+
+                <TextView
+                    android:id="@+id/select_week_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SELECT A WEEK :"
+                    android:fontFamily="@font/product_sans_bold_italic"
+                    android:textColor="@color/dark_yellow"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp"/>
+
+
+                <!-- SELECTION OF THE WEEK -->
+                <TextView
+                    android:id="@+id/previous_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="last"
+                    android:textColor="@color/whiteFadeBg"
+                    android:fontFamily="@font/product_sans_bold_italic"
+                    app:layout_constraintTop_toBottomOf="@+id/select_week_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="16dp"/>
+
+
+                <TextView
+                    android:id="@+id/this_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="this"
+                    android:textColor="@color/dark_yellow"
+                    android:fontFamily="@font/product_sans_bold_italic"
+                    app:layout_constraintTop_toTopOf="@+id/previous_week"
+                    app:layout_constraintStart_toEndOf="@+id/previous_week"
+                    android:layout_marginStart="16dp"/>
+
+                <TextView
+                    android:id="@+id/next_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="next"
+                    android:textColor="@color/whiteFadeBg"
+                    android:fontFamily="@font/product_sans_bold_italic"
+                    app:layout_constraintTop_toTopOf="@+id/previous_week"
+                    app:layout_constraintStart_toEndOf="@+id/this_week"
+                    android:layout_marginStart="16dp"/>
+
+                <View
+                    android:id="@+id/line_sep"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/whiteFadeBg"
+                    app:layout_constraintTop_toBottomOf="@+id/previous_week"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_comics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line_sep"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layoutAnimation="@anim/layout_animation_slide_bottom"/>
+
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:progress="25"
+                    android:elevation="5dp"
+                    android:progressDrawable="@drawable/custom_progressbar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="gone"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

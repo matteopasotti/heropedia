@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.Pair
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -24,7 +23,7 @@ import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
@@ -54,7 +53,6 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         if(savedInstanceState == null) {
 
             initUI()
-
             observeViewModel()
         }
     }
@@ -117,6 +115,10 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     }
 
     private fun renderDataState( items : List<Detail>) {
+
+
+        items.forEach { it.week = Utils.WEEK.none }
+
         viewModel.adapter.updateList(items)
         if(viewModel.firstTime) {
             binding.listSerieComics.scheduleLayoutAnimation()
@@ -144,10 +146,10 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
         val options = ActivityOptions.makeSceneTransitionAnimation(this, img, txt)
 
-        val intent = Intent(this, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION, "Comics")
-        startActivity(intent, options.toBundle())
+        val intent = Intent(this, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION, "Comics")
+        startActivity(intent)
     }
 
 }

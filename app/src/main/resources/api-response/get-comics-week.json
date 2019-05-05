@@ -1,0 +1,1340 @@
+{
+  "code": 200,
+  "status": "Ok",
+  "copyright": "© 2019 MARVEL",
+  "attributionText": "Data provided by Marvel. © 2019 MARVEL",
+  "attributionHTML": "<a href=\"http://marvel.com\">Data provided by Marvel. © 2019 MARVEL</a>",
+  "etag": "6deaf78329e56c95c579020e96ea28cef22b0d50",
+  "data": {
+    "offset": 0,
+    "limit": 10,
+    "total": 31,
+    "count": 10,
+    "results": [
+      {
+        "id": 71441,
+        "digitalId": 0,
+        "title": "Avengers No Road Home (2019) #8",
+        "issueNumber": 8,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-02-08T09:09:00-0500",
+        "isbn": "",
+        "upc": "75960609132400811",
+        "diamondCode": "FEB190790",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/71441",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/71441/avengers_no_road_home_2019_8?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Avengers-No-Road-Home-8/digital-comic/51072?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26034",
+          "name": "Avengers No Road Home (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/e0/5c9bfa8f54615",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/e0/5c9bfa8f54615",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/6/60/5c51f483ed216",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 8,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71441/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11482",
+              "name": "Jesus Aburtov",
+              "role": "colorist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/412",
+              "name": "Carlo Barberi",
+              "role": "inker"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/2133",
+              "name": "Tom Brevoort",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12174",
+              "name": "Al Ewing",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/119",
+              "name": "Mark Waid",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12390",
+              "name": "Jim Zub",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12698",
+              "name": "Yasmine Putri",
+              "role": "painter (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12974",
+              "name": "Vc Joe Sabino",
+              "role": "letterer"
+            }
+          ],
+          "returned": 8
+        },
+        "characters": {
+          "available": 4,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71441/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009165",
+              "name": "Avengers"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009338",
+              "name": "Hawkeye"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009351",
+              "name": "Hulk"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1010744",
+              "name": "Rocket Raccoon"
+            }
+          ],
+          "returned": 4
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71441/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/158858",
+              "name": "cover from No Surrender (2019) #8",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/158859",
+              "name": "story from No Surrender (2019) #8",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71441/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 73857,
+        "digitalId": 0,
+        "title": "Avengers World: The Complete Collection (Trade Paperback)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Collects Avengers World #1-21, Avengers (2012) #34.1-34.2 and material from All-New Marvel Now! Point One.\n\nIt's an Avengers World — we're just living in it! As new threats emerge, Earth's Mightiest Heroes will be tested like never before. In one cataclysmic day, the face of the world changes forever and the fight for the future begins! Smasher, Sunspot and Cannonball find themselves prisoners of A.I.M.'s Scientist Supreme! Shang-Chi takes on the Gorgon in a fight to the death for control of the Hand! The City of the Dead rises! Starbrand must confront the ghosts of his past — and Manifold must discover his true destiny! Plus: Morgan Le Fay! Euroforce! The A.I.M. Empire! An Avengers team recruited by…Doctor Doom? And as time runs out, the Cabal rises and the events leading to the final incursion are finally revealed!\n",
+        "modified": "2019-03-28T17:49:28-0400",
+        "isbn": "978-1-302-91617-6",
+        "upc": "",
+        "diamondCode": "JAN191119",
+        "ean": "9781302 916176 53999",
+        "issn": "",
+        "format": "Trade Paperback",
+        "pageCount": 528,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Collects Avengers World #1-21, Avengers (2012) #34.1-34.2 and material from All-New Marvel Now! Point One.\n\nIt's an Avengers World — we're just living in it! As new threats emerge, Earth's Mightiest Heroes will be tested like never before. In one cataclysmic day, the face of the world changes forever and the fight for the future begins! Smasher, Sunspot and Cannonball find themselves prisoners of A.I.M.'s Scientist Supreme! Shang-Chi takes on the Gorgon in a fight to the death for control of the Hand! The City of the Dead rises! Starbrand must confront the ghosts of his past — and Manifold must discover his true destiny! Plus: Morgan Le Fay! Euroforce! The A.I.M. Empire! An Avengers team recruited by…Doctor Doom? And as time runs out, the Cabal rises and the events leading to the final incursion are finally revealed!\n"
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/73857",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/73857/avengers_world_the_complete_collection_trade_paperback?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26596",
+          "name": "Avengers World: The Complete Collection (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-02-11T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 39.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/6/30/5c9d281ca0059",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/6/30/5c9d281ca0059",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 3,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/73857/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11401",
+              "name": "various",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/162",
+              "name": "John Cassaday",
+              "role": "penciller (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 3
+        },
+        "characters": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/73857/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009165",
+              "name": "Avengers"
+            }
+          ],
+          "returned": 1
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/73857/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/164525",
+              "name": "cover from AVENGERS WORLD: THE COMPLETE COLLECTION TPB (2019) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/164526",
+              "name": "story from AVENGERS WORLD: THE COMPLETE COLLECTION TPB (2019) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/73857/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 75593,
+        "digitalId": 0,
+        "title": "Marvel Team-Up (2019) #1",
+        "issueNumber": 1,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-03-15T12:33:12-0400",
+        "isbn": "",
+        "upc": "759606093831000111",
+        "diamondCode": "FEB190840",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/75593",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/75593/marvel_team-up_2019_1?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Ms-Marvel-Team-Up-1/digital-comic/51088?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/27184",
+          "name": "Marvel Team-Up (2019 - Present)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/c0/5c9bfb56165b7",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/c0/5c9bfb56165b7",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/e/d0/5c51fb3c3fd2a",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 6,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75593/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1133",
+              "name": "Stefano Caselli",
+              "role": "penciler (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/10172",
+              "name": "Vc Clayton Cowles",
+              "role": "letterer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13575",
+              "name": "Eve Ewing",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13518",
+              "name": "Triona Farrell",
+              "role": "colorist (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13046",
+              "name": "Alanna Smith",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13103",
+              "name": "Felipe Sobreiro",
+              "role": "colorist"
+            }
+          ],
+          "returned": 6
+        },
+        "characters": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75593/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017577",
+              "name": "Ms. Marvel (Kamala Khan)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009610",
+              "name": "Spider-Man"
+            }
+          ],
+          "returned": 2
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75593/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/168037",
+              "name": "cover from Ms. Marvel Team-Up (2019) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/168038",
+              "name": "story from Ms. Marvel Team-Up (2019) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75593/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 76199,
+        "digitalId": 0,
+        "title": "True Believers: Avengers - Nebula (2019) #1",
+        "issueNumber": 1,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-03-29T13:31:55-0400",
+        "isbn": "",
+        "upc": "75960609422600111",
+        "diamondCode": "FEB190796",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/76199",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/76199/true_believers_avengers_-_nebula_2019_1?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/27330",
+          "name": "True Believers: Avengers - Nebula (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 1
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/a/40/5c9bfb79c0498",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/a/40/5c9bfb79c0498",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/c0/5c51f83e58235",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/76199/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 1
+        },
+        "characters": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/76199/characters",
+          "items": [],
+          "returned": 0
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/76199/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/169270",
+              "name": "cover from True Believers: Avengers - Nebula (2019) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/169271",
+              "name": "story from True Believers: Avengers - Nebula (2019) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/76199/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 74744,
+        "digitalId": 0,
+        "title": "Major X (2019) #1",
+        "issueNumber": 1,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-03-15T12:32:58-0400",
+        "isbn": "",
+        "upc": "75960609317500111",
+        "diamondCode": "FEB190818",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 40,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/74744",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/74744/major_x_2019_1?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Major-X-1/digital-comic/51076?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26892",
+          "name": "Major X (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 4.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/f/60/5c9bfba1d8e34",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/f/60/5c9bfba1d8e34",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/00/5c51f52a57dc0",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 3,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74744/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/571",
+              "name": "Rob Liefeld",
+              "role": "colorist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12974",
+              "name": "Vc Joe Sabino",
+              "role": "letterer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/8822",
+              "name": "Jordan White",
+              "role": "editor"
+            }
+          ],
+          "returned": 3
+        },
+        "characters": {
+          "available": 3,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74744/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009214",
+              "name": "Cable"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009268",
+              "name": "Deadpool"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009718",
+              "name": "Wolverine"
+            }
+          ],
+          "returned": 3
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74744/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/166326",
+              "name": "cover from Commander X (2029) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/166327",
+              "name": "story from Commander X (2029) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74744/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 71527,
+        "digitalId": 0,
+        "title": "Marvel's Avengers: Endgame Prelude (Trade Paperback)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Collects Marvel's Avengers: Untitled Prelude #1-3, Infinity Gauntlet (1991) #1 And Guardians Of The Galaxy (2015) #19.\n\nAs the Avengers and their allies continue to protect the world from threats too large for any one hero to handle, a new danger emerges from the cosmic shadows: Thanos! A despot of intergalactic infamy, Thanos' goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment — and the fate of Earth, and existence itself, has never been more uncertain! Plus: A classic comics tale of Thanos' original reign of terror over the galaxy, and a blockbuster showdown between the Guardians of the Galaxy and the Mad Titan!",
+        "modified": "2019-03-28T17:52:01-0400",
+        "isbn": "978-1-302-91495-0",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "9781302 914950 51499",
+        "issn": "",
+        "format": "Trade Paperback",
+        "pageCount": 152,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Collects Marvel's Avengers: Untitled Prelude #1-3, Infinity Gauntlet (1991) #1 And Guardians Of The Galaxy (2015) #19.\n\nAs the Avengers and their allies continue to protect the world from threats too large for any one hero to handle, a new danger emerges from the cosmic shadows: Thanos! A despot of intergalactic infamy, Thanos' goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment — and the fate of Earth, and existence itself, has never been more uncertain! Plus: A classic comics tale of Thanos' original reign of terror over the galaxy, and a blockbuster showdown between the Guardians of the Galaxy and the Mad Titan!"
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/71527",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/71527/marvels_avengers_endgame_prelude_trade_paperback?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26067",
+          "name": "Marvel's Avengers: Endgame Prelude (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-01-28T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 14.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/40/5c9d31f05dec3",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/40/5c9d31f05dec3",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 5,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71527/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11401",
+              "name": "various",
+              "role": "penciller (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/24",
+              "name": "Brian Michael Bendis",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12818",
+              "name": "Will Corona Pilgrim",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/146",
+              "name": "Jim Starlin",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 5
+        },
+        "characters": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71527/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009165",
+              "name": "Avengers"
+            }
+          ],
+          "returned": 1
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71527/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/159030",
+              "name": "cover from MARVEL'S AVENGERS: UNTITLED PRELUDE TPB (2019) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/159031",
+              "name": "story from MARVEL'S AVENGERS: UNTITLED PRELUDE TPB (2019) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71527/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 71190,
+        "digitalId": 0,
+        "title": "Star Wars (2015) #64",
+        "issueNumber": 64,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-03-15T12:33:43-0400",
+        "isbn": "",
+        "upc": "75960608113406411",
+        "diamondCode": "FEB190952",
+        "ean": "",
+        "issn": "0274-5356",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/71190",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/71190/star_wars_2015_64?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Star-Wars-64/digital-comic/51096?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/19242",
+          "name": "Star Wars (2015 - Present)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/30/5c9bfaa34761b",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/30/5c9bfaa34761b",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/9/90/5c51f85e7e2d0",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 6,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71190/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/10172",
+              "name": "Vc Clayton Cowles",
+              "role": "letterer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12239",
+              "name": "Guru Efx",
+              "role": "colorist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/8901",
+              "name": "Kieron Gillen",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4600",
+              "name": "Mark Paniccia",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1369",
+              "name": "Gerald Parel",
+              "role": "painter (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4544",
+              "name": "Angel Unzueta",
+              "role": "inker"
+            }
+          ],
+          "returned": 6
+        },
+        "characters": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71190/characters",
+          "items": [],
+          "returned": 0
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71190/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/158356",
+              "name": "cover from Star Wars (2015) #64",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/158357",
+              "name": "story from Star Wars (2015) #64",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/71190/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 74824,
+        "digitalId": 0,
+        "title": "Cosmic Ghost Rider Destroys Marvel History (2019) #2",
+        "issueNumber": 2,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-02-08T09:09:49-0500",
+        "isbn": "",
+        "upc": "75960609333500211",
+        "diamondCode": "FEB190895",
+        "ean": "",
+        "issn": "",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/74824",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/74824/cosmic_ghost_rider_destroys_marvel_history_2019_2?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/Cosmic-Ghost-Rider-Destroys-Marvel-History-2/digital-comic/51079?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26922",
+          "name": "Cosmic Ghost Rider Destroys Marvel History (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/2/04/5c9bfbe96d29c",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/2/04/5c9bfbe96d29c",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/c/40/5c51f3bfab764",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 8,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74824/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/428",
+              "name": "Antonio Fabela",
+              "role": "colorist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12419",
+              "name": "Nick Giovannetti",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12418",
+              "name": "Paul Scheer",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12993",
+              "name": "Vc Travis Lanham",
+              "role": "letterer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/935",
+              "name": "Todd Nauck",
+              "role": "inker"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12369",
+              "name": "Gerardo Sandoval",
+              "role": "inker"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13027",
+              "name": "Darren Shan",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12809",
+              "name": "Gerardo Zaffino",
+              "role": "penciler (cover)"
+            }
+          ],
+          "returned": 8
+        },
+        "characters": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74824/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009610",
+              "name": "Spider-Man"
+            }
+          ],
+          "returned": 1
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74824/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/166486",
+              "name": "cover from Cosmic Ghost Rider Destroys Marvel History (2019) #2",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/166487",
+              "name": "story from Cosmic Ghost Rider Destroys Marvel History (2019) #2",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74824/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 74530,
+        "digitalId": 0,
+        "title": "The Unstoppable Wasp: G.I.R.L. Power (Trade Paperback)",
+        "issueNumber": 0,
+        "variantDescription": "",
+        "description": "Collects The Unstoppable Wasp (2017) #1-8.\n\nNadia spent most of her life as a captive of the Red Room, but now this teenage super-scientist is spreading her wings! Hank Pym’s daughter has a lot of lost time to make up for, and she’s determined to change the world. With Jarvis at her side, she’s on a mission to bring together the brightest girl geniuses of the Marvel Universe! But Nadia didn’t count on evil scientists, man-eating giant rats or the lethal lady wrestlers known as the Grapplers! As Nadia’s recruiting drive continues, the Red Room is on her trail — and they’ll pull out all the stops to get her back! Can the geniuses of G.I.R.L. find a way to save her from being dragged back to the bunker? And can the original Wasp, Janet Van Dyne, help Nadia forge a fresh future?",
+        "modified": "2019-03-28T17:53:17-0400",
+        "isbn": "978-1-302-91656-5",
+        "upc": "",
+        "diamondCode": "",
+        "ean": "9781302 916565 51299",
+        "issn": "",
+        "format": "Trade Paperback",
+        "pageCount": 200,
+        "textObjects": [
+          {
+            "type": "issue_solicit_text",
+            "language": "en-us",
+            "text": "Collects The Unstoppable Wasp (2017) #1-8.\n\nNadia spent most of her life as a captive of the Red Room, but now this teenage super-scientist is spreading her wings! Hank Pym’s daughter has a lot of lost time to make up for, and she’s determined to change the world. With Jarvis at her side, she’s on a mission to bring together the brightest girl geniuses of the Marvel Universe! But Nadia didn’t count on evil scientists, man-eating giant rats or the lethal lady wrestlers known as the Grapplers! As Nadia’s recruiting drive continues, the Red Room is on her trail — and they’ll pull out all the stops to get her back! Can the geniuses of G.I.R.L. find a way to save her from being dragged back to the bunker? And can the original Wasp, Janet Van Dyne, help Nadia forge a fresh future?"
+          }
+        ],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/74530",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/collection/74530/the_unstoppable_wasp_girl_power_trade_paperback?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/26802",
+          "name": "The Unstoppable Wasp: G.I.R.L. Power (2019)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-01-28T00:00:00-0500"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 12.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/d0/5c9d27e295612",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/d0/5c9d27e295612",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 5,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74530/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11401",
+              "name": "various",
+              "role": "penciller"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12961",
+              "name": "Elsa Charretier",
+              "role": "inker (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/12838",
+              "name": "Jeremy Whitley",
+              "role": "writer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/10279",
+              "name": "Matthew Wilson",
+              "role": "colorist (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4430",
+              "name": "Jeff Youngquist",
+              "role": "editor"
+            }
+          ],
+          "returned": 5
+        },
+        "characters": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74530/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009707",
+              "name": "Wasp"
+            }
+          ],
+          "returned": 1
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74530/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/165882",
+              "name": "cover from THE UNSTOPPABLE WASP: AGENTS OF G.I.R.L. GN-TPB (2019) #1",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/165883",
+              "name": "story from THE UNSTOPPABLE WASP: AGENTS OF G.I.R.L. GN-TPB (2019) #1",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/74530/events",
+          "items": [],
+          "returned": 0
+        }
+      },
+      {
+        "id": 75863,
+        "digitalId": 0,
+        "title": "The Amazing Spider-Man (2018) #18.1",
+        "issueNumber": 18.1,
+        "variantDescription": "",
+        "description": null,
+        "modified": "2019-03-29T12:50:16-0400",
+        "isbn": "",
+        "upc": "75960609407300111",
+        "diamondCode": "FEB190832",
+        "ean": "",
+        "issn": "0274-5232",
+        "format": "Comic",
+        "pageCount": 32,
+        "textObjects": [],
+        "resourceURI": "http://gateway.marvel.com/v1/public/comics/75863",
+        "urls": [
+          {
+            "type": "detail",
+            "url": "http://marvel.com/comics/issue/75863/the_amazing_spider-man_2018_18.1?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          },
+          {
+            "type": "purchase",
+            "url": "http://comicstore.marvel.com/The-Amazing-Spider-Man-18-1/digital-comic/50932?utm_campaign=apiRef&utm_source=8da2e7269fff32817c0f81f419db00ce"
+          }
+        ],
+        "series": {
+          "resourceURI": "http://gateway.marvel.com/v1/public/series/24396",
+          "name": "The Amazing Spider-Man (2018 - Present)"
+        },
+        "variants": [],
+        "collections": [],
+        "collectedIssues": [],
+        "dates": [
+          {
+            "type": "onsaleDate",
+            "date": "2019-04-03T00:00:00-0400"
+          },
+          {
+            "type": "focDate",
+            "date": "2019-03-11T00:00:00-0400"
+          }
+        ],
+        "prices": [
+          {
+            "type": "printPrice",
+            "price": 3.99
+          }
+        ],
+        "thumbnail": {
+          "path": "http://i.annihil.us/u/prod/marvel/i/mg/2/d0/5c9bfa7d4fe2f",
+          "extension": "jpg"
+        },
+        "images": [
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/2/d0/5c9bfa7d4fe2f",
+            "extension": "jpg"
+          },
+          {
+            "path": "http://i.annihil.us/u/prod/marvel/i/mg/d/03/5c51f58871245",
+            "extension": "jpg"
+          }
+        ],
+        "creators": {
+          "available": 7,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75863/creators",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/13162",
+              "name": "Erick Arciniega",
+              "role": "colorist"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/5251",
+              "name": "Vc Joe Caramagna",
+              "role": "letterer"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/8504",
+              "name": "Frank D'ARMATA",
+              "role": "colorist (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/425",
+              "name": "Greg Land",
+              "role": "penciler (cover)"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/1248",
+              "name": "Ken Lashley",
+              "role": "inker"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/4300",
+              "name": "Nick Lowe",
+              "role": "editor"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/creators/11434",
+              "name": "Nick Spencer",
+              "role": "writer"
+            }
+          ],
+          "returned": 7
+        },
+        "characters": {
+          "available": 1,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75863/characters",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/characters/1009610",
+              "name": "Spider-Man"
+            }
+          ],
+          "returned": 1
+        },
+        "stories": {
+          "available": 2,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75863/stories",
+          "items": [
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/168588",
+              "name": "cover from The Amazing Spider-Man (2018) #18.HU",
+              "type": "cover"
+            },
+            {
+              "resourceURI": "http://gateway.marvel.com/v1/public/stories/168589",
+              "name": "story from The Amazing Spider-Man (2018) #18.HU",
+              "type": "interiorStory"
+            }
+          ],
+          "returned": 2
+        },
+        "events": {
+          "available": 0,
+          "collectionURI": "http://gateway.marvel.com/v1/public/comics/75863/events",
+          "items": [],
+          "returned": 0
+        }
+      }
+    ]
+  }
+}

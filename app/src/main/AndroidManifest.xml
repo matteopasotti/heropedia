@@ -22,6 +22,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.creator.CreatorDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.home.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.person.PersonDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ui.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".view.ui.home.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -31,7 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.detail_items.detail_comic.DetailComicActivity"
+        <activity android:name=".view.ui.detail_items.detail_comic.DetailItemActivity"
             android:screenOrientation="portrait" />
     </application>
 

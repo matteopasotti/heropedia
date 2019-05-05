@@ -41,6 +41,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
@@ -83,7 +84,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$androidx_version"
     testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer_version"
 
-
     //ANDROID DEFAULT
     implementation "androidx.appcompat:appcompat:$support_version"
     implementation "androidx.annotation:annotation:$support_version"
@@ -92,6 +92,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$support_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "com.android.support:palette-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
 
     //DAGGER2
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -112,7 +113,6 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$androidx_version"
-
 
     //RETROFIT and OKHTTP
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

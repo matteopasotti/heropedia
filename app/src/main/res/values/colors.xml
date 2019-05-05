@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#a00000</color>
+    <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#630308</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -9,11 +9,15 @@
     <color name="black60">#66000000</color>
     <color name="mid_black">#191919</color>
     <color name="top_black">#323232</color>
+    <color name="darkGrey">#616161</color>
+    <color name="mediumGrey">#bdbdbd</color>
+    <color name="lightGrey">#eeeeee</color>
     <color name="fui_transparent">#00000000</color>
 
     <color name="whiteFadeBg">#f0ffffff</color>
 
     <color name="yellow">#ffff32</color>
+    <color name="dark_yellow">#ffc107</color>
 
 
 </resources>

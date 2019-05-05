@@ -4,10 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -17,15 +16,12 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
-import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailCircularBinding
+import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import com.pasotti.matteo.wikiheroes.models.Character
-import com.pasotti.matteo.wikiheroes.utils.ErrorDialog
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
 import dagger.android.AndroidInjection
 import org.jetbrains.anko.backgroundDrawable
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -47,7 +43,9 @@ class DetailActivity : AppCompatActivity() {
 
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
 
-    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailCircularBinding>(this, R.layout.activity_detail_circular) }
+    private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
+
+    lateinit var gradientDrawable : GradientDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -57,6 +55,8 @@ class DetailActivity : AppCompatActivity() {
             supportPostponeEnterTransition()
 
             initUI()
+
+            observeViewModel()
         }
 
     }
@@ -64,6 +64,15 @@ class DetailActivity : AppCompatActivity() {
     private fun initUI() {
 
         getCharacterFromIntent()
+
+        // ------------------     TOOLBAR  -------------------------------------------
+        setSupportActionBar(binding.toolbarCharacterDetail.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.title = null
+        binding.toolbarCharacterDetail.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         binding.character = viewModel.character
 
@@ -88,7 +97,7 @@ class DetailActivity : AppCompatActivity() {
                                 val dominantColor = it?.getDominantColor(resources.getColor(R.color.black, null))!!
                                 val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
                                 viewModel.saveDominantColor(dominantColor)
-                                val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+                                gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
                                 gradientDrawable.cornerRadius = 0f
                                 binding.viewGradient.backgroundDrawable = gradientDrawable
 
@@ -101,10 +110,13 @@ class DetailActivity : AppCompatActivity() {
                     }
                 }).into(binding.circularImage)
 
-        binding.backButton.setOnClickListener {
-            onBackPressed()
+        binding.toolbarCharacterDetail.heartCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                viewModel.addFavCharacter(viewModel.character)
+            } else {
+                viewModel.removeFavCharacter(viewModel.character)
+            }
         }
-
 
         Utils.addFragmentToActivity(supportFragmentManager, HorizontalGalleryFragment.newInstance("Comics", viewModel.character.id, viewModel.character.name), binding.containerComics.id)
 
@@ -120,6 +132,12 @@ class DetailActivity : AppCompatActivity() {
     private fun getCharacterFromIntent() {
         viewModel.character = intent.extras.getParcelable(intent_character)
 
+    }
+
+    private fun observeViewModel() {
+        viewModel.getFavCharacterById(viewModel.character.id).observe( this , Observer { response ->
+            binding.toolbarCharacterDetail.heartCheckBox.isChecked = response != null
+        })
     }
 
 }

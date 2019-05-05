@@ -1,7 +1,9 @@
 package com.pasotti.matteo.wikiheroes.utils
 
+import android.content.Context
 import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -9,6 +11,9 @@ import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Utils {
 
@@ -19,6 +24,14 @@ object Utils {
     var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
     const val BASE_URL = "http://gateway.marvel.com"
+
+
+    enum class WEEK {
+        lastWeek,
+        thisWeek,
+        nextWeek,
+        none
+    }
 
 
     fun md5(stringToHash: String): String {
@@ -132,6 +145,14 @@ object Utils {
                 totalItemCount = layoutManager.itemCount
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
 
+
+                val needsLoad = (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)
+
+                Log.i("InfiniteScrollListener", "isLoading = $loading")
+                Log.i("InfiniteScrollListener", "totalItemCount = $totalItemCount")
+                Log.i("InfiniteScrollListener", "visibleItemCount = $visibleItemCount")
+                Log.i("InfiniteScrollListener", "totalItemCount - visibleItemCount <= (firstVisibleItem + visibleThreshold) = $needsLoad")
+
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false
@@ -185,6 +206,47 @@ object Utils {
     }
 
 
+    fun getCurrentDate() : String {
+        val c : Date = Calendar.getInstance().time
+
+        val df = SimpleDateFormat("dd/MM/yyyy")
+        val formattedDate = df.format(c)
+        Log.d("" , "")
+
+        return formattedDate
+    }
+
+    /**
+     * d1 could be lastDateSynch
+     * d2 could be the current date
+     */
+    fun getDifferenceBetweenDates( d1 : String , d2 : String) : Long {
+        val df = SimpleDateFormat("dd/MM/yyyy")
+
+        try {
+            val date1 = df.parse(d1)
+            val date2 = df.parse(d2)
+
+            //calculate difference
+
+            val difference = date2.time - date1.time
+
+            val secondsInMilli = 1000
+            val minutesInMilli = secondsInMilli * 60
+            val hoursInMilli = minutesInMilli * 60
+            val daysInMilli = hoursInMilli * 24
+
+            return difference / daysInMilli
+
+        } catch ( e : ParseException) {
+            e.printStackTrace()
+        }
+
+        return 0L
+
+    }
+
+
     class DetailsDiffCallback(private val oldItems : List<Detail>, private val newItems : List<Detail>) : DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems[oldItemPosition].id == newItems.get(newItemPosition).id
@@ -199,6 +261,20 @@ object Utils {
 
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
+
+    }
+
+
+    fun showAlert(context: Context?, message : String) {
+        if(context != null) {
+            AlertDialog.Builder(context).apply {
+                setMessage(message)
+                setPositiveButton("OK") { _, _ ->
+                    //pass
+                }
+                show()
+            }
+        }
 
     }
 

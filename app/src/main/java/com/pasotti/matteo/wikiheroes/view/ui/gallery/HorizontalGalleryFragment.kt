@@ -1,6 +1,5 @@
 package com.pasotti.matteo.wikiheroes.view.ui.gallery
 
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,7 +21,7 @@ import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailComicActivity
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.ui.seeall.SeeAllActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 import dagger.android.support.AndroidSupportInjection
@@ -108,12 +107,17 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
         binding.progressBar.visibility = View.GONE
-        if(response.isSuccessful && response.body != null) {
+        if(response.isSuccessful && response.body != null && !response.body.data.results.isNullOrEmpty()) {
             renderDataState(Utils.checkDetailsImages(response.body.data.results))
+        } else {
+            binding.root.visibility = View.INVISIBLE
         }
     }
 
     private fun renderDataState ( items : List<Detail>) {
+        items.forEach {
+            it.week = Utils.WEEK.none
+        }
         adapter.updateList(items)
     }
 
@@ -124,12 +128,12 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
 
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
 
-        val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
+        //val options = ActivityOptions.makeSceneTransitionAnimation(activity, img, txt)
 
-        val intent = Intent(activity, DetailComicActivity::class.java)
-        intent.putExtra(DetailComicActivity.INTENT_COMIC , item as Parcelable)
-        intent.putExtra(DetailComicActivity.INTENT_SECTION , viewModel.section)
-        startActivity(intent, options.toBundle())
+        val intent = Intent(activity, DetailItemActivity::class.java)
+        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION , viewModel.section)
+        startActivity(intent)
     }
 
 }

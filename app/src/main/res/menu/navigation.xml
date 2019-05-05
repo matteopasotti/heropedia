@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_characters"
+        android:icon="@drawable/ic_group_black_24dp"
+        android:title="@string/title_characters"/>
+
+    <item
+        android:id="@+id/navigation_comics"
+        android:icon="@drawable/ic_library_24dp"
+        android:title="@string/title_comics"/>
+
+    <item
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/ic_folder_24dp"
+        android:title="@string/title_saved"/>
+</menu>

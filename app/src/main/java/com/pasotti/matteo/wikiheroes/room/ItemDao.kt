@@ -14,6 +14,15 @@ interface ItemDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertItems(items: List<Item>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertItem(item : Item)
+
+    @Query("DELETE FROM Item WHERE Item.resourceURI = :resourceURI")
+    fun removeItem(resourceURI : String)
+
+    @Query("SELECT * FROM Item WHERE Item.resourceURI = :resourceURI")
+    fun getItemByResourceUri(resourceURI : String) : LiveData<Item>
+
     @Query("SELECT * FROM Item")
     fun getItems(): LiveData<List<Item>>
 

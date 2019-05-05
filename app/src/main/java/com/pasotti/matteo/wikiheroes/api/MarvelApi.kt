@@ -130,4 +130,65 @@ interface MarvelApi {
                                     @Nullable @Query("offset") offset: Int,
                                     @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("v1/public/comics")
+    public fun getComicsOfTheWeek(@Query("dateDescriptor") dateDescriptor: String,
+                                  @Query("orderBy") orderBy: String,
+                                  @Query("ts") ts: String,
+                                  @Query("apikey") apiKey: String,
+                                  @Query("hash") hash: String,
+                                  @Nullable @Query("offset") offset: Int,
+                                  @Query("limit") limit: Int)
+            : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/characters")
+    public fun searchCharacterNameStartsWith(@Query("nameStartsWith") nameStartsWith: String,
+                                             @Query("apikey") apiKey: String,
+                                             @Query("hash") hash: String,
+                                             @Query("ts") ts: String,
+                                             @Query("orderBy") orderBy: String,
+                                             @Nullable @Query("offset") offset: Int,
+                                             @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
+
+
+    @GET("/v1/public/comics")
+    public fun searchComicsNameStartsWith(@Query("titleStartsWith") titleStartsWith: String,
+                                          @Query("apikey") apiKey: String,
+                                          @Query("hash") hash: String,
+                                          @Query("ts") ts: String,
+                                          @Query("orderBy") orderBy: String,
+                                          @Nullable @Query("offset") offset: Int,
+                                          @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/series")
+    public fun searchSeriesNameStartsWith(@Query("titleStartsWith") titleStartsWith: String,
+                                          @Query("apikey") apiKey: String,
+                                          @Query("hash") hash: String,
+                                          @Query("ts") ts: String,
+                                          @Query("orderBy") orderBy: String,
+                                          @Nullable @Query("offset") offset: Int,
+                                          @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
+
+
+    @GET("/v1/public/creators")
+    public fun searchCreatorByName(@Query("nameStartsWith") nameStartsWith: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String,
+                                   @Query("orderBy") orderBy: String,
+                                   @Nullable @Query("offset") offset: Int,
+                                   @Query("limit") limit: Int): LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/creators/{creatorId}")
+    public fun getCreatorDetailById(@Path("creatorId") creatorId: String,
+                                    @Query("apikey") apiKey: String,
+                                    @Query("hash") hash: String,
+                                    @Query("ts") ts: String) : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/v1/public/series/{seriesId}")
+    public fun getSeriesDetailById(@Path("seriesId") seriesId: String,
+                                   @Query("apikey") apiKey: String,
+                                   @Query("hash") hash: String,
+                                   @Query("ts") ts: String): LiveData<ApiResponse<DetailResponse>>
 }
