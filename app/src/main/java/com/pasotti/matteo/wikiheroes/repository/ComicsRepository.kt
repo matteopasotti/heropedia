@@ -63,7 +63,7 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
                 val newComics = item.data.results
                 if (newComics.isNotEmpty()) {
 
-                    if(week == Utils.WEEK.thisWeek) {
+                    if (week == Utils.WEEK.thisWeek) {
                         preferenceManager.setString(PreferenceManager.THIS_WEEK, getPublishedDate(newComics[0]))
                     }
 
@@ -108,15 +108,11 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
 
     fun checkSyncComics() {
 
-        val todayDate = Utils.getCurrentDate()
-        var lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
-
-        // refresh comics every 5 days
-        if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 2L) {
+        val cal = Calendar.getInstance()
+        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             thread {
                 comicsDao.deleteComics()
             }
-
         }
     }
 
@@ -158,7 +154,7 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
         return preferenceManager.getString(PreferenceManager.THIS_WEEK, "")
     }
 
-    fun searchComicsNameStartsWith(nameStartsWith : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchComicsNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-onsaleDate", offset , defaultLimit)
+    fun searchComicsNameStartsWith(nameStartsWith: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.searchComicsNameStartsWith(nameStartsWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
     }
 }
