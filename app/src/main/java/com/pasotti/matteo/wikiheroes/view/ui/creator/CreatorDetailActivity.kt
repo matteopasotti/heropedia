@@ -29,6 +29,9 @@ import javax.inject.Inject
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
+    override fun onItemClick(item: Detail, view: View, section: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     companion object {
@@ -77,7 +80,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         //LIST
         val layoutManager = GridLayoutManager(this , 3)
         binding.listCreatorItems.layoutManager = layoutManager
-        viewModel.adapter = DetailAdapter(this)
+        viewModel.adapter = DetailAdapter(this , "Section")
         binding.listCreatorItems.adapter = viewModel.adapter
 
         binding.listCreatorItems.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
@@ -120,7 +123,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         viewModel.postPage(page)
     }
 
-    override fun onItemClick(item: Detail, view: View) {
+    /*override fun onItemClick(item: Detail, view: View) {
         val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
 
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
@@ -131,5 +134,5 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
         intent.putExtra(DetailItemActivity.INTENT_SECTION, viewModel.type)
         startActivity(intent)
-    }
+    }*/
 }

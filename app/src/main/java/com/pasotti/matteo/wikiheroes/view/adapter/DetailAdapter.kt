@@ -8,7 +8,7 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.viewholder.BaseViewHolder
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
 
-class DetailAdapter(val delegate : DetailViewHolder.Delegate) : BaseAdapter(){
+class DetailAdapter(val delegate : DetailViewHolder.Delegate , val section : String?) : BaseAdapter(){
 
     init {
         addItems(ArrayList<Detail>())
@@ -19,19 +19,12 @@ class DetailAdapter(val delegate : DetailViewHolder.Delegate) : BaseAdapter(){
         notifyItemInserted(items.size)
     }
 
-    /*fun dispatch(newList: List<Detail>) {
-        val userDiffCallback = Utils.DetailsDiffCallback(newList, items as List<Detail>)
-        val diffResult = DiffUtil.calculateDiff(userDiffCallback)
-        items.addAll(newList)
-        diffResult.dispatchUpdatesTo(this)
-    }*/
-
 
     override fun layout(item: Any?): Int {
         return R.layout.item_small_image
     }
 
     override fun viewHolder(layout: Int, view: View): BaseViewHolder {
-        return DetailViewHolder(view , delegate)
+        return DetailViewHolder(view , delegate , section)
     }
 }

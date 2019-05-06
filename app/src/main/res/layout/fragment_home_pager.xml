@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="0dp"
+            android:background="@color/mid_black">
+
+
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:background="@drawable/bg_gradient_toolbar"
+                android:minHeight="?attr/actionBarSize"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- BODY PUT FRAMELAYOUT FOR FRAGMENTS -->
+        <com.pasotti.matteo.wikiheroes.utils.CustomViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:theme="@style/Widget.BottomNavigationView"
+            app:itemTextColor="@color/navigation_home_text_selector"
+            app:itemIconTint="@color/navigation_home_selector"
+            android:background="@drawable/bg_gradient_bottom_nav"
+            app:layout_behavior="com.pasotti.matteo.wikiheroes.utils.BottomNavigationBehavior"
+            app:menu="@menu/navigation"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

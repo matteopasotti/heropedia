@@ -49,7 +49,7 @@ class CreatorSeriesFragment : Fragment(),  HomeComicsViewHolder.Delegate {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }

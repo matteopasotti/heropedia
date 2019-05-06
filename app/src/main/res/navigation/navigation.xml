@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/fragmentSplashScreen">
+    <fragment
+        android:id="@+id/fragmentSplashScreen"
+        android:name="com.pasotti.matteo.wikiheroes.view.ui.splash.FragmentSplashScreen"
+        android:label="FragmentSplashScreen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_fragmentSplashScreen_to_fragmentHome"
+            app:destination="@id/fragmentHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHome"
+        android:name="com.pasotti.matteo.wikiheroes.view.ui.home.FragmentHome"
+        android:label="FragmentHome"
+        tools:layout="@layout/fragment_home_pager"/>
+    <fragment
+        android:id="@+id/homeCharactersFragment"
+        android:name="com.pasotti.matteo.wikiheroes.view.ui.home.characters.HomeCharactersFragment"
+        android:label="HomeCharactersFragment"
+        tools:layout="@layout/fragment_home_characters">
+        <action
+            android:id="@+id/action_homeCharactersFragment_to_fragmentCharacterDetail"
+            app:destination="@id/fragmentCharacterDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentCharacterDetail"
+        android:name="com.pasotti.matteo.wikiheroes.view.ui.detail.FragmentCharacterDetail"
+        android:label="FragmentCharacterDetail"
+        tools:layout="@layout/fragment_character_detail">
+        <argument
+            android:name="character"
+            app:argType="com.pasotti.matteo.wikiheroes.models.Character" />
+        <action
+            android:id="@+id/action_fragmentCharacterDetail_to_fragmentDetailItem"
+            app:destination="@id/fragmentDetailItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetailItem"
+        android:name="com.pasotti.matteo.wikiheroes.view.ui.detail_items.FragmentDetailItem"
+        android:label="FragmentDetailItem"
+        tools:layout="@layout/fragment_item_detail">
+        <argument
+            android:name="section"
+            app:argType="string" />
+        <argument
+            android:name="item"
+            app:argType="com.pasotti.matteo.wikiheroes.models.Detail" />
+        <action
+            android:id="@+id/action_fragmentDetailItem_self2"
+            app:destination="@id/fragmentDetailItem" />
+    </fragment>
+</navigation>

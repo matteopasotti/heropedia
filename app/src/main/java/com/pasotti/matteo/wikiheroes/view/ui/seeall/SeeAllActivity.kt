@@ -30,6 +30,8 @@ import javax.inject.Inject
 
 
 class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
+    override fun onItemClick(item: Detail, view: View, section: String?) {
+    }
 
 
     companion object {
@@ -81,7 +83,7 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         // init list
         val layoutManager = GridLayoutManager(this , 3)
         binding.listItems.layoutManager = layoutManager
-        viewModel.adapter = DetailAdapter(this)
+        viewModel.adapter = DetailAdapter(this , "Comics")
         binding.listItems.adapter = viewModel.adapter
 
         binding.nested.setOnScrollChangeListener(Utils.NestedInfiniteScrollListener {
@@ -137,17 +139,6 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
     }
 
 
-    override fun onItemClick(item: Detail, view: View) {
-        val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
-
-        val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
-
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, img, txt)
-
-        val intent = Intent(this, DetailItemActivity::class.java)
-        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
-        intent.putExtra(DetailItemActivity.INTENT_SECTION, viewModel.type)
-        startActivity(intent)
-    }
+    //
 
 }

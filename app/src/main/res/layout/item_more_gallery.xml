@@ -43,7 +43,7 @@
                     app:galleryImageUrl="@{url}"
                     android:scaleType="fitXY"
                     android:contentDescription="@string/image_gallery_content_descriptor"
-                    tools:src="@drawable/margeto" />
+                    tools:src="@drawable/spiderman_comic" />
 
             </FrameLayout>
 

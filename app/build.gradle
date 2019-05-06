@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs"
+
 repositories {
     maven { url 'https://maven.google.com' }
     maven { url "https://jitpack.io" }
@@ -142,5 +144,9 @@ dependencies {
 
     // ROBOLECTRIC
     testImplementation "org.robolectric:robolectric:$roboelectric_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation" // For Kotlin use navigation-fragment-ktx
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation" // For Kotlin use navigation-ui-ktx
 
 }

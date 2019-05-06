@@ -9,7 +9,7 @@ class CreatorViewHolder(view: View, val delegate: Delegate ,val items : List<Ite
 
     //here we define actions which we handle
     interface Delegate {
-        fun onItemClick(creator: Item, view: View)
+        fun onCreatorClicked(creator: Item, view: View)
     }
 
     private lateinit var creator : Item
@@ -41,7 +41,7 @@ class CreatorViewHolder(view: View, val delegate: Delegate ,val items : List<Ite
     }
 
     override fun onClick(v: View?) {
-        delegate.onItemClick(creator, itemView)
+        delegate.onCreatorClicked(creator, itemView)
     }
 
     override fun onLongClick(v: View?): Boolean {

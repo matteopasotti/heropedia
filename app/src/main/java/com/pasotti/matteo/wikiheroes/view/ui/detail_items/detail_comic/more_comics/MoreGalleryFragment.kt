@@ -55,8 +55,8 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
         }
     }
 
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this);
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
@@ -95,13 +95,11 @@ class MoreGalleryFragment : Fragment(), MoreImageViewHolder.Delegate {
     }
 
     private fun observeViewModel() {
-        binding.progressBar.visibility = View.VISIBLE
         viewModel.getItems(viewModel.resourceURI, arguments!!.getString(TYPE)).observe(this, Observer { it -> it?.let { processResponse(it) } })
         viewModel.getSeriesDetails().observe(this , Observer { it -> it?.let { saveSeriesDetail(it) } })
     }
 
     private fun processResponse(response: ApiResponse<DetailResponse>) {
-        binding.progressBar.visibility = View.GONE
         if(response.isSuccessful && response.body != null) {
             var items : List<Detail> = Utils.checkDetailsImages(response.body.data.results)
             if(response.body.data.results.size != 1) {

@@ -26,6 +26,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/creator_item"
+            android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toEndOf="@+id/role"
             app:layout_constraintTop_toTopOf="@+id/role"

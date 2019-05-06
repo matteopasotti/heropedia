@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        tools:background="@color/mid_black"
         android:background="@color/fui_transparent">
 
         <TextView

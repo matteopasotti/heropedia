@@ -62,13 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     private class HomeFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        override fun getItem(position: Int): Fragment? {
+        override fun getItem(position: Int): Fragment {
             when (position) {
                 0 -> return HomeCharactersFragment.newInstance()
                 1 -> return HomeComicsFragment.newInstance()
                 2 -> return HomeDeskFragment.newInstance()
             }
-            return null
+            return Fragment()
         }
 
         override fun getCount(): Int {
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    /*override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if( item != null) {
             when( item.itemId) {
                 R.id.action_search -> {
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
 
-    }
+    }*/
 
 }
 

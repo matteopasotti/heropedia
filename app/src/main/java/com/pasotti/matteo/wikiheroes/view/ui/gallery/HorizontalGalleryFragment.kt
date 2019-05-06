@@ -57,7 +57,7 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
     }
 
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
@@ -79,7 +79,7 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
     private fun initView() {
 
         viewModel.characterId = arguments!!.getInt(CHARACTER_ID)
-        adapter = DetailAdapter(this)
+        adapter = DetailAdapter(this , "Comics")
         val linearLayoutManager = LinearLayoutManager( context, LinearLayoutManager.HORIZONTAL, false)
         binding.listItems.layoutManager = linearLayoutManager
         binding.listItems.adapter = adapter
@@ -122,7 +122,7 @@ class HorizontalGalleryFragment : Fragment() , DetailViewHolder.Delegate {
     }
 
 
-    override fun onItemClick(item: Detail, view: View) {
+    override fun onItemClick(item: Detail, view: View , section : String?) {
 
         val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
 

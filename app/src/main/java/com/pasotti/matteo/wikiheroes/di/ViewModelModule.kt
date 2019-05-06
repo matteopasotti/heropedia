@@ -6,6 +6,8 @@ import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivityViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivityViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.detail.FragmentCharacterDetailViewModel
+import com.pasotti.matteo.wikiheroes.view.ui.detail_items.FragmentDetailItemViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragmentViewModel
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoViewModel
@@ -109,6 +111,17 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CreatorFragmentsViewModel::class)
     internal abstract fun bindCreatorFragmentViewModel(creatorFragmentsViewModel: CreatorFragmentsViewModel) : ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FragmentCharacterDetailViewModel::class)
+    internal abstract fun bindFragmentCharacterDetailViewModel( fragmentCharacterDetailViewModel: FragmentCharacterDetailViewModel) : ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FragmentDetailItemViewModel::class)
+    internal abstract fun bindFragmentDetailItemViewModel( fragmentDetailItemViewModel: FragmentDetailItemViewModel) : ViewModel
 
 
     @Binds

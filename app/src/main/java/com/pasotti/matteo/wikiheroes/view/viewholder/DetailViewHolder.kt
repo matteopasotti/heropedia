@@ -6,11 +6,11 @@ import com.pasotti.matteo.wikiheroes.databinding.ItemSmallImageBinding
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 
-class DetailViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view) {
+class DetailViewHolder(view: View, val delegate: Delegate , val section : String?) : BaseViewHolder(view) {
 
     //here we define actions which we handle
     interface Delegate {
-        fun onItemClick(item: Detail, view: View)
+        fun onItemClick(item: Detail, view: View , section: String?)
     }
 
 
@@ -33,7 +33,7 @@ class DetailViewHolder(view: View, val delegate: Delegate) : BaseViewHolder(view
     }
 
     override fun onClick(v: View?) {
-        delegate.onItemClick(item, itemView)
+        delegate.onItemClick(item, itemView, section)
     }
 
 

@@ -83,12 +83,12 @@ class MoreInfoFragment : Fragment() , CreatorViewHolder.Delegate {
         binding.listRowsCreators.adapter = adapter
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
-    override fun onItemClick(creator: Item, view: View) {
+    override fun onCreatorClicked(creator: Item, view: View) {
 
         binding.progressBar.visibility = View.VISIBLE
         viewModel.getCreatorDetail(creator).observe( this , Observer { response ->

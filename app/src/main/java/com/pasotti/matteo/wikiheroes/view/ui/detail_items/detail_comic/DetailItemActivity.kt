@@ -31,15 +31,6 @@ class DetailItemActivity : AppCompatActivity() {
 
     private val binding by lazy { DataBindingUtil.setContentView<ComicDetailBinding>(this, R.layout.comic_detail) }
 
-    // Hold a reference to the current animator,
-    // so that it can be canceled mid-way.
-    private var currentAnimator: Animator? = null
-
-    // The system "short" animation time duration, in milliseconds. This
-    // duration is ideal for subtle animations or animations that occur
-    // very frequently.
-    private var shortAnimationDuration: Int = 0
-
     companion object {
 
         const val TAG = "DetailItemActivity"
@@ -111,13 +102,6 @@ class DetailItemActivity : AppCompatActivity() {
                     .replace(binding.container.id, DetailImageFragment.newInstance(getImageUri()), "DetailImageFragment")
                     .addToBackStack(null)
                     .commit()
-
-            /*ft.setCustomAnimations(R.anim.pop_enter_anim, R.anim.pop_exit_anim)
-
-            val detailImageFragment = DetailImageFragment.newInstance(getImageUri())
-            ft.add(binding.container.id, detailImageFragment, "DetailImageFragment")
-
-            ft.commit()*/
 
         }
 

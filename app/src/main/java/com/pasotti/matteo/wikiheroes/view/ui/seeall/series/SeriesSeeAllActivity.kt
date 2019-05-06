@@ -31,6 +31,9 @@ import org.jetbrains.anko.backgroundDrawable
 import javax.inject.Inject
 
 class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
+    override fun onItemClick(item: Detail, view: View, section: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
@@ -84,7 +87,7 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         //LIST
         val layoutManager = GridLayoutManager(this , 3)
         binding.listSerieComics.layoutManager = layoutManager
-        viewModel.adapter = DetailAdapter(this)
+        viewModel.adapter = DetailAdapter(this , "Section")
         binding.listSerieComics.adapter = viewModel.adapter
 
         binding.listSerieComics.addOnScrollListener(Utils.InfiniteScrollListenerGrid({
@@ -139,7 +142,7 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
 
     }
 
-    override fun onItemClick(item: Detail, view: View) {
+    /*override fun onItemClick(item: Detail, view: View) {
         val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
 
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
@@ -150,6 +153,6 @@ class SeriesSeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
         intent.putExtra(DetailItemActivity.INTENT_SECTION, "Comics")
         startActivity(intent)
-    }
+    }*/
 
 }
