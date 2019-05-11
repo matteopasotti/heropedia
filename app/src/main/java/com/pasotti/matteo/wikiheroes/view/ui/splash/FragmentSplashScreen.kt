@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.FragmentSplashScreenBinding
 import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
@@ -42,8 +43,9 @@ class FragmentSplashScreen : Fragment() {
         viewModel.checkDateSynchCharacters()
 
         Handler().postDelayed({
-            val mainIntent = Intent(activity, MainActivity::class.java)
-            startActivity(mainIntent)
+            view.findNavController().navigate(R.id.action_fragmentSplashScreen_to_homeCharactersFragment)
+            //val mainIntent = Intent(activity, MainActivity::class.java)
+            //tartActivity(mainIntent)
         }, 3000)
     }
 

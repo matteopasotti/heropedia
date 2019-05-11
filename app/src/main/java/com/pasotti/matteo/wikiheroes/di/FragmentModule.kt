@@ -58,5 +58,8 @@ abstract class FragmentModule {
     internal abstract fun contributeFragmentHome() : FragmentHome
 
     @ContributesAndroidInjector
+    internal abstract fun contributeFragmentCharacterDetail() : FragmentCharacterDetail
+
+    @ContributesAndroidInjector
     internal abstract fun contributeFragmentSearchScreen() : FragmentSearchScreen
 }

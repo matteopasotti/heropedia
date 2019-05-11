@@ -139,14 +139,13 @@ dependencies {
     //TIMBER
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    //LOTTIE ANIMATIONS
-    implementation "com.airbnb.android:lottie:$lottie_version"
-
     // ROBOLECTRIC
     testImplementation "org.robolectric:robolectric:$roboelectric_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation" // For Kotlin use navigation-fragment-ktx
-    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation" // For Kotlin use navigation-ui-ktx
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+    //implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+// For Kotlin use navigation-ui-ktx
 
 }

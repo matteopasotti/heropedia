@@ -16,7 +16,7 @@ class MainScreenActivity : AppCompatActivity() {
         val binding = DataBindingUtil.setContentView<ActivityMainScreenBinding>(this, R.layout.activity_main_screen)
         // Link the NavController to our ActionBar.
         val navController = this.findNavController(R.id.myNavHostFragment)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        //NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pasotti.matteo.wikiheroes">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".MyApplication"
@@ -12,33 +12,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.home.HomeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.detail.DetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.seeall.SeeAllActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.seeall.series.SeriesSeeAllActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.creator.CreatorDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.home.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.person.PersonDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".view.ui.search.SearchActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".view.ui.home.splash.SplashActivity"
+        <activity
+            android:name=".view.ui.MainScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.detail_items.detail_comic.DetailItemActivity"
+        <activity
+            android:name=".view.ui.home.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.detail.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.seeall.SeeAllActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.seeall.series.SeriesSeeAllActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.creator.CreatorDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.home.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.person.PersonDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ui.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".view.ui.home.splash.SplashActivity">
+
+        </activity>
+        <activity
+            android:name=".view.ui.detail_items.detail_comic.DetailItemActivity"
             android:screenOrientation="portrait" />
     </application>
 

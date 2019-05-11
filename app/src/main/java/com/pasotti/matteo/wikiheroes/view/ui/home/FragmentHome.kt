@@ -1,21 +1,14 @@
 package com.pasotti.matteo.wikiheroes.view.ui.home
 
-import android.content.Intent
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.os.Bundle
+import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.FragmentHomePagerBinding
 import com.pasotti.matteo.wikiheroes.view.adapter.SampleFragmentPagerAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.home.characters.HomeCharactersFragment
-import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicsFragment
-import com.pasotti.matteo.wikiheroes.view.ui.home.desk.HomeDeskFragment
-import com.pasotti.matteo.wikiheroes.view.ui.search.SearchActivity
 
 class FragmentHome : Fragment() {
 
@@ -23,20 +16,34 @@ class FragmentHome : Fragment() {
 
     private lateinit var pagerAdapter : SampleFragmentPagerAdapter
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-    private class HomeFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        binding = DataBindingUtil.inflate( inflater , R.layout.fragment_home_pager , container , false)
 
-        override fun getItem(position: Int): Fragment {
-            when (position) {
-                0 -> return HomeCharactersFragment.newInstance()
-                1 -> return HomeComicsFragment.newInstance()
-                2 -> return HomeDeskFragment.newInstance()
+
+        initUI()
+
+        return binding.root
+    }
+
+    private fun initUI() {
+        pagerAdapter = SampleFragmentPagerAdapter(context!!, fragmentManager!!)
+        binding.viewPager.adapter = pagerAdapter
+        binding.viewPager.offscreenPageLimit = (pagerAdapter.count - 1)
+
+        binding.navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_characters -> {
+                    binding.viewPager.currentItem = 0
+                }
+                R.id.navigation_comics -> {
+                    binding.viewPager.currentItem = 1
+                }
+                R.id.navigation_saved -> {
+                    binding.viewPager.currentItem = 2
+                }
             }
-            return Fragment()
-        }
-
-        override fun getCount(): Int {
-            return 3
+            return@setOnNavigationItemSelectedListener true
         }
     }
 

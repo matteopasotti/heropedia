@@ -24,7 +24,7 @@ buildscript {
         shape_view_version = '1.4.6'
         timber_version = '4.7.1'
         androidx_version = '2.0.0'
-        version_navigation = "2.1.0-alpha02"
+        version_navigation = "2.1.0-alpha03"
     }
 
     repositories {

@@ -14,6 +14,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.Resource
 import com.pasotti.matteo.wikiheroes.api.Status
@@ -42,9 +44,12 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
 
         val options = ActivityOptions.makeSceneTransitionAnimation(activity, img , name)
 
-        val intent = Intent(context, DetailActivity::class.java)
+        //view.findNavController().navigate(HomeCharactersFragmentDirections.actionHomeCharactersFragmentToFragmentCharacterDetail(character))
+
+        goToDetail(character)
+        /*val intent = Intent(context, DetailActivity::class.java)
         intent.putExtra(DetailActivity.intent_character , character as Parcelable)
-        startActivity(intent, options.toBundle())
+        startActivity(intent, options.toBundle())*/
     }
 
 
@@ -63,6 +68,10 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    private fun goToDetail( character : Character) {
+        view!!.findNavController().navigate(HomeCharactersFragmentDirections.actionHomeCharactersFragmentToFragmentCharacterDetail(character))
     }
 
     override fun onAttach(context: Context) {

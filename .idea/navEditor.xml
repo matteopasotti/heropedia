@@ -17,6 +17,15 @@
                             <option name="y" value="113" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_fragmentCharacterDetail_to_fragmentDetailItem">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -28,6 +37,15 @@
                             <option name="x" value="143" />
                             <option name="y" value="109" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_fragmentDetailItem_self2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -56,6 +74,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_fragmentSplashScreen_to_fragmentHome">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_fragmentSplashScreen_to_homeCharactersFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

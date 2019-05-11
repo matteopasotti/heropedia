@@ -1,5 +1,9 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +13,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.databinding.FragmentCharacterDetailBinding
@@ -19,6 +30,8 @@ import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
+import dagger.android.support.AndroidSupportInjection
+import org.jetbrains.anko.backgroundDrawable
 import javax.inject.Inject
 
 class FragmentCharacterDetail : Fragment(), DetailViewHolder.Delegate {
@@ -30,20 +43,27 @@ class FragmentCharacterDetail : Fragment(), DetailViewHolder.Delegate {
 
     lateinit var binding : FragmentCharacterDetailBinding
 
+    lateinit var gradientDrawable : GradientDrawable
+
     companion object {
         const val COMICS_SECTION = "Comics"
         const val SERIES_SECTION = "Series"
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate( inflater , R.layout.fragment_character_detail , container , false)
 
-        /*val args = FragmentCharacterDetailArgs.fromBundle(arguments!!)
+        val args = FragmentCharacterDetailArgs.fromBundle(arguments!!)
 
         viewModel.character = args.character
 
-        initUI()*/
+        initUI()
 
         return binding.root
     }
@@ -53,6 +73,8 @@ class FragmentCharacterDetail : Fragment(), DetailViewHolder.Delegate {
     }
 
     private fun initUI() {
+
+        initImageCharacter()
 
         viewModel.comicsAdapter = DetailAdapter(this , COMICS_SECTION)
         viewModel.seriesAdapter = DetailAdapter(this , SERIES_SECTION)
@@ -130,5 +152,42 @@ class FragmentCharacterDetail : Fragment(), DetailViewHolder.Delegate {
     override fun onItemClick(item: Detail, view: View, section : String?) {
         //TODO put action
         // OPEN THE DETAIL OF A COMIC OR SERIES
+    }
+
+    private fun initImageCharacter() {
+
+        val requestOptions = RequestOptions()
+        requestOptions.circleCrop()
+
+        Glide.with(this)
+                .asBitmap()
+                .apply(requestOptions)
+                .load(viewModel.getImageUri(viewModel.character!!))
+                .listener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        //supportStartPostponedEnterTransition()
+                        //observeViewModel()
+                        return false
+                    }
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        //supportStartPostponedEnterTransition()
+                        Palette.from(resource!!).generate {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                val dominantColor = it?.getDominantColor(resources.getColor(R.color.black, null))!!
+                                val colors: IntArray = intArrayOf(resources.getColor(R.color.black, null), dominantColor)
+                                viewModel.saveDominantColor(dominantColor)
+                                gradientDrawable = GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP, colors)
+                                gradientDrawable.cornerRadius = 0f
+                                binding.viewGradient.backgroundDrawable = gradientDrawable
+
+                            } else {
+                                it?.getDominantColor(resources.getColor(R.color.black))
+                            }
+                        }
+
+                        return false
+                    }
+                }).into(binding.circularImage)
     }
 }

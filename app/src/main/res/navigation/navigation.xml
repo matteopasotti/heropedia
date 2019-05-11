@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_fragmentSplashScreen_to_fragmentHome"
             app:destination="@id/fragmentHome" />
+        <action
+            android:id="@+id/action_fragmentSplashScreen_to_homeCharactersFragment"
+            app:destination="@id/homeCharactersFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentHome"
