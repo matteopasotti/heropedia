@@ -1,4 +1,4 @@
-# ComicsCatalog
+# Heropedia
 
 This application is in Kotlin and consumes Marvel Api to retrieve a list of Characters.
 The architecture used is MVVM (Model View ViewModel) with a combination of recent Android Architecture Components released By Google.
