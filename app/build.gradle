@@ -137,9 +137,6 @@ dependencies {
     //TIMBER
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    //LOTTIE ANIMATIONS
-    implementation "com.airbnb.android:lottie:$lottie_version"
-
     // ROBOLECTRIC
     testImplementation "org.robolectric:robolectric:$roboelectric_version"
 

@@ -117,7 +117,7 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
     }
 
     private fun renderLoadingState() {
-        Log.d("HomeActivity", "call LOADING")
+        Timber.i("call loading")
         binding.progressBar.visibility = View.VISIBLE
     }
 
@@ -137,7 +137,7 @@ class HomeCharactersFragment : Fragment() , CharacterViewHolder.Delegate {
     }
 
     private fun renderErrorState(throwable: Throwable) {
-        Log.d("HomeActivity", "call ERROR response : " + throwable.toString())
+        Timber.d(throwable)
         binding.progressBar.visibility = View.GONE
         //ErrorDialog.show(suppo.beginTransaction(), throwable.toString())
     }

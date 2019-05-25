@@ -11,6 +11,7 @@ import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.room.ShopDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -109,7 +110,14 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
     fun checkSyncComics() {
 
         val cal = Calendar.getInstance()
-        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+        cal.add(Calendar.DAY_OF_WEEK, -(cal.get(Calendar.DAY_OF_WEEK) - 1))
+        val todayCalendar = Calendar.getInstance()
+
+        val today = todayCalendar.time
+        val lastSunday = cal.time
+
+
+        if(today.after(lastSunday) || today == lastSunday) {
             thread {
                 comicsDao.deleteComics()
             }
