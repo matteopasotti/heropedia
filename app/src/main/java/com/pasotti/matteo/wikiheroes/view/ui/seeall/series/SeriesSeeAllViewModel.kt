@@ -28,7 +28,7 @@ constructor(private val comicsRepository: ComicsRepository, private val mainRepo
 
     var offset = 0
 
-    private val defaultLimit = 20
+    private val defaultLimit = 10
 
     var pageCounter = 0
 
