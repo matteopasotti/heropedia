@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
+import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.models.DeskItem
@@ -22,34 +23,34 @@ constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
 
     private val timestamp = Date().time
 
-    private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    private val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
 
     fun getSeriesBySeriesId( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getSeriesBySeriesId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun getSeriesByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
+        return marvelApi.getSeriesByCreatorId(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
     }
 
     fun getSeriesByCreatorId( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-startYear", 0, defaultLimit)
+        return marvelApi.getSeriesByCreatorId(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-startYear", 0, defaultLimit)
     }
 
     fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getSeriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun getSeriesByCharacterId(id : Int, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(),offset, defaultLimit)
+        return marvelApi.getSeriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(),offset, defaultLimit)
     }
 
     fun searchSeriesNameStartsWith( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>>{
-        return marvelApi.searchSeriesNameStartsWith(nameStartWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "-startYear" , offset , defaultLimit)
+        return marvelApi.searchSeriesNameStartsWith(nameStartWith , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "-startYear" , offset , defaultLimit)
     }
 
     fun getSeriesDetailById( seriesId : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesDetailById(seriesId , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getSeriesDetailById(seriesId , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun getSeriesFromDesk() : LiveData<List<DeskItem>> {

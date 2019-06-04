@@ -1,1 +1,3 @@
 /build
+# Files with sensitive info
+app/keys.properties

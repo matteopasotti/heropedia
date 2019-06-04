@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
+import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
@@ -23,15 +24,15 @@ constructor(private val marvelApi: MarvelApi, val itemDao: ItemDao, val preferen
 
     private val timestamp = Date().time
 
-    private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    private val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
 
     fun searchCreatorByName( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchCreatorByName(nameStartWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "firstName" , offset, defaultLimit)
+        return marvelApi.searchCreatorByName(nameStartWith, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "firstName" , offset, defaultLimit)
     }
 
 
     fun getCreatorDetailById( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getCreatorDetailById(id , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getCreatorDetailById(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun saveCreator( item : Item) {

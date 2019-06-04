@@ -1,7 +1,7 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
@@ -28,7 +28,7 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
     val timestamp = Date().time
 
-    val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
 
 
     fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
@@ -62,7 +62,7 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
             }
 
             override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
-                return marvelApi.getCharacters("-modified", timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, offset, defaultLimit)
+                return marvelApi.getCharacters("-modified", timestamp.toString(), BuildConfig.MARVEL_API_KEY, hash, offset, defaultLimit)
             }
 
             override fun onFetchFailed() {
@@ -74,17 +74,17 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
     }
 
     fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getStoriesByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getStoriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getEventsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString())
+        return marvelApi.getEventsByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun checkSyncCharacters() {
 
         val todayDate = Utils.getCurrentDate()
-        var lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
+        val lastSynchDate = preferenceManager.getString(PreferenceManager.LAST_DATE_SYNC, "")
 
         // refresh comics every 5 days
         if (lastSynchDate != null && lastSynchDate != "" && Utils.getDifferenceBetweenDates(lastSynchDate, todayDate) == 2L) {
@@ -93,16 +93,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
             }
 
         }
-    }
-
-    fun insertCharacter( character: Character) {
-        thread {
-            characterDao.insertCharacter(character)
-        }
-    }
-
-    fun getCharacterById( id : Int) : LiveData<Character> {
-        return characterDao.getCharacterById(id)
     }
 
     fun getFavCharacters() : LiveData<List<FavCharacter>> {
@@ -128,6 +118,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
 
     fun searchCharacterByName( nameStartsWith : String) : LiveData<ApiResponse<CharacterResponse>> {
-        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString() , "name", offset, defaultLimit)
+        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "name", offset, defaultLimit)
     }
 }

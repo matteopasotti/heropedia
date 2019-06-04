@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
+import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
@@ -27,34 +28,34 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
 
     private val timestamp = Date().time
 
-    private val hash = Utils.md5(timestamp.toString() + Utils.MARVEL_PRIVATE_KEY + Utils.MARVEL_PUBLIC_KEY)
+    private val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
 
     fun getComicsBySeriesId(id: String): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-issueNumber")
+        return marvelApi.getComicsBySeriesId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-issueNumber")
     }
 
     fun getComicsBySeriesId(id: String, offset: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsBySeriesId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-issueNumber", offset, defaultLimit)
+        return marvelApi.getComicsBySeriesId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-issueNumber", offset, defaultLimit)
     }
 
     fun getComicsByCreatorId(id: String, offset: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCreatorId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "-onsaleDate", offset, defaultLimit)
+        return marvelApi.getComicsByCreatorId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), true, "-onsaleDate", offset, defaultLimit)
     }
 
     fun getComicsByCreatorId(id: String): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCreatorId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), true, "-onsaleDate", 0, defaultLimit)
+        return marvelApi.getComicsByCreatorId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), true, "-onsaleDate", 0, defaultLimit)
     }
 
     fun getComicsByCharacterId(id: Int, offset: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
+        return marvelApi.getComicsByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
     }
 
     fun getEventsByCreatorId(id: String, offset: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getEventsByCreatorId(id, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "issueNumber", offset, defaultLimit)
+        return marvelApi.getEventsByCreatorId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "issueNumber", offset, defaultLimit)
     }
 
     fun getComicsByCharacterId(id: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate")
+        return marvelApi.getComicsByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-onsaleDate")
     }
 
     fun getComicsOfTheWeek(week: Utils.WEEK): LiveData<Resource<List<Detail>>> {
@@ -94,7 +95,7 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
             }
 
             override fun fetchService(): LiveData<ApiResponse<DetailResponse>> {
-                return marvelApi.getComicsOfTheWeek(week.toString(), "-onsaleDate", timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, 0, 100)
+                return marvelApi.getComicsOfTheWeek(week.toString(), "-onsaleDate", timestamp.toString(), BuildConfig.MARVEL_API_KEY, hash, 0, 100)
             }
 
             override fun onFetchFailed() {
@@ -104,7 +105,7 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
     }
 
     fun getOldestComicsByCharacterId(id: Int): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getComicsByCharacterId(id.toString(), Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "onsaleDate")
+        return marvelApi.getComicsByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "onsaleDate")
     }
 
     fun checkSyncComics() {
@@ -163,6 +164,6 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
     }
 
     fun searchComicsNameStartsWith(nameStartsWith: String): LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchComicsNameStartsWith(nameStartsWith, Utils.MARVEL_PUBLIC_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
+        return marvelApi.searchComicsNameStartsWith(nameStartsWith, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-onsaleDate", offset, defaultLimit)
     }
 }

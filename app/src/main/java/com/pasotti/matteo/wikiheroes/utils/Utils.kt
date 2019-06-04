@@ -17,10 +17,6 @@ import java.util.*
 
 object Utils {
 
-    var MARVEL_PUBLIC_KEY = "8da2e7269fff32817c0f81f419db00ce"
-
-    var MARVEL_PRIVATE_KEY = "e06e48a05a4c410c56c8d10bd360c4c0aa8f9e7b"
-
     var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
     const val BASE_URL = "http://gateway.marvel.com"
