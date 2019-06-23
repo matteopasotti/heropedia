@@ -29,10 +29,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
+class HomeComicsFragment : Fragment(), HomeComicsViewHolder.Delegate {
 
 
-    lateinit var binding : FragmentHomeComicsBinding
+    lateinit var binding: FragmentHomeComicsBinding
 
     @Inject
     lateinit var viewModelFactory: AppViewModelFactory
@@ -40,9 +40,8 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
     private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(HomeComicsViewModel::class.java) }
 
 
-
     companion object {
-        fun newInstance() : HomeComicsFragment {
+        fun newInstance(): HomeComicsFragment {
             val args = Bundle()
             val fragment = HomeComicsFragment()
             fragment.arguments = args
@@ -56,9 +55,9 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater ,  com.pasotti.matteo.wikiheroes.R.layout.fragment_home_comics, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_comics, container, false)
 
-        if ( savedInstanceState == null ) {
+        if (savedInstanceState == null) {
             viewModel.firstTime = true
         }
 
@@ -78,16 +77,15 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         //SELECTION OF THE WEEK
         binding.previousWeek.setOnClickListener {
             //lastWeek
-            if(viewModel.currentWeek != Utils.WEEK.lastWeek) {
+            if (viewModel.currentWeek != Utils.WEEK.lastWeek) {
                 //load items of lastWeek
                 binding.thisWeek.paintFlags = 0
                 binding.nextWeek.paintFlags = 0
 
-                binding.progressBar.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.previousWeek.textColor = resources.getColor(R.color.dark_yellow , null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.previousWeek.textColor = resources.getColor(R.color.dark_yellow, null)
                 } else {
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
@@ -103,7 +101,7 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
 
         binding.thisWeek.setOnClickListener {
-            if(viewModel.currentWeek != Utils.WEEK.thisWeek) {
+            if (viewModel.currentWeek != Utils.WEEK.thisWeek) {
                 //load items of thisWeek
                 binding.previousWeek.paintFlags = 0
                 binding.nextWeek.paintFlags = 0
@@ -111,9 +109,9 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
                 binding.progressBar.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.thisWeek.textColor = resources.getColor(R.color.dark_yellow , null)
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.dark_yellow, null)
                 } else {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.nextWeek.textColor = resources.getColor(R.color.whiteFadeBg)
@@ -129,16 +127,16 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
 
         binding.nextWeek.setOnClickListener {
-            if(viewModel.currentWeek != Utils.WEEK.nextWeek) {
+            if (viewModel.currentWeek != Utils.WEEK.nextWeek) {
                 //load items of nextWeek
                 binding.thisWeek.paintFlags = 0
                 binding.previousWeek.paintFlags = 0
 
                 binding.progressBar.visibility = View.VISIBLE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg , null)
-                    binding.nextWeek.textColor = resources.getColor(R.color.dark_yellow , null)
+                    binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg, null)
+                    binding.nextWeek.textColor = resources.getColor(R.color.dark_yellow, null)
                 } else {
                     binding.previousWeek.textColor = resources.getColor(R.color.whiteFadeBg)
                     binding.thisWeek.textColor = resources.getColor(R.color.whiteFadeBg)
@@ -159,18 +157,18 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
     }
 
 
-    private fun changeWeek(week : Utils.WEEK) {
+    private fun changeWeek(week: Utils.WEEK) {
         binding.progressBar.visibility = View.VISIBLE
         viewModel.weekHasChanged = true
         viewModel.changeWeek(week)
     }
 
     private fun observeViewModel() {
-        viewModel.comicsLiveData.observe( this , Observer { it?.let { processResponse(it) }  })
-       viewModel.changeWeek(Utils.WEEK.thisWeek)
+        viewModel.comicsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
+        viewModel.changeWeek(Utils.WEEK.thisWeek)
     }
 
-    private fun processResponse ( response : Resource<List<Detail>>) {
+    private fun processResponse(response: Resource<List<Detail>>) {
         when (response.status) {
             Status.LOADING -> renderLoadingState()
 
@@ -184,12 +182,11 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
         binding.progressBar.visibility = View.VISIBLE
     }
 
-    private fun renderDataState(items : List<Detail> ) {
-
+    private fun renderDataState(items: List<Detail>) {
         binding.progressBar.visibility = View.GONE
-        if(!items.isNullOrEmpty()) {
+        if (!items.isNullOrEmpty()) {
 
-            if(viewModel.weekHasChanged) {
+            if (viewModel.weekHasChanged) {
                 viewModel.weekHasChanged = false
                 viewModel.adapter.addList(items)
             } else {
@@ -202,7 +199,7 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
     }
 
     private fun renderErrorState(throwable: Throwable) {
-        Timber.d("call ERROR response : " + throwable.toString())
+        Timber.d("call ERROR response : $throwable")
         binding.progressBar.visibility = View.GONE
         //ErrorDialog.show(this.supportFragmentManager.beginTransaction(), throwable.toString())
     }
@@ -210,8 +207,8 @@ class HomeComicsFragment : Fragment() , HomeComicsViewHolder.Delegate {
 
     override fun onItemClick(item: Detail, view: View) {
         val intent = Intent(activity, DetailItemActivity::class.java)
-        intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)
-        intent.putExtra(DetailItemActivity.INTENT_SECTION , "Comics")
+        intent.putExtra(DetailItemActivity.INTENT_ITEM, item as Parcelable)
+        intent.putExtra(DetailItemActivity.INTENT_SECTION, "Comics")
         startActivity(intent)
     }
 }

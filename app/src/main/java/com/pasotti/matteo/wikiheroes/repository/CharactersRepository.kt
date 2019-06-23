@@ -28,9 +28,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
     val timestamp = Date().time
 
-    val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
-
-
     fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
 
         return object : NetworkBoundResource<List<Character>, CharacterResponse>() {
@@ -62,7 +59,8 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
             }
 
             override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
-                return marvelApi.getCharacters("-modified", timestamp.toString(), BuildConfig.MARVEL_API_KEY, hash, offset, defaultLimit)
+                return marvelApi.getCharacters("-modified", offset, defaultLimit)
+                //return marvelApi.getCharacters("-modified", timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, offset, defaultLimit)
             }
 
             override fun onFetchFailed() {
@@ -71,14 +69,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
         }.asLiveData
 
-    }
-
-    fun getStoriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getStoriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
-    }
-
-    fun getEventsByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getEventsByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
     }
 
     fun checkSyncCharacters() {
@@ -118,6 +108,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
 
     fun searchCharacterByName( nameStartsWith : String) : LiveData<ApiResponse<CharacterResponse>> {
-        return marvelApi.searchCharacterNameStartsWith(nameStartsWith , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "name", offset, defaultLimit)
+        return marvelApi.searchCharacterNameStartsWith(nameStartsWith  , "name", offset, defaultLimit)
     }
 }

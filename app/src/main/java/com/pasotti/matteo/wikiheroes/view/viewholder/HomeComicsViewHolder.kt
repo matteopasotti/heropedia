@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil
 import com.pasotti.matteo.wikiheroes.databinding.HomeItemComicBinding
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.view.ui.home.comics.HomeComicUIViewModel
+import timber.log.Timber
 
 class HomeComicsViewHolder (view: View, val delegate: Delegate) : BaseViewHolder(view) {
 
@@ -21,7 +22,14 @@ class HomeComicsViewHolder (view: View, val delegate: Delegate) : BaseViewHolder
     }
 
     private fun drawUI() {
+
         binding?.viewModel = HomeComicUIViewModel(item)
+        val pages = binding!!.viewModel!!.getNumberPages()
+        val title = binding!!.viewModel!!.getTitle()
+        val image = binding!!.viewModel!!.getUrlImage()
+
+        Timber.i("title : $title pages: $pages image: $image")
+
         binding?.executePendingBindings()
     }
 

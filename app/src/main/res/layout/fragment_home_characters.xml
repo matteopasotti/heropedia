@@ -18,8 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layoutAnimation="@anim/layout_animation_slide_bottom"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
         <ProgressBar

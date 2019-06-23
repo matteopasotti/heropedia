@@ -29,7 +29,7 @@ class MyApplication : Application(), HasActivityInjector, HasSupportFragmentInje
 
         DaggerAppComponent.builder()
                 .application(this)
-                .baseUrl(Utils.BASE_URL)
+                .baseUrl(Utils.BASE_URL_2)
                 .build().inject(this)
     }
 

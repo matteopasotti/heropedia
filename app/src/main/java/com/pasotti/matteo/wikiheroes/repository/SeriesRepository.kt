@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SeriesRepository @Inject
-constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
+constructor(private val marvelApi: MarvelApi, private val shopDao: ShopDao) {
 
     private val defaultLimit = 20
 
@@ -23,37 +23,35 @@ constructor(private val marvelApi: MarvelApi , private val shopDao: ShopDao) {
 
     private val timestamp = Date().time
 
-    private val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
-
-    fun getSeriesBySeriesId( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesBySeriesId(id, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
+    fun getSeriesBySeriesId(id: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesBySeriesId(id)
     }
 
-    fun getSeriesByCreatorId( id : String, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-startYear", offset, defaultLimit)
+    fun getSeriesByCreatorId(id: String, offset: Int): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesByCreatorId(id, "-startYear", offset, defaultLimit)
     }
 
-    fun getSeriesByCreatorId( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCreatorId(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(), "-startYear", 0, defaultLimit)
+    fun getSeriesByCreatorId(id: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesByCreatorId(id, "-startYear", 0, defaultLimit)
     }
 
-    fun getSeriesByCharacterId(id : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
+    fun getSeriesByCharacterId(id: Int): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesByCharacterId(id.toString())
     }
 
-    fun getSeriesByCharacterId(id : Int, offset : Int) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesByCharacterId(id.toString(), BuildConfig.MARVEL_API_KEY, hash, timestamp.toString(),offset, defaultLimit)
+    fun getSeriesByCharacterId(id: Int, offset: Int): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesByCharacterId(id.toString(), offset, defaultLimit)
     }
 
-    fun searchSeriesNameStartsWith( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>>{
-        return marvelApi.searchSeriesNameStartsWith(nameStartWith , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "-startYear" , offset , defaultLimit)
+    fun searchSeriesNameStartsWith(nameStartWith: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.searchSeriesNameStartsWith(nameStartWith, "-startYear", offset, defaultLimit)
     }
 
-    fun getSeriesDetailById( seriesId : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getSeriesDetailById(seriesId , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
+    fun getSeriesDetailById(seriesId: String): LiveData<ApiResponse<DetailResponse>> {
+        return marvelApi.getSeriesDetailById(seriesId)
     }
 
-    fun getSeriesFromDesk() : LiveData<List<DeskItem>> {
+    fun getSeriesFromDesk(): LiveData<List<DeskItem>> {
         return shopDao.getSeriesInDesk()
     }
 }

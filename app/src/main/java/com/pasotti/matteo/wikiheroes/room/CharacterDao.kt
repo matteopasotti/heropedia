@@ -23,7 +23,7 @@ interface CharacterDao {
     fun getCharacters(page : Int): LiveData<List<Character>>
 
 
-    @Query("SELECT * FROM Character ORDER BY page")
+    @Query("SELECT * FROM Character ORDER BY page AND modified")
     fun getCharacters(): LiveData<List<Character>>
 
     @Query("SELECT * FROM Character WHERE name = :name")

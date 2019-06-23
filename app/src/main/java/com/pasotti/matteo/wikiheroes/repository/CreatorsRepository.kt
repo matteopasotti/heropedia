@@ -24,15 +24,13 @@ constructor(private val marvelApi: MarvelApi, val itemDao: ItemDao, val preferen
 
     private val timestamp = Date().time
 
-    private val hash = Utils.md5(timestamp.toString() + BuildConfig.MARVEL_PRIVATE_KEY + BuildConfig.MARVEL_API_KEY)
-
     fun searchCreatorByName( nameStartWith : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.searchCreatorByName(nameStartWith, BuildConfig.MARVEL_API_KEY, hash, timestamp.toString() , "firstName" , offset, defaultLimit)
+        return marvelApi.searchCreatorByName(nameStartWith , "firstName" , offset, defaultLimit)
     }
 
 
     fun getCreatorDetailById( id : String) : LiveData<ApiResponse<DetailResponse>> {
-        return marvelApi.getCreatorDetailById(id , BuildConfig.MARVEL_API_KEY, hash, timestamp.toString())
+        return marvelApi.getCreatorDetailById(id)
     }
 
     fun saveCreator( item : Item) {

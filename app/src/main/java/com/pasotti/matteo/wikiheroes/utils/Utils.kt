@@ -21,6 +21,8 @@ object Utils {
 
     const val BASE_URL = "http://gateway.marvel.com"
 
+    const val BASE_URL_2 = "http://35.178.0.232:8000"
+
 
     enum class WEEK {
         lastWeek,
@@ -72,7 +74,7 @@ object Utils {
         return goodItems
     }
 
-    fun removeItemById(id : String , items: List<Detail>) : List<Detail> {
+    fun removeItemById(id: String, items: List<Detail>): List<Detail> {
         val goodItems: MutableList<Detail> = mutableListOf()
 
         goodItems.addAll(items.filter { it.id.toString() != id })
@@ -83,15 +85,15 @@ object Utils {
     fun getIdByResourceURI(resourceURI: String?): String {
         var result = ""
         if (resourceURI != null && resourceURI != "") {
-            var i : Int = resourceURI.length - 1
-            var str : String = resourceURI.get(i).toString()
+            var i: Int = resourceURI.length - 1
+            var str: String = resourceURI.get(i).toString()
             result += str
 
 
             while (str != "/") {
                 i--
                 str = resourceURI[i].toString()
-                if(str != "/") {
+                if (str != "/") {
                     result = str + result
                 }
 
@@ -141,14 +143,6 @@ object Utils {
                 totalItemCount = layoutManager.itemCount
                 firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
 
-
-                val needsLoad = (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)
-
-                Log.i("InfiniteScrollListener", "isLoading = $loading")
-                Log.i("InfiniteScrollListener", "totalItemCount = $totalItemCount")
-                Log.i("InfiniteScrollListener", "visibleItemCount = $visibleItemCount")
-                Log.i("InfiniteScrollListener", "totalItemCount - visibleItemCount <= (firstVisibleItem + visibleThreshold) = $needsLoad")
-
                 if (loading) {
                     if (totalItemCount > previousTotal) {
                         loading = false
@@ -157,8 +151,6 @@ object Utils {
                 }
                 if (!loading && (totalItemCount - visibleItemCount)
                         <= (firstVisibleItem + visibleThreshold)) {
-                    // End has been reached
-                    Log.i("InfiniteScrollListener", "End reached")
                     func()
                     loading = true
                 }
@@ -192,7 +184,6 @@ object Utils {
                 if (!loading && (totalItemCount - visibleItemCount)
                         <= (firstVisibleItem + visibleThreshold)) {
                     // End has been reached
-                    Log.i("InfiniteScrollListener", "End reached")
                     func()
                     loading = true
                 }
@@ -202,12 +193,11 @@ object Utils {
     }
 
 
-    fun getCurrentDate() : String {
-        val c : Date = Calendar.getInstance().time
+    fun getCurrentDate(): String {
+        val c: Date = Calendar.getInstance().time
 
         val df = SimpleDateFormat("dd/MM/yyyy")
         val formattedDate = df.format(c)
-        Log.d("" , "")
 
         return formattedDate
     }
@@ -216,7 +206,7 @@ object Utils {
      * d1 could be lastDateSynch
      * d2 could be the current date
      */
-    fun getDifferenceBetweenDates( d1 : String , d2 : String) : Long {
+    fun getDifferenceBetweenDates(d1: String, d2: String): Long {
         val df = SimpleDateFormat("dd/MM/yyyy")
 
         try {
@@ -234,7 +224,7 @@ object Utils {
 
             return difference / daysInMilli
 
-        } catch ( e : ParseException) {
+        } catch (e: ParseException) {
             e.printStackTrace()
         }
 
@@ -243,26 +233,8 @@ object Utils {
     }
 
 
-    class DetailsDiffCallback(private val oldItems : List<Detail>, private val newItems : List<Detail>) : DiffUtil.Callback() {
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems[oldItemPosition].id == newItems.get(newItemPosition).id
-
-        override fun getOldListSize(): Int {
-            return oldItems.size
-        }
-
-        override fun getNewListSize(): Int {
-            return newItems.size
-        }
-
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean = oldItems.get(oldItemPosition).equals(newItems.get(newItemPosition))
-
-    }
-
-
-    fun showAlert(context: Context?, message : String) {
-        if(context != null) {
+    fun showAlert(context: Context?, message: String) {
+        if (context != null) {
             AlertDialog.Builder(context).apply {
                 setMessage(message)
                 setPositiveButton("OK") { _, _ ->

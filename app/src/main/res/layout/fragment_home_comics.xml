@@ -97,8 +97,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/line_sep"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:layoutAnimation="@anim/layout_animation_slide_bottom"/>
+                    tools:listitem="@layout/home_item_comic"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
                 <ProgressBar
