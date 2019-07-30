@@ -33,12 +33,12 @@ constructor(private val comicsRepository: ComicsRepository, private val seriesRe
 
         when(type) {
             "Series" -> {
-                return comicsRepository.getComicsBySeriesId(id!!)
+                //return comicsRepository.getComicsBySeriesId(id!!)
             }
 
             "Comics" -> {
                 //get the comics of the same collection
-                return comicsRepository.getComicsBySeriesId(seriesId)
+                return comicsRepository.getComicsBySeriesId(seriesId, 10)
             }
         }
 

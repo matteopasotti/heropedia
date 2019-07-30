@@ -28,12 +28,6 @@ constructor(private val charactersRepository: CharactersRepository, private val 
             "Series" -> {
                 return seriesRepository.getSeriesByCharacterId(characterId)
             }
-            "Stories" -> {
-                return charactersRepository.getStoriesByCharacterId(characterId)
-            }
-            "Events" -> {
-                return charactersRepository.getEventsByCharacterId(characterId)
-            }
 
         }
 

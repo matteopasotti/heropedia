@@ -23,6 +23,8 @@ object Utils {
 
     const val BASE_URL_2 = "http://35.178.0.232:8000"
 
+    const val BASE_URL_3 = "http://35.178.199.173:8000"
+
 
     enum class WEEK {
         lastWeek,
