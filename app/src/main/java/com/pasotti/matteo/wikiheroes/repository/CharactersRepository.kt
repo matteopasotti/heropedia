@@ -1,6 +1,7 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
@@ -20,7 +21,7 @@ import kotlin.concurrent.thread
 
 @Singleton
 class CharactersRepository @Inject
-constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao, val marvelApi: MarvelApi , val preferenceManager: PreferenceManager) {
+constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao, val marvelApi: MarvelApi, val preferenceManager: PreferenceManager) : BaseRepository() {
 
     val defaultLimit = 10
 
@@ -28,7 +29,21 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
     val timestamp = Date().time
 
-    fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
+
+    suspend fun getCharactersCoroutine(page: Int): MutableList<Character>? {
+        val characterResponse = safeApiCall(
+                call = { marvelApi.getCharacters("-modified", offset, defaultLimit).await() },
+                errorMessage = "Error fetching Characters"
+        )
+
+        offset += defaultLimit
+
+
+        return characterResponse?.data?.results
+    }
+
+
+    /*fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
 
         return object : NetworkBoundResource<List<Character>, CharacterResponse>() {
 
@@ -43,16 +58,16 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
             }
 
             override fun shouldFetch(data: List<Character>?): Boolean {
-                if(data != null && data.isNotEmpty()) {
+                if (data != null && data.isNotEmpty()) {
                     offset = data.size
                 }
                 return data == null || data.isEmpty()
             }
 
             override fun loadFromDb(): LiveData<List<Character>> {
-                return if(page == 0) {
+                return if (page == 0) {
                     characterDao.getCharacters()
-                } else  {
+                } else {
                     characterDao.getCharacters(page)
                 }
 
@@ -69,7 +84,7 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
 
         }.asLiveData
 
-    }
+    }*/
 
     fun checkSyncCharacters() {
 
@@ -85,29 +100,29 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
         }
     }
 
-    fun getFavCharacters() : LiveData<List<FavCharacter>> {
+    fun getFavCharacters(): LiveData<List<FavCharacter>> {
         return favCharacterDao.getFavCharacters()
     }
 
-    fun addFavCharacter( character: Character) {
+    fun addFavCharacter(character: Character) {
         thread {
-            val favCharacter = FavCharacter( character.id , character)
+            val favCharacter = FavCharacter(character.id, character)
             favCharacterDao.insertFavCharacter(favCharacter)
         }
     }
 
-    fun removeFavCharacter( character: Character) {
+    fun removeFavCharacter(character: Character) {
         thread {
             favCharacterDao.removeFavCharacter(character.id)
         }
     }
 
-    fun getFavCharacterById( id : Int) : LiveData<FavCharacter> {
+    fun getFavCharacterById(id: Int): LiveData<FavCharacter> {
         return favCharacterDao.getFavCharacterById(id)
     }
 
 
-    fun searchCharacterByName( nameStartsWith : String) : LiveData<ApiResponse<CharacterResponse>> {
-        return marvelApi.searchCharacterNameStartsWith(nameStartsWith  , "name", offset, defaultLimit)
+    fun searchCharacterByName(nameStartsWith: String): LiveData<ApiResponse<CharacterResponse>> {
+        return marvelApi.searchCharacterNameStartsWith(nameStartsWith, "name", offset, defaultLimit)
     }
 }

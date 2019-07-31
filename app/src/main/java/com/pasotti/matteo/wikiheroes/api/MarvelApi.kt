@@ -4,6 +4,8 @@ import androidx.annotation.Nullable
 import androidx.lifecycle.LiveData
 import com.pasotti.matteo.wikiheroes.models.CharacterResponse
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
+import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,7 +24,7 @@ interface MarvelApi {
     @GET("/characters")
     fun getCharacters(@Query("orderBy") modified: String,
                       @Nullable @Query("offset") offset: Int,
-                      @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
+                      @Query("limit") limit: Int): Deferred<Response<CharacterResponse>>
 
     @GET("/series/{seriesId}")
     fun getSeriesBySeriesId(@Path("seriesId") id: String)
@@ -108,6 +110,13 @@ interface MarvelApi {
                            @Nullable @Query("offset") offset: Int,
                            @Query("limit") limit: Int)
             : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/comics")
+    fun getComicsOfTheWeekCoroutine(@Query("dateDescriptor") dateDescriptor: String,
+                           @Query("orderBy") orderBy: String,
+                           @Nullable @Query("offset") offset: Int,
+                           @Query("limit") limit: Int)
+            : Deferred<Response<DetailResponse>>
 
     @GET("/characters")
     fun searchCharacterNameStartsWith(@Query("nameStartsWith") nameStartsWith: String,

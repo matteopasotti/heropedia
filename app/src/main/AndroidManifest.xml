@@ -15,8 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
-        <activity android:name=".view.ui.home.HomeActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.detail.DetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.ui.seeall.SeeAllActivity"

@@ -1,5 +1,6 @@
 package com.pasotti.matteo.wikiheroes.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.LiveDataCallAdapterFactory
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import dagger.Module
@@ -7,7 +8,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -38,7 +39,8 @@ class NetModule {
         return Retrofit.Builder()
                 .baseUrl(url)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
     }

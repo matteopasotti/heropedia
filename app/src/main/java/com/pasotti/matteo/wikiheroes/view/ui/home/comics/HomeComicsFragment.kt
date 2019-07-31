@@ -160,26 +160,18 @@ class HomeComicsFragment : Fragment(), HomeComicsViewHolder.Delegate {
     private fun changeWeek(week: Utils.WEEK) {
         binding.progressBar.visibility = View.VISIBLE
         viewModel.weekHasChanged = true
-        viewModel.changeWeek(week)
+        viewModel.getComicsOfTheWeek(week)
     }
 
     private fun observeViewModel() {
-        viewModel.comicsLiveData.observe(this, Observer { it?.let { processResponse(it) } })
-        viewModel.changeWeek(Utils.WEEK.thisWeek)
-    }
 
-    private fun processResponse(response: Resource<List<Detail>>) {
-        when (response.status) {
-            Status.LOADING -> renderLoadingState()
+        viewModel.comics.observe( this , Observer { response ->
+            if(response != null) {
+                renderDataState(response)
+            }
+        })
 
-            Status.SUCCESS -> renderDataState(response.data!!)
-
-            Status.ERROR -> renderErrorState(response.error!!)
-        }
-    }
-
-    private fun renderLoadingState() {
-        binding.progressBar.visibility = View.VISIBLE
+        viewModel.getComicsOfTheWeek(Utils.WEEK.thisWeek)
     }
 
     private fun renderDataState(items: List<Detail>) {

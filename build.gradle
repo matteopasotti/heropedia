@@ -4,6 +4,7 @@ buildscript {
 
     ext {
         kotlin_version = '1.3.10'
+        kotlinCoroutineVersion = "1.0.1"
         anko_version='0.10.5'
         room_version = '2.1.0-alpha01'
         lifecycle_version = '1.1.1'
@@ -23,6 +24,8 @@ buildscript {
         shape_view_version = '1.4.6'
         timber_version = '4.7.1'
         androidx_version = '2.0.0'
+        moshiVersion="1.8.0"
+        okhttp3_version = "3.12.0"
     }
 
     repositories {

@@ -1,6 +1,5 @@
 package com.pasotti.matteo.wikiheroes.di
 
-import com.pasotti.matteo.wikiheroes.view.ui.home.HomeActivity
 import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
@@ -18,9 +17,6 @@ abstract class ActivityModule {
     /**
      * Here we attach our Activities to Dagger Graph
      */
-
-    @ContributesAndroidInjector
-    internal abstract fun contributeHomeActivity(): HomeActivity
 
     @ContributesAndroidInjector
     internal abstract fun contributeDetailActivity(): DetailActivity

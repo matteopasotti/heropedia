@@ -1,7 +1,6 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
-import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
@@ -12,7 +11,6 @@ import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.room.ShopDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,7 +18,7 @@ import kotlin.concurrent.thread
 
 @Singleton
 class ComicsRepository @Inject
-constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shopDao: ShopDao, val preferenceManager: PreferenceManager) {
+constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shopDao: ShopDao, val preferenceManager: PreferenceManager) : BaseRepository() {
 
     private val defaultLimit = 10
 
@@ -54,6 +52,21 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
 
     fun getComicsByCharacterId(id: Int): LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getComicsByCharacterId(id.toString(), "-onsaleDate" , 10)
+    }
+
+    suspend fun getComicsOfTheWeekCoroutine(week: Utils.WEEK) : MutableList<Detail>? {
+
+        val response =  safeApiCall(
+                call = { marvelApi.getComicsOfTheWeekCoroutine(week.toString(), "-onsaleDate", 0, 100).await() },
+                errorMessage = "Error fetching Comics of the week"
+        )
+
+        response?.data?.results?.forEach { comic ->
+            comic.page = 0
+            comic.week = week
+        }
+
+        return response?.data?.results
     }
 
     fun getComicsOfTheWeek(week: Utils.WEEK): LiveData<Resource<List<Detail>>> {
