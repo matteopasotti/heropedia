@@ -11,22 +11,19 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.databinding.ActivitySeeAllBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
 import org.jetbrains.anko.backgroundDrawable
-import javax.inject.Inject
+import org.koin.android.architecture.ext.viewModel
 
 
 class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
@@ -39,15 +36,11 @@ class SeeAllActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         const val CHARACTER_NAME = "character_name"
     }
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SeeAllViewModel::class.java)}
+    private val viewModel : SeeAllViewModel by viewModel()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivitySeeAllBinding>(this, R.layout.activity_see_all) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         if( savedInstanceState == null ) {

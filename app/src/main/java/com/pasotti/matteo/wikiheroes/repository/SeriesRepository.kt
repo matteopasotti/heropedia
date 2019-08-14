@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 class SeriesRepository @Inject
-constructor(private val marvelApi: MarvelApi, private val shopDao: ShopDao) {
+constructor(private val marvelApi: MarvelApi, private val shopDao: ShopDao) : BaseRepository() {
 
     private val defaultLimit = 20
 
@@ -37,6 +37,13 @@ constructor(private val marvelApi: MarvelApi, private val shopDao: ShopDao) {
 
     fun getSeriesByCharacterId(id: Int): LiveData<ApiResponse<DetailResponse>> {
         return marvelApi.getSeriesByCharacterId(id.toString())
+    }
+
+    suspend fun getSeriesByCharacterIdCoroutine(id: Int) : DetailResponse? {
+        return safeApiCall(
+                call = { marvelApi.getSeriesByCharacterIdCoroutine(id.toString()).await() },
+                errorMessage = "Error fetching Series by character Id"
+        )
     }
 
     fun getSeriesByCharacterId(id: Int, offset: Int): LiveData<ApiResponse<DetailResponse>> {

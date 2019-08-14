@@ -7,8 +7,7 @@ import com.pasotti.matteo.wikiheroes.repository.CreatorsRepository
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import javax.inject.Inject
 
-class MoreInfoViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository , private val creatorsRepository: CreatorsRepository) : ViewModel() {
+class MoreInfoViewModel(private val charactersRepository: CharactersRepository , private val creatorsRepository: CreatorsRepository) : ViewModel() {
 
 
     private var goodItems: MutableList<Pair<String?, MutableList<Item>>> = mutableListOf()

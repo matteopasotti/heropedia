@@ -12,15 +12,6 @@ import retrofit2.http.Query
 
 interface MarvelApi {
 
-    @GET("/v1/public/characters")
-    fun getCharacters(@SuppressWarnings("SameParameterValue") @Nullable @Query("orderBy") modified: String,
-                      @Query("ts") ts: String,
-                      @Query("apikey") apiKey: String,
-                      @Query("hash") hash: String,
-                      @Nullable @Query("offset") offset: Int,
-                      @Query("limit") limit: Int): LiveData<ApiResponse<CharacterResponse>>
-
-
     @GET("/characters")
     fun getCharacters(@Query("orderBy") modified: String,
                       @Nullable @Query("offset") offset: Int,
@@ -44,9 +35,19 @@ interface MarvelApi {
                                @Query("limit") limit : Int)
             : LiveData<ApiResponse<DetailResponse>>
 
+    @GET("/characters/{characterId}/comics")
+    fun getComicsByCharacterIdCoroutines(@Path("characterId") characterId: String,
+                               @Query("orderBy") orderBy: String,
+                               @Query("limit") limit : Int)
+            : Deferred<Response<DetailResponse>>
+
     @GET("/characters/{characterId}/series")
     fun getSeriesByCharacterId(@Path("characterId") characterId: String)
             : LiveData<ApiResponse<DetailResponse>>
+
+    @GET("/characters/{characterId}/series")
+    fun getSeriesByCharacterIdCoroutine(@Path("characterId") characterId: String)
+            : Deferred<Response<DetailResponse>>
 
     @GET("/characters/{characterId}/series")
     fun getSeriesByCharacterId(@Path("characterId") characterId: String,

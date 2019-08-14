@@ -8,8 +8,7 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.HomeComicsAdapter
 import javax.inject.Inject
 
-class CreatorFragmentsViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
+class CreatorFragmentsViewModel(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var creator : Item
 

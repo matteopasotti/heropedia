@@ -10,12 +10,10 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.databinding.ActivityCreatorBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.models.Item
@@ -23,9 +21,9 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.viewholder.DetailViewHolder
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.item_small_image.view.*
-import javax.inject.Inject
+import org.koin.android.architecture.ext.viewModel
+
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
@@ -36,16 +34,12 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         const val CREATOR = "CREATOR"
     }
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(CreatorDetailViewModel::class.java) }
+    private val viewModel : CreatorDetailViewModel by viewModel()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityCreatorBinding>(this, R.layout.activity_creator) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         if( savedInstanceState == null ) {

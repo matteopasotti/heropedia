@@ -9,11 +9,10 @@ import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
 import javax.inject.Inject
 
-class SearchActivityViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository,
-            private val comicsRepository: ComicsRepository,
-            private val seriesRepository: SeriesRepository,
-            private val creatorsRepository: CreatorsRepository) : ViewModel() {
+class SearchActivityViewModel(private val charactersRepository: CharactersRepository,
+                              private val comicsRepository: ComicsRepository,
+                              private val seriesRepository: SeriesRepository,
+                              private val creatorsRepository: CreatorsRepository) : ViewModel() {
 
     val defaultLimit = 10
 
@@ -23,7 +22,7 @@ constructor(private val charactersRepository: CharactersRepository,
 
     var searchOption: String? = null
 
-    lateinit var searchText : String
+    lateinit var searchText: String
 
     var charactersPageCounter = 0
 
@@ -67,8 +66,8 @@ constructor(private val charactersRepository: CharactersRepository,
     }
 
     fun increasePage() {
-        if(searchOption != null) {
-            when(searchOption) {
+        if (searchOption != null) {
+            when (searchOption) {
                 "Character" -> charactersPageCounter += 1
                 "Comic" -> comicsPageCounter += 1
                 "Series" -> seriesPageCounter += 1
@@ -78,8 +77,8 @@ constructor(private val charactersRepository: CharactersRepository,
     }
 
     fun increaseOffset() {
-        if(searchOption != null) {
-            when(searchOption) {
+        if (searchOption != null) {
+            when (searchOption) {
                 "Character" -> charactersRepository.offset += defaultLimit
                 "Comic" -> comicsRepository.offset += defaultLimit
                 "Series" -> seriesRepository.offset += defaultLimit

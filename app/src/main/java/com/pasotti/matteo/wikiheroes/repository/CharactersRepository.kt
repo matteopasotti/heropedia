@@ -42,50 +42,6 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
         return characterResponse?.data?.results
     }
 
-
-    /*fun getCharacters(page: Int): LiveData<Resource<List<Character>>> {
-
-        return object : NetworkBoundResource<List<Character>, CharacterResponse>() {
-
-            override fun saveFetchData(item: CharacterResponse) {
-
-                offset += defaultLimit
-                val newCharacters = item.data.results
-
-                newCharacters.forEach { character -> character.page = page }
-
-                characterDao.insertCharacters(newCharacters)
-            }
-
-            override fun shouldFetch(data: List<Character>?): Boolean {
-                if (data != null && data.isNotEmpty()) {
-                    offset = data.size
-                }
-                return data == null || data.isEmpty()
-            }
-
-            override fun loadFromDb(): LiveData<List<Character>> {
-                return if (page == 0) {
-                    characterDao.getCharacters()
-                } else {
-                    characterDao.getCharacters(page)
-                }
-
-            }
-
-            override fun fetchService(): LiveData<ApiResponse<CharacterResponse>> {
-                return marvelApi.getCharacters("-modified", offset, defaultLimit)
-                //return marvelApi.getCharacters("-modified", timestamp.toString(), Utils.MARVEL_PUBLIC_KEY, hash, offset, defaultLimit)
-            }
-
-            override fun onFetchFailed() {
-
-            }
-
-        }.asLiveData
-
-    }*/
-
     fun checkSyncCharacters() {
 
         val todayDate = Utils.getCurrentDate()

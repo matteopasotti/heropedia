@@ -12,39 +12,36 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivitySearchBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.models.Character
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.Item
 import com.pasotti.matteo.wikiheroes.models.SearchObjectItem
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.SearchAdapter
-import com.pasotti.matteo.wikiheroes.view.ui.creator.CreatorDetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail.DetailActivity
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.DetailItemActivity
 import com.pasotti.matteo.wikiheroes.view.ui.person.PersonDetailActivity
-import com.pasotti.matteo.wikiheroes.view.viewholder.*
-import dagger.android.AndroidInjection
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectCharacterViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectComicViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectCreatorViewHolder
+import com.pasotti.matteo.wikiheroes.view.viewholder.SearchObjectSeriesViewHolder
 import kotlinx.android.synthetic.main.item_character.view.*
 import kotlinx.android.synthetic.main.item_creator.view.*
+import org.koin.android.architecture.ext.viewModel
 import timber.log.Timber
-import javax.inject.Inject
+
 
 class SearchActivity : AppCompatActivity(), SearchObjectCharacterViewHolder.Delegate, SearchObjectComicViewHolder.Delegate, SearchObjectSeriesViewHolder.Delegate, SearchObjectCreatorViewHolder.Delegate {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
 
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(SearchActivityViewModel::class.java) }
+    private val viewModel : SearchActivityViewModel by viewModel()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivitySearchBinding>(this, R.layout.activity_search) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this) //This line initialise our dependencies
         super.onCreate(savedInstanceState)
 
         initUI()

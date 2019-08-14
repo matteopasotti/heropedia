@@ -6,8 +6,7 @@ import com.pasotti.matteo.wikiheroes.repository.CharactersRepository
 import com.pasotti.matteo.wikiheroes.repository.MainRepository
 import javax.inject.Inject
 
-class DetailActivityViewModel @Inject
-constructor(private val mainRepository: MainRepository, private val charactersRepository: CharactersRepository) : ViewModel() {
+class DetailActivityViewModel (private val mainRepository: MainRepository, private val charactersRepository: CharactersRepository) : ViewModel() {
 
     lateinit var character : Character
 

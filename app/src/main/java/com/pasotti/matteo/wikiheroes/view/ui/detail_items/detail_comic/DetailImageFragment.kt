@@ -1,24 +1,18 @@
 package com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic
 
-import android.content.Context
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.pasotti.matteo.wikiheroes.databinding.FragmentDetailImageBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
-import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
+import org.koin.android.architecture.ext.viewModel
+
 
 class DetailImageFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailImageViewModel::class.java) }
+    private val viewModel : DetailImageViewModel by viewModel()
 
     private lateinit var binding: FragmentDetailImageBinding
 
@@ -34,12 +28,6 @@ class DetailImageFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
-    }
-
-
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

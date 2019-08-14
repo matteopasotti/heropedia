@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -15,19 +14,15 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ComicDetailBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_comics.MoreGalleryFragment
 import com.pasotti.matteo.wikiheroes.view.ui.detail_items.detail_comic.more_info.MoreInfoFragment
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import org.koin.android.architecture.ext.viewModel
+
 
 class DetailItemActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailItemViewModel::class.java) }
+    private val viewModel : DetailItemViewModel by viewModel()
 
     private val binding by lazy { DataBindingUtil.setContentView<ComicDetailBinding>(this, R.layout.comic_detail) }
 
@@ -50,7 +45,6 @@ class DetailItemActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {

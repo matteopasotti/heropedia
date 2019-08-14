@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -17,12 +16,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.pasotti.matteo.wikiheroes.R
 import com.pasotti.matteo.wikiheroes.databinding.ActivityDetailBinding
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.ui.gallery.HorizontalGalleryFragment
-import dagger.android.AndroidInjection
 import org.jetbrains.anko.backgroundDrawable
-import javax.inject.Inject
+import org.koin.android.architecture.ext.viewModel
 
 
 @Suppress("DEPRECATION")
@@ -38,17 +35,13 @@ class DetailActivity : AppCompatActivity() {
         const val IMAGE_TYPE = "."
     }
 
-    @Inject
-    lateinit var viewModelFactory: AppViewModelFactory
-
-    private val viewModel by lazy { ViewModelProviders.of(this, viewModelFactory).get(DetailActivityViewModel::class.java) }
+    private val viewModel : DetailActivityViewModel by viewModel()
 
     private val binding by lazy { DataBindingUtil.setContentView<ActivityDetailBinding>(this, R.layout.activity_detail) }
 
     lateinit var gradientDrawable : GradientDrawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         if(savedInstanceState == null) {

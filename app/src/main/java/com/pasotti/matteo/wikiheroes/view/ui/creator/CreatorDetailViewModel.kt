@@ -13,8 +13,7 @@ import com.pasotti.matteo.wikiheroes.utils.Utils
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import javax.inject.Inject
 
-class CreatorDetailViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
+class CreatorDetailViewModel (private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var creator : Item
 

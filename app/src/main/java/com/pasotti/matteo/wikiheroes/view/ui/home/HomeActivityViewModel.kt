@@ -10,8 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class HomeActivityViewModel @Inject
-constructor(private val charactersRepository: CharactersRepository) : ViewModel() {
+class HomeActivityViewModel(private val charactersRepository: CharactersRepository) : ViewModel() {
 
     lateinit var adapter : CharactersAdapter
 

@@ -13,19 +13,18 @@ import com.pasotti.matteo.wikiheroes.view.adapter.DeskSeriesAdapter
 import com.pasotti.matteo.wikiheroes.view.adapter.FavCreatorAdapter
 import javax.inject.Inject
 
-class HomeDeskViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository,
-            private val charactersRepository: CharactersRepository ,
-            private val seriesRepository: SeriesRepository,
-            private val creatorsRepository: CreatorsRepository) : ViewModel() {
+class HomeDeskViewModel(private val comicsRepository: ComicsRepository,
+                        private val charactersRepository: CharactersRepository,
+                        private val seriesRepository: SeriesRepository,
+                        private val creatorsRepository: CreatorsRepository) : ViewModel() {
 
-    lateinit var adapter : DeskComicsAdapter
+    lateinit var adapter: DeskComicsAdapter
 
-    lateinit var adapterSeries : DeskSeriesAdapter
+    lateinit var adapterSeries: DeskSeriesAdapter
 
-    lateinit var adapterCharacters : FavCharacterAdapter
+    lateinit var adapterCharacters: FavCharacterAdapter
 
-    lateinit var adapterPeople : FavCreatorAdapter
+    lateinit var adapterPeople: FavCreatorAdapter
 
     fun getComicsFromShop() = comicsRepository.getItemsFromShop()
 
@@ -37,5 +36,5 @@ constructor(private val comicsRepository: ComicsRepository,
 
     fun getThisWeekDate() = comicsRepository.getThisWeekDate()
 
-    fun getCreatorDetail( creator: Item) = creatorsRepository.getCreatorDetailById(Utils.getIdByResourceURI(creator.resourceURI))
+    fun getCreatorDetail(creator: Item) = creatorsRepository.getCreatorDetailById(Utils.getIdByResourceURI(creator.resourceURI))
 }

@@ -10,8 +10,7 @@ import com.pasotti.matteo.wikiheroes.view.adapter.HomeComicsAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeComicsViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository) : ViewModel() {
+class HomeComicsViewModel(private val comicsRepository: ComicsRepository) : ViewModel() {
 
     var firstTime = false
 

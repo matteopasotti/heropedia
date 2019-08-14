@@ -13,10 +13,11 @@ import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import com.pasotti.matteo.wikiheroes.view.adapter.DetailAdapter
 import javax.inject.Inject
 
-class SeeAllViewModel @Inject
-constructor(private val comicsRepository: ComicsRepository,private val seriesRepository: SeriesRepository, private val mainRepository: MainRepository) : ViewModel() {
+class SeeAllViewModel(private val comicsRepository: ComicsRepository,
+                      private val seriesRepository: SeriesRepository,
+                      private val mainRepository: MainRepository) : ViewModel() {
 
-    lateinit var adapter : DetailAdapter
+    lateinit var adapter: DetailAdapter
 
     var firstTime = false
 
@@ -24,21 +25,21 @@ constructor(private val comicsRepository: ComicsRepository,private val seriesRep
 
     var pageCounter = 0
 
-    private val page : MutableLiveData<Int> = MutableLiveData()
+    private val page: MutableLiveData<Int> = MutableLiveData()
 
     var itemsLiveData: LiveData<ApiResponse<DetailResponse>> = MutableLiveData()
 
-    lateinit var type : String //character or collection
+    lateinit var type: String //character or collection
 
     private val defaultLimit = 20
 
-    var id : Int = 0
+    var id: Int = 0
 
-    lateinit var title : String
+    lateinit var title: String
 
-    lateinit var section : String
+    lateinit var section: String
 
-    lateinit var characterName : String
+    lateinit var characterName: String
 
     init {
         itemsLiveData = Transformations.switchMap(page) { getItems(id) }
@@ -55,7 +56,9 @@ constructor(private val comicsRepository: ComicsRepository,private val seriesRep
     /**
      * Use this method to increase the page and make a call automatically
      */
-    fun postPage(page: Int) { this.page.value = page }
+    fun postPage(page: Int) {
+        this.page.value = page
+    }
 
 
     /**
@@ -63,7 +66,7 @@ constructor(private val comicsRepository: ComicsRepository,private val seriesRep
      */
     fun getDominantColor() = mainRepository.getDominantColor()
 
-    private fun getItems( id : Int) : LiveData<ApiResponse<DetailResponse>> {
+    private fun getItems(id: Int): LiveData<ApiResponse<DetailResponse>> {
 
         when (type) {
             "Character" -> {

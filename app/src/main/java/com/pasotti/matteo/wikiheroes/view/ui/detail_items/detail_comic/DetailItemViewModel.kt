@@ -7,8 +7,7 @@ import com.pasotti.matteo.wikiheroes.repository.ComicsRepository
 import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import javax.inject.Inject
 
-class DetailItemViewModel @Inject
-constructor( private val comicsRepository: ComicsRepository , private val seriesRepository: SeriesRepository) : ViewModel() {
+class DetailItemViewModel( private val comicsRepository: ComicsRepository , private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var item : Detail
 

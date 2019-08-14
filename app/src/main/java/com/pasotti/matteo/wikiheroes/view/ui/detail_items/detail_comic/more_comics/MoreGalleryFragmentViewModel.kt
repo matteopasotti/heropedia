@@ -11,8 +11,7 @@ import com.pasotti.matteo.wikiheroes.repository.SeriesRepository
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import javax.inject.Inject
 
-class MoreGalleryFragmentViewModel@Inject
-constructor(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
+class MoreGalleryFragmentViewModel(private val comicsRepository: ComicsRepository, private val seriesRepository: SeriesRepository) : ViewModel() {
 
     lateinit var resourceURI : String
 

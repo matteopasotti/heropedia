@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class DetailImageViewModel@Inject
-constructor() : ViewModel() {
+class DetailImageViewModel() : ViewModel() {
 
     // PRIVATE DATA
     private val _imageUrl = MutableLiveData<String>()

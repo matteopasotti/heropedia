@@ -4,9 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class PreferenceManager @Inject
-constructor(private val preferences: SharedPreferences){
+class PreferenceManager(private val preferences: SharedPreferences){
 
     companion object {
         //Keys

@@ -54,6 +54,13 @@ constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shop
         return marvelApi.getComicsByCharacterId(id.toString(), "-onsaleDate" , 10)
     }
 
+    suspend fun getComicsByCharacterIdCorotuine(id: Int) : DetailResponse? {
+        return safeApiCall(
+                call = { marvelApi.getComicsByCharacterIdCoroutines(id.toString(), "-onsaleDate" , 10).await() },
+                errorMessage = "Error fetching Comics by character Id"
+        )
+    }
+
     suspend fun getComicsOfTheWeekCoroutine(week: Utils.WEEK) : MutableList<Detail>? {
 
         val response =  safeApiCall(

@@ -148,6 +148,10 @@ dependencies {
     //JODA TIME FOR DATES
     implementation "joda-time:joda-time:2.10.2"
 
+    // Koin
+    implementation "org.koin:koin-android-architecture:$koin_version"
+    testImplementation "org.koin:koin-test:$koin_version"
+
     //Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
