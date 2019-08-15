@@ -1,7 +1,6 @@
 package com.pasotti.matteo.wikiheroes.base
 
 
-import com.pasotti.matteo.wikiheroes.factory.AppViewModelFactory
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.Before
