@@ -106,8 +106,6 @@ dependencies {
 
     // DAGGER 2 TEST
     compileOnly 'javax.annotation:jsr250-api:1.0'
-    kaptTest "com.google.dagger:dagger:$dagger_version"
-    testImplementation "com.google.dagger:dagger:$dagger_version"
 
     //ROOM
     kapt "androidx.room:room-compiler:$room_version"
