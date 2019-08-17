@@ -46,7 +46,7 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
             viewModel.firstTime = true
             //Comics, Series, Events
             viewModel.creator = intent.getParcelableExtra(CREATOR) as Item
-            viewModel.type = intent.extras.getString(TITLE_SECTION)
+            viewModel.type = intent?.extras?.getString(TITLE_SECTION)
 
             initUI()
 
@@ -118,8 +118,6 @@ class CreatorDetailActivity : AppCompatActivity(), DetailViewHolder.Delegate {
         val img = Pair.create(view.image_gallery as View, resources.getString(R.string.transition_detail_image))
 
         val txt = Pair.create(view.title_gallery as View, resources.getString(R.string.transition_detail_title))
-
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, img, txt)
 
         val intent = Intent(this, DetailItemActivity::class.java)
         intent.putExtra(DetailItemActivity.INTENT_ITEM , item as Parcelable)

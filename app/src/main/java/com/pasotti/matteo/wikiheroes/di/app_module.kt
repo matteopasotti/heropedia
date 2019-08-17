@@ -28,11 +28,11 @@ val mainModule = applicationContext {
 
     bean { providePreferences(androidApplication()) }
 
-    bean { ComicsRepository(get(), get(), get(), get()) }
+    bean { ComicsRepository(marvelApi= get(), comicsDao = get(), shopDao = get(), preferenceManager = get()) }
 
-    bean { CharactersRepository(get(), get(), get(), get()) }
+    bean { CharactersRepository(characterDao = get(), favCharacterDao = get(), marvelApi = get(), preferenceManager = get()) }
 
-    bean { ComicsRepository(get(), get(), get(), get()) }
+    bean { ComicsRepository(marvelApi = get(), comicsDao = get(), shopDao = get(), preferenceManager = get()) }
 
     bean { CreatorsRepository(get(),get(),get()) }
 
@@ -78,3 +78,4 @@ val mainModule = applicationContext {
 fun providePreferences(application: Application) : SharedPreferences {
     return PreferenceManager.getDefaultSharedPreferences(application)
 }
+

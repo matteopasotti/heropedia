@@ -30,7 +30,7 @@ constructor(val characterDao: CharacterDao, val favCharacterDao: FavCharacterDao
     val timestamp = Date().time
 
 
-    suspend fun getCharactersCoroutine(page: Int): MutableList<Character>? {
+    suspend fun getCharactersCoroutine(): MutableList<Character>? {
         val characterResponse = safeApiCall(
                 call = { marvelApi.getCharacters("-modified", offset, defaultLimit).await() },
                 errorMessage = "Error fetching Characters"

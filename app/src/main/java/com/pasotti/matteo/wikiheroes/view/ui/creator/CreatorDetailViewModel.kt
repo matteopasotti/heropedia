@@ -17,7 +17,7 @@ class CreatorDetailViewModel (private val comicsRepository: ComicsRepository, pr
 
     lateinit var creator : Item
 
-    lateinit var type : String
+    var type : String? = null
 
     private val defaultLimit = 20
 

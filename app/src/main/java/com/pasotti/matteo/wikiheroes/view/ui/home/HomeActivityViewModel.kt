@@ -26,7 +26,7 @@ class HomeActivityViewModel(private val charactersRepository: CharactersReposito
 
     fun getCharacters(page: Int) {
         viewModelScope.launch {
-            _characters.postValue(charactersRepository.getCharactersCoroutine(page))
+            _characters.postValue(charactersRepository.getCharactersCoroutine())
         }
     }
 

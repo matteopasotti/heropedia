@@ -8,7 +8,7 @@ buildscript {
         anko_version='0.10.5'
         room_version = '2.1.0-alpha01'
         lifecycle_version = '1.1.1'
-        dagger_version = '2.16'
+        dagger_version = '2.21'
         preference_room = '1.0.9'
         retrofit_version = '2.4.0'
         support_version = '1.0.0'
@@ -27,6 +27,7 @@ buildscript {
         moshiVersion="1.8.0"
         okhttp3_version = "4.1.0"
         koin_version = '0.9.1'
+        mockito_version = '2.6.3'
     }
 
     repositories {
