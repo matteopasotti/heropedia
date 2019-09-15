@@ -1,21 +1,15 @@
 package com.pasotti.matteo.wikiheroes.repository
 
 import androidx.lifecycle.LiveData
-import com.pasotti.matteo.wikiheroes.BuildConfig
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.models.DeskItem
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
 import com.pasotti.matteo.wikiheroes.room.ShopDao
-import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
-class SeriesRepository @Inject
-constructor(private val marvelApi: MarvelApi, private val shopDao: ShopDao) : BaseRepository() {
+class SeriesRepository (private val marvelApi: MarvelApi, private val shopDao: ShopDao) : BaseRepository() {
 
     private val defaultLimit = 20
 

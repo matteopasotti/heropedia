@@ -34,9 +34,9 @@ val mainModule = applicationContext {
 
     bean { ComicsRepository(marvelApi = get(), comicsDao = get(), shopDao = get(), preferenceManager = get()) }
 
-    bean { CreatorsRepository(get(),get(),get()) }
+    bean { CreatorsRepository(marvelApi = get(),itemDao = get(),preferenceManager = get()) }
 
-    bean { MainRepository(get()) }
+    bean { MainRepository(preferenceManager = get()) }
 
     bean { SeriesRepository(get(), get()) }
 

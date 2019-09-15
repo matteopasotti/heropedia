@@ -19,11 +19,7 @@ object Utils {
 
     var IMAGE_NOT_AVAILABLE = "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available"
 
-    const val BASE_URL = "http://gateway.marvel.com"
-
-    const val BASE_URL_2 = "http://35.178.0.232:8000"
-
-    const val BASE_URL_3 = "http://35.178.199.173:8000"
+    const val IMAGE = "http://i.annihil.us/u/prod/marvel/i/mg/9/20/5102c774ebae7.jpg"
 
 
     enum class WEEK {

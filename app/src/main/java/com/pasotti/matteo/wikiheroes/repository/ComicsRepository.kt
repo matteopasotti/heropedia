@@ -4,21 +4,19 @@ import androidx.lifecycle.LiveData
 import com.pasotti.matteo.wikiheroes.api.ApiResponse
 import com.pasotti.matteo.wikiheroes.api.MarvelApi
 import com.pasotti.matteo.wikiheroes.api.Resource
+import com.pasotti.matteo.wikiheroes.models.DeskItem
 import com.pasotti.matteo.wikiheroes.models.Detail
 import com.pasotti.matteo.wikiheroes.models.DetailResponse
-import com.pasotti.matteo.wikiheroes.models.DeskItem
 import com.pasotti.matteo.wikiheroes.room.ComicsDao
 import com.pasotti.matteo.wikiheroes.room.ShopDao
 import com.pasotti.matteo.wikiheroes.utils.PreferenceManager
 import com.pasotti.matteo.wikiheroes.utils.Utils
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.concurrent.thread
 
-@Singleton
-class ComicsRepository @Inject
-constructor(private val marvelApi: MarvelApi, val comicsDao: ComicsDao, val shopDao: ShopDao, val preferenceManager: PreferenceManager) : BaseRepository() {
+
+class ComicsRepository (private val marvelApi: MarvelApi, val comicsDao: ComicsDao,
+                        val shopDao: ShopDao, val preferenceManager: PreferenceManager) : BaseRepository() {
 
     private val defaultLimit = 10
 
