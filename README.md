@@ -1,5 +1,6 @@
 # Heropedia
 
+## Intro
 This application is in Kotlin and consumes Marvel Api to retrieve a list of Characters.
 The architecture used is MVVM (Model View ViewModel) with a combination of recent Android Architecture Components released By Google.
 
@@ -7,6 +8,27 @@ The architecture used is MVVM (Model View ViewModel) with a combination of recen
 ![mvvm](https://user-images.githubusercontent.com/19550736/47259068-57edf780-d49c-11e8-9190-8fb8ff21b052.png)
 
 If you want to read more about this project and about the components used, i'm writing a series of articles on [Medium](https://medium.com/@matteopasotti)
+
+## How to run the project
+The first time you download this repo you will get an error about a file called keys.properties. In order to make it work just check app/build.gralde file
+and put your API_KEY
+
+```
+buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField("String", "MARVEL_API_KEY", "YOUR_API_KEY")
+            buildConfigField("String", "MARVEL_PRIVATE_KEY", "YOUR_PRIVATE_API_KEY")
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "MARVEL_API_KEY",  "YOUR_API_KEY")
+            buildConfigField("String", "MARVEL_PRIVATE_KEY",  "YOUR_PRIVATE_API_KEY")
+        }
+    }
+```
 
 ## Screenshots
 
