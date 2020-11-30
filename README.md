@@ -17,9 +17,6 @@ So what i recommend you to do is check app/build.gradle file and remove all the 
 then read this article (https://guides.codepath.com/android/Storing-Secret-Keys-in-Android)
 Get your API KEY from the Marvel's developer portal, handle your own keys and replace
 
-In order to make it work just check app/build.gralde file
-and put your API_KEY
-
 ## Screenshots
 
 
