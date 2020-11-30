@@ -10,25 +10,15 @@ The architecture used is MVVM (Model View ViewModel) with a combination of recen
 If you want to read more about this project and about the components used, i'm writing a series of articles on [Medium](https://medium.com/@matteopasotti)
 
 ## How to run the project
-The first time you download this repo you will get an error about a file called keys.properties. In order to make it work just check app/build.gralde file
+The first time you download this repo you will get an error about a file called keys.properties.
+The reason of this error is because you should never upload your private keys in Github and that's
+why I am storing them into BuildConfig file which will never be uploaded.
+So what i recommend you to do is check app/build.gradle file and remove all the lines where i am using BuildConfig,
+then read this article (https://guides.codepath.com/android/Storing-Secret-Keys-in-Android)
+Get your API KEY from the Marvel's developer portal, handle your own keys and replace
+
+In order to make it work just check app/build.gralde file
 and put your API_KEY
-
-```
-buildTypes {
-        debug {
-            minifyEnabled false
-            buildConfigField("String", "MARVEL_API_KEY", "YOUR_API_KEY")
-            buildConfigField("String", "MARVEL_PRIVATE_KEY", "YOUR_PRIVATE_API_KEY")
-        }
-
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "MARVEL_API_KEY",  "YOUR_API_KEY")
-            buildConfigField("String", "MARVEL_PRIVATE_KEY",  "YOUR_PRIVATE_API_KEY")
-        }
-    }
-```
 
 ## Screenshots
 
